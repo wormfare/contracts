@@ -1,0 +1,14 @@
+Dockerfile
+*.log
+.env
+docker-compose*
+build
+node_modules
+.git*
+.dockerignore
+build
+hardhat
+.openzeppelin
+artifacts
+cache
+typechain-types
