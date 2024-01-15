@@ -71,7 +71,7 @@ contract TokenSale is
         address indexed fromBuyer,
         /// @dev Account that received the reward.
         address indexed to,
-        /// @dev Reward amount in USDT. Should be 0 if amountToken > 0.
+        /// @dev Reward amount in USDT.
         uint amountUsdt,
         /// @dev The amount the user spent for purchasing tokens.
         uint spentAmountUsdt
