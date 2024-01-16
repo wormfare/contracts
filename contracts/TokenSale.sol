@@ -138,6 +138,27 @@ contract TokenSale is
     }
 
     /**
+     * Buy tokens for someone else.
+     *
+     * @param _to Tokens receiver.
+     * @param _amountUsdt USDT amount.
+     * @param _discountPercent Discount percent (multiplied by 10).
+     */
+    function buyFor(
+        address _to,
+        uint _amountUsdt,
+        uint _discountPercent
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(_to != address(0), "Invalid recipient address.");
+        require(
+            _discountPercent <= 10 * PERCENT_MULTIPLIER,
+            "Invalid discount."
+        );
+
+        internalBuy(_to, _amountUsdt, _discountPercent, address(0), 0);
+    }
+
+    /**
      * Buy tokens using USDT.
      *
      * @param _amountUsdt USDT amount the user wants to spend.
@@ -161,6 +182,29 @@ contract TokenSale is
             _signature
         );
 
+        internalBuy(
+            msg.sender,
+            _amountUsdt,
+            _discountPercent,
+            _referralWallet,
+            _referralRewardPercent
+        );
+    }
+
+    /**
+     * @param _to Tokens receiver.
+     * @param _amountUsdt USDT amount.
+     * @param _discountPercent Discount percent (multiplied by 10).
+     * @param _referralWallet Referral wallet (or zero address).
+     * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward.
+     */
+    function internalBuy(
+        address _to,
+        uint _amountUsdt,
+        uint _discountPercent,
+        address _referralWallet,
+        uint _referralRewardPercent
+    ) internal {
         require(_amountUsdt > 0, "USDT amount is 0.");
         require(
             usdtContract.allowance(msg.sender, address(this)) >=
@@ -168,6 +212,11 @@ contract TokenSale is
             "Not enough USDT allowance."
         );
         require(totalSoldTokens < totalTokensForSale, "Sold out.");
+        // no referrals when buying tokens for someone else
+        require(
+            _referralRewardPercent == 0 || _to == msg.sender,
+            "Referral program is disabled in this mode."
+        );
 
         _amountUsdt = normalizeTether(_amountUsdt);
         uint _tokenPriceUsdt = tokenPriceUsdt -
@@ -201,10 +250,10 @@ contract TokenSale is
             castToTether(_treasuryWalletAmountUsdt)
         );
 
-        tokenBalances[msg.sender] += _tokenAmount;
+        tokenBalances[_to] += _tokenAmount;
         totalSoldTokens += _tokenAmount;
 
-        emit Buy(msg.sender, _amountUsdt, _tokenAmount, _discountPercent);
+        emit Buy(_to, _amountUsdt, _tokenAmount, _discountPercent);
     }
 
     /// @dev Check signature for the buy() function call.

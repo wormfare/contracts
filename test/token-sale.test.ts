@@ -6,7 +6,7 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { Tether, TokenSale } from '../typechain-types';
 import { deployTether } from './deploy/tether.deploy';
 import { deployTokenSale } from './deploy/token-sale.deploy';
-import { parseTether } from './utils/common';
+import { castToTether, parseTether } from './utils/common';
 
 describe('TokenSale contract tests', () => {
   let tetherContract: Tether;
@@ -79,10 +79,11 @@ describe('TokenSale contract tests', () => {
       await tetherContract
         .connect(adminWallet)
         .mint(bobWallet, parseTether('1000000'));
+      await tetherContract
+        .connect(adminWallet)
+        .mint(adminWallet, parseTether('1000000'));
     },
   );
-
-  const toTetherAmount = (amount: bigint): bigint => amount / 10n ** 12n;
 
   /**
    * @param wallet
@@ -188,7 +189,7 @@ describe('TokenSale contract tests', () => {
 
     await tetherContract
       .connect(wallet)
-      .approve(saleContract, toTetherAmount(amountUsdt));
+      .approve(saleContract, castToTether(amountUsdt));
 
     const promise = saleContract
       .connect(wallet)
@@ -216,6 +217,51 @@ describe('TokenSale contract tests', () => {
     return promise;
   };
 
+  /**
+   * Buy tokens for someone else.
+   *
+   * @param walletTo
+   * @param amountUsdt
+   * @param discountPercent
+   * @param checks
+   * @returns
+   */
+  const buyFor = async (
+    walletTo: SignerWithAddress,
+    amountUsdt: bigint,
+    discountPercent?: number,
+    checks = true,
+  ) => {
+    discountPercent ??= 0;
+
+    await tetherContract
+      .connect(adminWallet)
+      .approve(saleContract, castToTether(amountUsdt));
+
+    const promise = saleContract
+      .connect(adminWallet)
+      .buyFor(walletTo, amountUsdt, discountPercent * PERCENT_MULTIPLIER);
+
+    if (checks) {
+      await expect(promise)
+        .to.emit(saleContract, 'Buy')
+        .withArgs(
+          walletTo.address,
+          amountUsdt,
+          calcTokenAmount(amountUsdt, discountPercent),
+          discountPercent * PERCENT_MULTIPLIER,
+        );
+
+      await expect(promise).to.changeTokenBalances(
+        tetherContract,
+        [adminWallet, treasuryWallet],
+        [castToTether(amountUsdt * -1n), castToTether(amountUsdt)],
+      );
+    }
+
+    return promise;
+  };
+
   const getTokenBalance = async (wallet: SignerWithAddress): Promise<bigint> =>
     saleContract.connect(wallet).getTokenBalance();
 
@@ -233,7 +279,10 @@ describe('TokenSale contract tests', () => {
 
   const calcTokenAmount = (amountUsdt: bigint, discountPercent = 0): bigint => {
     const pricePerToken =
-      tokenPriceUsdt - (tokenPriceUsdt * BigInt(discountPercent)) / 100n;
+      tokenPriceUsdt -
+      (tokenPriceUsdt * BigInt(discountPercent * PERCENT_MULTIPLIER)) /
+        100n /
+        BigInt(PERCENT_MULTIPLIER);
     const tokenAmount = (amountUsdt * parseEther('1')) / pricePerToken;
 
     return tokenAmount;
@@ -304,6 +353,17 @@ describe('TokenSale contract tests', () => {
       const promise = saleContract
         .connect(aliceWallet)
         .setTokenPriceUsdt(parseEther('0.0001'));
+
+      await expect(promise).to.be.revertedWithCustomError(
+        saleContract,
+        'AccessControlUnauthorizedAccount',
+      );
+    });
+
+    it('Arbitrary account cannot call the buyFor() function', async () => {
+      const promise = saleContract
+        .connect(aliceWallet)
+        .buyFor(bobWallet.address, parseEther('10'), 0);
 
       await expect(promise).to.be.revertedWithCustomError(
         saleContract,
@@ -409,7 +469,7 @@ describe('TokenSale contract tests', () => {
     it('Can buy twice using the same params and signature', async () => {
       await tetherContract
         .connect(aliceWallet)
-        .approve(saleContract, toTetherAmount(parseEther('90')));
+        .approve(saleContract, castToTether(parseEther('90')));
 
       const params = await prepareBuyData(
         aliceWallet,
@@ -431,7 +491,7 @@ describe('TokenSale contract tests', () => {
     it('Cannot buy with not enough USDT allowance', async () => {
       await tetherContract
         .connect(aliceWallet)
-        .approve(saleContract, toTetherAmount(parseEther('45') - 1n));
+        .approve(saleContract, castToTether(parseEther('45') - 1n));
 
       const params = await prepareBuyData(aliceWallet, parseEther('45'));
       const promise = saleContract.connect(aliceWallet).buy(...params);
@@ -533,6 +593,37 @@ describe('TokenSale contract tests', () => {
       const promise = buy(aliceWallet, 1n);
 
       await expect(promise).revertedWith('Sold out.');
+    });
+
+    it('Admin buys tokens for someone else without a discount', async () => {
+      await buyFor(bobWallet, parseEther('500'));
+      await buyFor(bobWallet, parseEther('1000'));
+
+      const balance = await getTokenBalance(bobWallet);
+
+      await expect(balance).to.eq(parseEther('3000'));
+    });
+
+    it('Admin buys tokens for someone else with a discount', async () => {
+      await buyFor(bobWallet, parseEther('500'), 1.5);
+
+      const balance = await getTokenBalance(bobWallet);
+
+      await expect(balance).to.eq(1015228426395939086294n);
+    });
+
+    it('Admin cannot apply a discount that exceeds 10 percent when buying tokens for someone else', async () => {
+      const promise = buyFor(bobWallet, parseEther('500'), 11);
+
+      await expect(promise).revertedWith('Invalid discount.');
+    });
+
+    it('Admin cannot buy tokens for zero address', async () => {
+      const promise = saleContract
+        .connect(adminWallet)
+        .buyFor(ZeroAddress, parseEther('500'), 0);
+
+      await expect(promise).revertedWith('Invalid recipient address.');
     });
   });
 

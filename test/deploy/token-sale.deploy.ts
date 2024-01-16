@@ -1,7 +1,7 @@
+import { parseEther } from 'ethers';
 import { ethers } from 'hardhat';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { TokenSale } from '../../typechain-types';
-import { parseEther } from 'ethers';
 
 export const deployTokenSale = async ({
   deployments,

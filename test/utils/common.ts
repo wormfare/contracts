@@ -23,6 +23,14 @@ export const addresses = [
 export const parseTether = (amount: string): bigint => parseUnits(amount, 6);
 
 /**
+ * Cast 18-decimal number to a 6-decimal number.
+ *
+ * @param amount USDT amount.
+ * @returns
+ */
+export const castToTether = (amount: bigint): bigint => amount / 10n ** 12n;
+
+/**
  * Increase the time for the NEXT BLOCK by the given amount of seconds.
  *
  * @param daysNum
