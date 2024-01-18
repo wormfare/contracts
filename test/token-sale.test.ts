@@ -121,14 +121,16 @@ describe('TokenSale contract tests', () => {
       ],
     };
 
-    const to = wallet.address;
+    const to = wallet.address.toLowerCase();
     const data = {
       to,
       amountUsdt,
       discountPercent: discountPercent
         ? discountPercent * PERCENT_MULTIPLIER
         : 0,
-      referralWallet: referralWallet ? referralWallet.address : ZeroAddress,
+      referralWallet: referralWallet
+        ? referralWallet.address.toLowerCase()
+        : ZeroAddress,
       referralRewardPercent: referralRewardPercent
         ? referralRewardPercent * PERCENT_MULTIPLIER
         : 0,
