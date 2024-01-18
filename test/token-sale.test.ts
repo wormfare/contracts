@@ -101,7 +101,7 @@ describe('TokenSale contract tests', () => {
     referralWallet?: SignerWithAddress,
     referralRewardPercent?: number,
     signer = apiSignerWallet,
-  ): Promise<[bigint, number, string, number, string]> => {
+  ): Promise<[string, bigint, number, string, number, string]> => {
     const network = await ethers.provider.getNetwork();
     const domain = {
       name: 'Wormfare Token Sale',
@@ -112,6 +112,7 @@ describe('TokenSale contract tests', () => {
 
     const types = {
       BuyParams: [
+        { name: 'to', type: 'address' },
         { name: 'amountUsdt', type: 'uint256' },
         { name: 'discountPercent', type: 'uint256' },
         { name: 'referralWallet', type: 'address' },
@@ -120,7 +121,9 @@ describe('TokenSale contract tests', () => {
       ],
     };
 
+    const to = wallet.address;
     const data = {
+      to,
       amountUsdt,
       discountPercent: discountPercent
         ? discountPercent * PERCENT_MULTIPLIER
@@ -135,6 +138,7 @@ describe('TokenSale contract tests', () => {
     const signature = await signer.signTypedData(domain, types, data);
 
     return [
+      to,
       data.amountUsdt,
       data.discountPercent,
       data.referralWallet,
@@ -404,6 +408,7 @@ describe('TokenSale contract tests', () => {
   describe('Signature', () => {
     it('Cannot buy tokens without a signature', async () => {
       const [
+        to,
         amountUsdt,
         discountPercent,
         referralWallet,
@@ -413,6 +418,7 @@ describe('TokenSale contract tests', () => {
       const promise = saleContract
         .connect(aliceWallet)
         .buy(
+          to,
           amountUsdt,
           discountPercent,
           referralWallet,
@@ -429,6 +435,7 @@ describe('TokenSale contract tests', () => {
     it("Cannot buy tokens with someone else's signature", async () => {
       // Alice gets params
       const [
+        to,
         amountUsdt,
         discountPercent,
         referralWallet,
@@ -440,6 +447,33 @@ describe('TokenSale contract tests', () => {
       const promise = saleContract
         .connect(bobWallet)
         .buy(
+          to,
+          amountUsdt,
+          discountPercent,
+          referralWallet,
+          referralRewardPercent,
+          signature,
+        );
+
+      await expect(promise).revertedWith('Invalid signature.');
+    });
+
+    it("Cannot buy tokens with someone else's signature 2", async () => {
+      // Alice gets params
+      const [
+        to,
+        amountUsdt,
+        discountPercent,
+        referralWallet,
+        referralRewardPercent,
+        signature,
+      ] = await prepareBuyData(aliceWallet, parseEther('100'), 30);
+
+      // Bob tries to buy
+      const promise = saleContract
+        .connect(aliceWallet)
+        .buy(
+          bobWallet.address,
           amountUsdt,
           discountPercent,
           referralWallet,

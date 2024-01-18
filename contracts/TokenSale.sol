@@ -19,7 +19,7 @@ contract TokenSale is
 
     bytes32 constant BUY_PARAMS_TYPEHASH =
         keccak256(
-            "BuyParams(uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,address sender)"
+            "BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,address sender)"
         );
     uint256 constant PERCENT_MULTIPLIER = 10;
 
@@ -138,7 +138,7 @@ contract TokenSale is
     }
 
     /**
-     * Buy tokens for someone else.
+     * Buy tokens for someone else (admin only).
      *
      * @param _to Tokens receiver.
      * @param _amountUsdt USDT amount.
@@ -161,6 +161,7 @@ contract TokenSale is
     /**
      * Buy tokens using USDT.
      *
+     * @param _to Tokens receiver.
      * @param _amountUsdt USDT amount the user wants to spend.
      * @param _discountPercent Applied discount for buyer (multiplied by 10).
      * @param _referralWallet Referral wallet (or zero address).
@@ -168,6 +169,7 @@ contract TokenSale is
      * @param _signature API signature.
      */
     function buy(
+        address _to,
         uint _amountUsdt,
         uint _discountPercent,
         address _referralWallet,
@@ -175,6 +177,7 @@ contract TokenSale is
         bytes calldata _signature
     ) external whenNotPaused {
         checkSignature(
+            _to,
             _amountUsdt,
             _discountPercent,
             _referralWallet,
@@ -183,7 +186,7 @@ contract TokenSale is
         );
 
         internalBuy(
-            msg.sender,
+            _to,
             _amountUsdt,
             _discountPercent,
             _referralWallet,
@@ -258,6 +261,7 @@ contract TokenSale is
 
     /// @dev Check signature for the buy() function call.
     function checkSignature(
+        address _to,
         uint _amountUsdt,
         uint _discountPercent,
         address _referralWallet,
@@ -268,6 +272,7 @@ contract TokenSale is
             keccak256(
                 abi.encode(
                     BUY_PARAMS_TYPEHASH,
+                    _to,
                     _amountUsdt,
                     _discountPercent,
                     _referralWallet,
