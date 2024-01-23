@@ -50,6 +50,10 @@ const config: HardhatUserConfig = {
       default: 5,
       ...namedAccountAddress(process.env.API_SIGNER_ADDRESS),
     },
+    wormfareGenesisOwner: {
+      default: 6,
+      ...namedAccountAddress(process.env.WORMFARE_GENESIS_OWNER_ADDRESS),
+    },
   },
   networks: {
     localhost: {
@@ -66,6 +70,11 @@ const config: HardhatUserConfig = {
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
     },
     stage: {
+      url: process.env.RPC_URL,
+      chainId: +process.env.CHAIN_ID,
+      accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
+    },
+    stage2: {
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),

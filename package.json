@@ -9,6 +9,7 @@
     "t": "hardhat test --grep",
     "deploy-dev": "NODE_ENV=dev hardhat deploy --network dev",
     "deploy-stage": "NODE_ENV=stage hardhat deploy --network stage",
+    "deploy-stage2": "NODE_ENV=stage2 hardhat deploy --network stage2",
     "deploy-testnet": "NODE_ENV=testnet hardhat deploy --network testnet",
     "deploy-mainnet": "NODE_ENV=mainnet hardhat deploy --network mainnet",
     "lint": "hardhat check",

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { isHardhatNetwork, isTestnetNetwork } from './src/utils';
+import { isHardhatNetwork, isTestNetwork } from './src/utils';
 import { ZodRules } from './src/zod/zod-helpers';
 import { ethAddress } from './src/zod/zod-rules';
 
@@ -8,6 +8,7 @@ const rules: ZodRules = {
   CHAIN_ID: z.coerce.number(),
   DEPLOYER_PRIVATE_KEY: z.string(),
   ADMIN_WALLET_ADDRESS: z.string().superRefine(ethAddress),
+  WORMFARE_GENESIS_OWNER_ADDRESS: z.string().superRefine(ethAddress),
   USDT_CONTRACT_ADDRESS: z.string().superRefine(ethAddress),
   TREASURY_WALLET_ADDRESS: z.string().superRefine(ethAddress),
   API_SIGNER_ADDRESS: z.string().superRefine(ethAddress),
@@ -15,7 +16,7 @@ const rules: ZodRules = {
   TOKEN_SALE_TOKEN_PRICE_USDT: z.coerce.number().min(0.01).max(1),
 };
 
-if (isTestnetNetwork()) {
+if (isTestNetwork()) {
   delete rules.USDT_CONTRACT_ADDRESS;
 }
 

@@ -1,35 +1,34 @@
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { isTestNetwork } from '../../../src/utils';
 import {
   logDeploymentInfo,
   logHardhatNetworkWarning,
 } from '../utils/deployment-utils';
 
-const contractName = 'Tether';
+const contractName = 'WormfareGenesis';
 
 module.exports = async ({
   getNamedAccounts,
   deployments,
 }: HardhatRuntimeEnvironment) => {
-  if (!isTestNetwork()) {
-    console.log('Non-test network. Skipping Tether...');
-
-    return;
-  }
-
   logHardhatNetworkWarning();
 
   const { deploy } = deployments;
-  const { deployer, admin } = await getNamedAccounts();
+  const { deployer, wormfareGenesisOwner } = await getNamedAccounts();
 
   logDeploymentInfo(deployer, contractName);
 
   // deploy the contract
   await deploy(contractName, {
     from: deployer,
-    args: [admin],
+    proxy: {
+      proxyContract: 'OpenZeppelinTransparentProxy',
+      execute: {
+        methodName: 'initialize',
+        args: [wormfareGenesisOwner, deployer],
+      },
+    },
     log: true,
   });
 };
 
-module.exports.tags = ['All', contractName];
+module.exports.tags = ['All', contractName, 'Queue1'];
