@@ -2,6 +2,7 @@
 
 ## Contracts
 
+`contracts/testing/Tether.sol` - Fake USDT contract for testing purposes.
 `contracts/nft/WormfareGenesis.sol` - Genesis NFT collection.  
 `contracts/TokenSale.sol` - TokenSale.
 
