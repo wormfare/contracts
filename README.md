@@ -2,7 +2,7 @@
 
 ## Contracts
 
-`contracts/nft/WormfareGenesis.sol` - Genesis NFT collection.
+`contracts/nft/WormfareGenesis.sol` - Genesis NFT collection.  
 `contracts/TokenSale.sol` - TokenSale.
 
 ## Quick start
