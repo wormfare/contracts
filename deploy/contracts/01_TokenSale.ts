@@ -19,22 +19,28 @@ module.exports = async ({
   logDeploymentInfo(deployer, contractName);
 
   // deploy the contract
+  const proxyParams = {
+    proxyContract: 'OpenZeppelinTransparentProxy',
+    execute: {
+      methodName: 'initialize',
+      args: [
+        admin,
+        process.env.USDT_CONTRACT_ADDRESS,
+        process.env.TREASURY_WALLET_ADDRESS,
+        apiSigner,
+        parseEther(process.env.TOKEN_SALE_MAX_TOKENS),
+        parseEther(process.env.TOKEN_SALE_TOKEN_PRICE_USDT),
+      ],
+    },
+  };
+
+  if (process.env.UPGRADE) {
+    delete proxyParams.execute;
+  }
+
   await deploy(contractName, {
     from: deployer,
-    proxy: {
-      proxyContract: 'OpenZeppelinTransparentProxy',
-      execute: {
-        methodName: 'initialize',
-        args: [
-          admin,
-          process.env.USDT_CONTRACT_ADDRESS,
-          process.env.TREASURY_WALLET_ADDRESS,
-          apiSigner,
-          parseEther(process.env.TOKEN_SALE_MAX_TOKENS),
-          parseEther(process.env.TOKEN_SALE_TOKEN_PRICE_USDT),
-        ],
-      },
-    },
+    proxy: proxyParams,
     log: true,
   });
 };

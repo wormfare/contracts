@@ -1,4 +1,9 @@
-# TokenSale Contract
+# Wormfare Smart Contracts
+
+## Contracts
+
+`contracts/nft/WormfareGenesis.sol` - Genesis NFT collection.
+`contracts/TokenSale.sol` - TokenSale.
 
 ## Quick start
 
@@ -10,7 +15,7 @@ cp .env.example .env && cp .env.example .env.stage && cp .env.example .env.mainn
 yarn
 ```
 
-Once installed, let's run Hardhat's testing network:
+Run Hardhat's testing network:
 
 ```shell
 yarn start
@@ -56,4 +61,12 @@ Now deploy the rest of the contracts:
 ```sh
 yarn deploy-dev
 yarn deploy-stage
+```
+
+### Upgrading contracts
+
+Upgrade TokenSale:
+
+```sh
+UPGRADE=1 yarn deploy-dev --tags TokenSale
 ```
