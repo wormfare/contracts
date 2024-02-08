@@ -215,11 +215,6 @@ contract TokenSale is
             "Not enough USDT allowance."
         );
         require(totalSoldTokens < totalTokensForSale, "Sold out.");
-        // no referrals when buying tokens for someone else
-        require(
-            _referralRewardPercent == 0 || _to == msg.sender,
-            "Referral program is disabled in this mode."
-        );
 
         _amountUsdt = normalizeTether(_amountUsdt);
         uint _tokenPriceUsdt = tokenPriceUsdt -
