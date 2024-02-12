@@ -1,10 +1,9 @@
 # Wormfare Smart Contracts
 
-## Contracts
+## Documentation
 
-`contracts/testing/Tether.sol` - Fake USDT contract for testing purposes.
-`contracts/nft/WormfareGenesis.sol` - Genesis NFT collection.  
-`contracts/TokenSale.sol` - TokenSale.
+[TokenSale](./docs/TokenSale.md) - `contracts/TokenSale.sol`  
+[WormfareGenesis](./docs/WormfareGenesis.md) - `contracts/nft/WormfareGenesis.sol`
 
 ## Quick start
 
@@ -43,6 +42,12 @@ yarn t "test description"
 ```
 
 > "test description" is a regular expression, so do not forget to escape special symbols there (if you have any)
+
+Generate docs (`docs/api` folder):
+
+```
+yarn docs
+```
 
 ## Deploying
 

@@ -4,6 +4,9 @@ pragma solidity ^0.8.23;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * This is a fake Tether (USDT) contract made for testing purposes.
+ */
 contract Tether is ERC20, Ownable {
     constructor(address _owner) ERC20("Tether", "USDT") Ownable(_owner) {}
 

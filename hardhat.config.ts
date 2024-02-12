@@ -92,6 +92,7 @@ const config: HardhatUserConfig = {
     },
   },
   docgen: {
+    outputDir: './docs/api',
     templates: './templates',
     pages: (_item, file) => {
       return file.absolutePath.startsWith('contracts')

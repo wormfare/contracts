@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "t": "hardhat test --grep",
+    "docs": "hardhat docgen",
     "deploy-dev": "NODE_ENV=dev hardhat deploy --network dev",
     "deploy-stage": "NODE_ENV=stage hardhat deploy --network stage",
     "deploy-stage2": "NODE_ENV=stage2 hardhat deploy --network stage2",
