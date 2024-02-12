@@ -39,10 +39,10 @@ NOTE: Purchases for less than 1 USDT are ignored in this flow.
 
 ## Case 3: User sends USDT to the contract's admin wallet address, then the admin buys tokens for the user
 
-This scenario assumes a direct communication between a user and an administrator. The user sends USDT to the administrator's wallet, then the administrator purchases tokens on the user's behalf.
+This scenario assumes a direct communication between a user and the administrator. The user sends USDT to the administrator's wallet, then the administrator purchases tokens on the user's behalf.
 
 ![case_3](./assets/TokenSale_case3.png)
 
-1. User contract the admin and transfers USDT to their wallet.
+1. User contacts the admin and transfers USDT to their wallet.
 2. Admin approves the USDT withdrawal from their account.
 3. Admin buys tokens for the user by calling the `buyFor` function on the TokenSale contract. In this scenario the admin can set an arbitrary discount for the purchase (up to 10%), but the referral program is not available.
