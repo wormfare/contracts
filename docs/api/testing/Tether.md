@@ -1,5 +1,7 @@
 # Tether
 
+This is a fake Tether (USDT) contract made for testing purposes.
+
 ## Functions
 
 ### constructor

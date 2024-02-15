@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.23;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {EIP712Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol";
 
 contract TokenSale is
     Initializable,
@@ -17,17 +17,17 @@ contract TokenSale is
 {
     using SafeERC20 for IERC20;
 
-    bytes32 constant BUY_PARAMS_TYPEHASH =
+    bytes32 internal constant BUY_PARAMS_TYPEHASH =
         keccak256(
             "BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,address sender)"
         );
-    uint256 constant PERCENT_MULTIPLIER = 10;
+    uint256 public constant PERCENT_MULTIPLIER = 10;
 
     /// @dev Wallet that all incoming USDT will be transfered to.
-    address treasuryWallet;
+    address internal treasuryWallet;
 
     /// @dev API wallet address.
-    address apiSigner;
+    address internal apiSigner;
 
     /// @dev USDT contract address.
     IERC20 public usdtContract;
@@ -42,10 +42,10 @@ contract TokenSale is
     uint public totalSoldTokens;
 
     /// @dev Bought tokens + referral rewards in tokens.
-    mapping(address => uint) tokenBalances;
+    mapping(address => uint) internal tokenBalances;
 
     /// @dev USDT referral rewards.
-    mapping(address => uint) usdtBalances;
+    mapping(address => uint) internal usdtBalances;
 
     struct BuyParams {
         uint amountUsdt;
@@ -199,7 +199,7 @@ contract TokenSale is
      * @param _amountUsdt USDT amount.
      * @param _discountPercent Discount percent (multiplied by 10).
      * @param _referralWallet Referral wallet (or zero address).
-     * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward.
+     * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward (multiplied by 10).
      */
     function internalBuy(
         address _to,
@@ -235,21 +235,21 @@ contract TokenSale is
 
         if (_referralWallet != address(0)) {
             _treasuryWalletAmountUsdt = buyWithReferral(
+                _to,
                 _amountUsdt,
-                _tokenAmount,
                 _referralWallet,
                 _referralRewardPercent
             );
         }
+
+        tokenBalances[_to] += _tokenAmount;
+        totalSoldTokens += _tokenAmount;
 
         usdtContract.safeTransferFrom(
             msg.sender,
             treasuryWallet,
             castToTether(_treasuryWalletAmountUsdt)
         );
-
-        tokenBalances[_to] += _tokenAmount;
-        totalSoldTokens += _tokenAmount;
 
         emit Buy(_to, _amountUsdt, _tokenAmount, _discountPercent);
     }
@@ -287,27 +287,23 @@ contract TokenSale is
      * Distribute referral rewards from the purchase.
      * May modify purchased amount of tokens and the USDT amount that should be sent to the treasury.
      *
+     * @param _buyer Tokens buyer wallet.
      * @param _amountUsdt Purchase amount in USDT.
-     * @param _tokenAmount Purchase token amount.
      * @param _referralWallet Referral wallet address.
-     * @param _referralRewardPercent Percentage of the purchase amount the referral wallet should receive.
+     * @param _referralRewardPercent Percentage of the purchase amount the referral wallet should receive (multiplied by 10).
      * @return USDT amount that should be sent to the treasury (with 18 decimals).
      */
     function buyWithReferral(
+        address _buyer,
         uint _amountUsdt,
-        uint _tokenAmount,
         address _referralWallet,
         uint _referralRewardPercent
     ) internal returns (uint) {
         uint _treasuryWalletAmountUsdt = _amountUsdt;
-        uint _referralTokenAmount = (_tokenAmount * _referralRewardPercent) /
-            100 /
-            PERCENT_MULTIPLIER;
         uint _referralUsdtAmount = normalizeTether(
             (_amountUsdt * _referralRewardPercent) / 100 / PERCENT_MULTIPLIER
         );
 
-        _referralTokenAmount = 0;
         usdtBalances[_referralWallet] += _referralUsdtAmount;
         _treasuryWalletAmountUsdt -= _referralUsdtAmount;
 
@@ -318,7 +314,7 @@ contract TokenSale is
         );
 
         emit ReferralReward(
-            msg.sender,
+            _buyer,
             _referralWallet,
             _referralUsdtAmount,
             _amountUsdt
@@ -339,9 +335,8 @@ contract TokenSale is
             "Not enough USDT on balance."
         );
 
-        usdtContract.safeTransfer(_to, castToTether(_amount));
-
         usdtBalances[msg.sender] -= _amount;
+        usdtContract.safeTransfer(_to, castToTether(_amount));
 
         emit WithdrawUsdt(msg.sender, _to, _amount);
     }
@@ -357,7 +352,7 @@ contract TokenSale is
     }
 
     /**
-     * Get tokens price in USDT.
+     * Get token price in USDT. The return value uses 18 decimals.
      *
      * @param _amount Tokens amount.
      */

@@ -146,7 +146,7 @@ function internalBuy(
 | `_amountUsdt` | uint256 | USDT amount. |
 | `_discountPercent` | uint256 | Discount percent (multiplied by 10). |
 | `_referralWallet` | address | Referral wallet (or zero address). |
-| `_referralRewardPercent` | uint256 | Percentage of bought amount the referral account should receive as a reward. |
+| `_referralRewardPercent` | uint256 | Percentage of bought amount the referral account should receive as a reward (multiplied by 10). |
 
 ### checkSignature
 
@@ -178,8 +178,8 @@ Check signature for the buy() function call.
 
 ```solidity
 function buyWithReferral(
+    address _buyer,
     uint256 _amountUsdt,
-    uint256 _tokenAmount,
     address _referralWallet,
     uint256 _referralRewardPercent
 ) internal returns (uint256)
@@ -192,10 +192,10 @@ May modify purchased amount of tokens and the USDT amount that should be sent to
 
 | Name | Type | Description |
 | :--- | :--- | :---------- |
+| `_buyer` | address | Tokens buyer wallet. |
 | `_amountUsdt` | uint256 | Purchase amount in USDT. |
-| `_tokenAmount` | uint256 | Purchase token amount. |
 | `_referralWallet` | address | Referral wallet address. |
-| `_referralRewardPercent` | uint256 | Percentage of the purchase amount the referral wallet should receive. |
+| `_referralRewardPercent` | uint256 | Percentage of the purchase amount the referral wallet should receive (multiplied by 10). |
 
 #### Return Values
 
@@ -245,7 +245,7 @@ function getUsdtPrice(
 ) internal returns (uint256)
 ```
 
-Get tokens price in USDT.
+Get token price in USDT. The return value uses 18 decimals.
 
 #### Parameters
 

@@ -86,7 +86,8 @@ describe('TokenSale contract tests', () => {
   );
 
   /**
-   * @param wallet
+   * @param signerWallet
+   * @param buyerWallet
    * @param amountUsdt
    * @param discountPercent
    * @param referralWallet
@@ -95,7 +96,8 @@ describe('TokenSale contract tests', () => {
    * @returns [amountUsdt, discountPercent, referralWallet, referralRewardPercent, signature]
    */
   const prepareBuyData = async (
-    wallet: SignerWithAddress,
+    signerWallet: SignerWithAddress,
+    buyerWallet: SignerWithAddress,
     amountUsdt: bigint,
     discountPercent?: number,
     referralWallet?: SignerWithAddress,
@@ -121,7 +123,7 @@ describe('TokenSale contract tests', () => {
       ],
     };
 
-    const to = wallet.address.toLowerCase();
+    const to = buyerWallet.address.toLowerCase();
     const data = {
       to,
       amountUsdt,
@@ -134,7 +136,7 @@ describe('TokenSale contract tests', () => {
       referralRewardPercent: referralRewardPercent
         ? referralRewardPercent * PERCENT_MULTIPLIER
         : 0,
-      sender: wallet.address,
+      sender: signerWallet.address,
     };
 
     const signature = await signer.signTypedData(domain, types, data);
@@ -201,6 +203,7 @@ describe('TokenSale contract tests', () => {
       .connect(wallet)
       .buy(
         ...(await prepareBuyData(
+          wallet,
           wallet,
           amountUsdt,
           discountPercent,
@@ -376,6 +379,17 @@ describe('TokenSale contract tests', () => {
         'AccessControlUnauthorizedAccount',
       );
     });
+
+    it('Cannot call the initialize() function', async () => {
+      const promise = saleContract
+        .connect(adminWallet)
+        .initialize(ZeroAddress, ZeroAddress, ZeroAddress, ZeroAddress, 0, 0);
+
+      await expect(promise).to.be.revertedWithCustomError(
+        saleContract,
+        'InvalidInitialization',
+      );
+    });
   });
 
   describe('Admin functions', () => {
@@ -390,6 +404,22 @@ describe('TokenSale contract tests', () => {
       const promise = saleContract.connect(adminWallet).unpause();
 
       await expect(promise).to.emit(saleContract, 'Unpaused');
+    });
+
+    it('Admin calls the setTokenPriceUsdt() function', async () => {
+      await saleContract
+        .connect(adminWallet)
+        .setTokenPriceUsdt(parseEther('1.23'));
+
+      await expect(await saleContract.tokenPriceUsdt()).to.eq(
+        parseEther('1.23'),
+      );
+    });
+
+    it('Admin calls the setApiSigner() function', async () => {
+      await saleContract
+        .connect(adminWallet)
+        .setApiSigner(randomWallet.address);
     });
   });
 
@@ -415,7 +445,7 @@ describe('TokenSale contract tests', () => {
         discountPercent,
         referralWallet,
         referralRewardPercent,
-      ] = await prepareBuyData(aliceWallet, parseEther('100'));
+      ] = await prepareBuyData(aliceWallet, aliceWallet, parseEther('100'));
 
       const promise = saleContract
         .connect(aliceWallet)
@@ -443,7 +473,7 @@ describe('TokenSale contract tests', () => {
         referralWallet,
         referralRewardPercent,
         signature,
-      ] = await prepareBuyData(aliceWallet, parseEther('100'), 30);
+      ] = await prepareBuyData(aliceWallet, aliceWallet, parseEther('100'), 30);
 
       // Bob tries to buy
       const promise = saleContract
@@ -469,7 +499,7 @@ describe('TokenSale contract tests', () => {
         referralWallet,
         referralRewardPercent,
         signature,
-      ] = await prepareBuyData(aliceWallet, parseEther('100'), 30);
+      ] = await prepareBuyData(aliceWallet, aliceWallet, parseEther('100'), 30);
 
       // Bob tries to buy
       const promise = saleContract
@@ -509,6 +539,7 @@ describe('TokenSale contract tests', () => {
 
       const params = await prepareBuyData(
         aliceWallet,
+        aliceWallet,
         parseEther('45'),
         10,
         bobWallet,
@@ -529,7 +560,11 @@ describe('TokenSale contract tests', () => {
         .connect(aliceWallet)
         .approve(saleContract, castToTether(parseEther('45') - 1n));
 
-      const params = await prepareBuyData(aliceWallet, parseEther('45'));
+      const params = await prepareBuyData(
+        aliceWallet,
+        aliceWallet,
+        parseEther('45'),
+      );
       const promise = saleContract.connect(aliceWallet).buy(...params);
 
       await expect(promise).revertedWith('Not enough USDT allowance.');
@@ -661,6 +696,65 @@ describe('TokenSale contract tests', () => {
 
       await expect(promise).revertedWith('Invalid recipient address.');
     });
+
+    it('API buys tokens for a user using a deposit wallet (discount + referral)', async () => {
+      const amountUsdt = parseEther('45');
+      const discountPercent = 10;
+
+      // transfer USDT to a deposit wallet
+      await tetherContract
+        .connect(aliceWallet)
+        .transfer(randomWallet, castToTether(amountUsdt));
+
+      // approve USDT withdrawal
+      await tetherContract
+        .connect(randomWallet)
+        .approve(saleContract, amountUsdt);
+
+      // buy tokens
+      const promise = saleContract.connect(randomWallet).buy(
+        ...(await prepareBuyData(
+          randomWallet,
+          aliceWallet,
+          amountUsdt,
+          10, // 10% discount
+          bobWallet,
+          10, // 10% to a referral
+        )),
+      );
+
+      await expect(promise)
+        .to.emit(saleContract, 'Buy')
+        .withArgs(
+          aliceWallet.address,
+          parseEther('45'),
+          calcTokenAmount(amountUsdt, 10),
+          discountPercent * PERCENT_MULTIPLIER,
+        );
+      await expectReferralRewardEvent(
+        promise,
+        aliceWallet,
+        bobWallet,
+        parseEther('4.5'),
+        parseEther('45'),
+      );
+      await expectChangeUsdtBalances(
+        promise,
+        [aliceWallet, randomWallet, treasuryWallet, saleContract],
+        [0n, parseTether('-45'), parseTether('40.5'), parseTether('4.5')],
+      );
+    });
+
+    it('Cannot buy tokens when paused', async () => {
+      await saleContract.connect(adminWallet).pause();
+
+      const promise = buy(aliceWallet, parseEther('1'));
+
+      await expect(promise).to.revertedWithCustomError(
+        saleContract,
+        'EnforcedPause',
+      );
+    });
   });
 
   describe('Withdraw USDT', () => {
@@ -755,6 +849,19 @@ describe('TokenSale contract tests', () => {
       expect(balance).eq(59997000000000000n);
 
       await withdrawUsdt(bobWallet, balance);
+    });
+
+    it('Cannot withdraw USDT when paused', async () => {
+      await saleContract.connect(adminWallet).pause();
+
+      const promise = saleContract
+        .connect(aliceWallet)
+        .withdrawUsdt(aliceWallet.address, 1);
+
+      await expect(promise).to.revertedWithCustomError(
+        saleContract,
+        'EnforcedPause',
+      );
     });
   });
 

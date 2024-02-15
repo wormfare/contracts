@@ -23,13 +23,19 @@ yarn start
 
 > this loads the `.env` file and automatically runs your deployment scripts
 
-To run the tests:
+Run the tests:
 
 ```shell
 yarn test
 ```
 
-To run the tests with Gas usage report:
+Run the tests with coverage:
+
+```shell
+yarn coverage
+```
+
+Run the tests with Gas usage report:
 
 ```shell
 REPORT_GAS=1 yarn hardhat test

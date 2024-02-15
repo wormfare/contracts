@@ -1,5 +1,6 @@
 import { SignerWithAddress } from '@nomicfoundation/hardhat-ethers/signers';
 import { expect } from 'chai';
+import { ZeroAddress } from 'ethers';
 import { deployments, ethers, getNamedAccounts } from 'hardhat';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { WormfareGenesis } from '../typechain-types';
@@ -64,6 +65,17 @@ describe('WormfareGenesis contract tests', () => {
 
       await expect(promise).to.be.revertedWith('Invalid sender.');
     });
+
+    it('Cannot call the initialize() function', async () => {
+      const promise = nftContract
+        .connect(deployerWallet)
+        .initialize(ZeroAddress, ZeroAddress);
+
+      await expect(promise).to.be.revertedWithCustomError(
+        nftContract,
+        'InvalidInitialization',
+      );
+    });
   });
 
   describe('Main logic', () => {
@@ -90,6 +102,29 @@ describe('WormfareGenesis contract tests', () => {
       );
       expect(await nftContract.ownerOf(0)).to.eq(ownerWallet.address);
       expect(await nftContract.ownerOf(99)).to.eq(ownerWallet.address);
+    });
+
+    it('Cannot mint more than 100 tokens', async () => {
+      const tokenIds = [];
+      const tokenUris = [];
+
+      for (let i = 0; i < 100; i++) {
+        tokenIds.push(i);
+        tokenUris.push(
+          'https://arweave.net/H8Na1bOlSitINLdUyY_mvarU8D0PaX5CkQ4xcub3dGA' + i,
+        );
+      }
+
+      await nftContract
+        .connect(deployerWallet)
+        .batchMint(ownerWallet.address, tokenIds, tokenUris);
+
+      // mint one more
+      const promise = nftContract
+        .connect(deployerWallet)
+        .batchMint(ownerWallet.address, [tokenIds[0]], [tokenUris[0]]);
+
+      await expect(promise).to.revertedWith('Unable to mint more tokens.');
     });
   });
 });
