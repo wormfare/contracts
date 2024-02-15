@@ -78,17 +78,20 @@ const config: HardhatUserConfig = {
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
+      gasMultiplier: 1.5,
     },
     testnet: {
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
+      gasMultiplier: 1.5,
     },
     mainnet: {
       live: true,
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
+      gasMultiplier: 1.5,
     },
   },
   docgen: {

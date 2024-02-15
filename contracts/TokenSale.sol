@@ -47,14 +47,6 @@ contract TokenSale is
     /// @dev USDT referral rewards.
     mapping(address => uint) internal usdtBalances;
 
-    struct BuyParams {
-        uint amountUsdt;
-        uint discountPercent;
-        address referralWallet;
-        uint referralRewardPercent;
-        address sender;
-    }
-
     event Buy(
         /// @dev Buyer's account.
         address indexed buyer,
