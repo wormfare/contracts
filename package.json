@@ -6,9 +6,6 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "t": "hardhat test --grep",
-    "coverage": "hardhat coverage",
-    "docs": "hardhat docgen",
     "deploy-dev": "NODE_ENV=dev hardhat deploy --network dev",
     "deploy-stage": "NODE_ENV=stage hardhat deploy --network stage",
     "deploy-stage2": "NODE_ENV=stage2 hardhat deploy --network stage2",
@@ -17,7 +14,10 @@
     "lint": "hardhat check",
     "build": "hardhat compile",
     "start": "hardhat node",
-    "generate:docs": "hardhat docgen",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "docs": "hardhat docgen",
+    "t": "hardhat test --grep",
     "test-single": "hardhat test --grep \"TokenSale contract tests\""
   },
   "devDependencies": {
