@@ -91,7 +91,7 @@ yarn coverage
 Run the tests with Gas usage report:
 
 ```shell
-REPORT_GAS=1 yarn hardhat test
+REPORT_GAS=1 yarn test
 ```
 
 Run a specific test(s):
