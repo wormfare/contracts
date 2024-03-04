@@ -71,6 +71,10 @@ contract TokenSale is
 
     event WithdrawUsdt(address indexed from, address indexed to, uint amount);
 
+    // custom errors
+    error ZeroAddressProvided(string param);
+    error ZeroValueProvided(string param);
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
@@ -96,6 +100,25 @@ contract TokenSale is
         __Pausable_init();
         __EIP712_init("Wormfare Token Sale", "1");
 
+        if (_admin == address(0)) {
+            revert ZeroAddressProvided("_admin");
+        }
+        if (address(_usdtContract) == address(0)) {
+            revert ZeroAddressProvided("_usdtContract");
+        }
+        if (_treasuryWallet == address(0)) {
+            revert ZeroAddressProvided("_treasuryWallet");
+        }
+        if (_apiSigner == address(0)) {
+            revert ZeroAddressProvided("_apiSigner");
+        }
+        if (_totalTokensForSale == 0) {
+            revert ZeroValueProvided("_totalTokensForSale");
+        }
+        if (_tokenPriceUsdt == 0) {
+            revert ZeroValueProvided("_tokenPriceUsdt");
+        }
+
         _grantRole(DEFAULT_ADMIN_ROLE, _admin);
 
         usdtContract = _usdtContract;
@@ -119,6 +142,10 @@ contract TokenSale is
     function setApiSigner(
         address _apiSigner
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        if (_apiSigner == address(0)) {
+            revert ZeroAddressProvided("_apiSigner");
+        }
+
         apiSigner = _apiSigner;
     }
 
@@ -126,6 +153,10 @@ contract TokenSale is
     function setTokenPriceUsdt(
         uint _tokenPriceUsdt
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        if (_tokenPriceUsdt == 0) {
+            revert ZeroValueProvided("_tokenPriceUsdt");
+        }
+
         tokenPriceUsdt = _tokenPriceUsdt;
     }
 
