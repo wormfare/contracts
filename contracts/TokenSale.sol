@@ -170,7 +170,7 @@ contract TokenSale is
      * Buy tokens for someone else (admin only).
      *
      * @param _to Tokens receiver.
-     * @param _amountUsdt USDT amount.
+     * @param _amountUsdt USDT amount with 18 decimals.
      * @param _discountPercent Discount percent (multiplied by 10).
      */
     function buyFor(
@@ -330,7 +330,7 @@ contract TokenSale is
     /**
      * Calculate the USDT amount (with 18 decimals) that should be kept on this contract as a referral reward.
      *
-     * @param _amountUsdt Purchase amount in USDT.
+     * @param _amountUsdt Purchase amount in USDT with 18 decimals.
      * @param _referralWallet Referral wallet address.
      * @param _referralRewardPercent Percentage of the purchase amount the referral wallet should receive (multiplied by 10).
      * @return The USDT amount (with 18 decimals) that should be sent to this contract as a referral reward.
