@@ -95,7 +95,7 @@ contract TokenSale is
         address _apiSigner,
         uint _totalTokensForSale,
         uint _tokenPriceUsdt
-    ) public initializer {
+    ) external initializer {
         __AccessControl_init();
         __Pausable_init();
         __EIP712_init("Wormfare Token Sale", "1");
