@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { isHardhatNetwork, isTestNetwork } from './src/utils';
+import {
+  isHardhatNetwork,
+  isMainnetNetwork,
+  isStage2Network,
+  isTestNetwork,
+} from './src/utils';
 import { ZodRules } from './src/zod/zod-helpers';
 import { ethAddress } from './src/zod/zod-rules';
 
@@ -15,6 +20,10 @@ const rules: ZodRules = {
   TOKEN_SALE_MAX_TOKENS: z.coerce.number().min(1),
   TOKEN_SALE_TOKEN_PRICE_USDT: z.coerce.number().min(0.01).max(1),
 };
+
+if (isStage2Network() || isMainnetNetwork()) {
+  rules.GAS_PRICE = z.coerce.number().max(500);
+}
 
 if (isTestNetwork()) {
   delete rules.USDT_CONTRACT_ADDRESS;

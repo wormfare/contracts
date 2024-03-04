@@ -6,6 +6,7 @@ import { validateEnv } from './hardhat.validate';
 
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomiclabs/hardhat-solhint';
+import { parseUnits } from 'ethers';
 import 'hardhat-deploy';
 import 'hardhat-gas-reporter';
 import 'solidity-docgen';
@@ -78,20 +79,20 @@ const config: HardhatUserConfig = {
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
-      gasMultiplier: 1.5,
+      gasPrice: Number(parseUnits(process.env.GAS_PRICE, 'gwei')),
     },
     testnet: {
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
-      gasMultiplier: 1.5,
+      gasPrice: Number(parseUnits(process.env.GAS_PRICE, 'gwei')),
     },
     mainnet: {
       live: true,
       url: process.env.RPC_URL,
       chainId: +process.env.CHAIN_ID,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY].filter((v) => !!v),
-      gasMultiplier: 1.5,
+      gasPrice: Number(parseUnits(process.env.GAS_PRICE, 'gwei')),
     },
   },
   docgen: {

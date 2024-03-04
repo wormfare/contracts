@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.23;
+pragma solidity 0.8.23;
 
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
@@ -19,7 +19,7 @@ contract TokenSale is
 
     bytes32 internal constant BUY_PARAMS_TYPEHASH =
         keccak256(
-            "BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,address sender)"
+            "BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,uint256 tokenPriceUsdt,address sender)"
         );
     uint256 public constant PERCENT_MULTIPLIER = 10;
 
@@ -70,6 +70,18 @@ contract TokenSale is
     );
 
     event WithdrawUsdt(address indexed from, address indexed to, uint amount);
+    event ApiSignerUpdate(address newApiSigner);
+    event TokenPriceUsdtUpdate(uint newTokenPriceUsdt);
+
+    // custom errors
+    error ZeroAddressProvided(string param);
+    error ZeroValueProvided(string param);
+    error DiscountPercentIsTooBig(uint value);
+    error ReferralRewardPercentIsTooBig(uint value);
+    error NotEnoughUsdtAllowance();
+    error SoldOut();
+    error InvalidSignature();
+    error NotEnoughUsdtOnBalance();
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -91,10 +103,29 @@ contract TokenSale is
         address _apiSigner,
         uint _totalTokensForSale,
         uint _tokenPriceUsdt
-    ) public initializer {
+    ) external initializer {
         __AccessControl_init();
         __Pausable_init();
         __EIP712_init("Wormfare Token Sale", "1");
+
+        if (_admin == address(0)) {
+            revert ZeroAddressProvided("_admin");
+        }
+        if (address(_usdtContract) == address(0)) {
+            revert ZeroAddressProvided("_usdtContract");
+        }
+        if (_treasuryWallet == address(0)) {
+            revert ZeroAddressProvided("_treasuryWallet");
+        }
+        if (_apiSigner == address(0)) {
+            revert ZeroAddressProvided("_apiSigner");
+        }
+        if (_totalTokensForSale == 0) {
+            revert ZeroValueProvided("_totalTokensForSale");
+        }
+        if (_tokenPriceUsdt == 0) {
+            revert ZeroValueProvided("_tokenPriceUsdt");
+        }
 
         _grantRole(DEFAULT_ADMIN_ROLE, _admin);
 
@@ -119,21 +150,33 @@ contract TokenSale is
     function setApiSigner(
         address _apiSigner
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        if (_apiSigner == address(0)) {
+            revert ZeroAddressProvided("_apiSigner");
+        }
+
         apiSigner = _apiSigner;
+
+        emit ApiSignerUpdate(_apiSigner);
     }
 
     /// Update token price in USDT. 18 decimals should be used here.
     function setTokenPriceUsdt(
         uint _tokenPriceUsdt
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        if (_tokenPriceUsdt == 0) {
+            revert ZeroValueProvided("_tokenPriceUsdt");
+        }
+
         tokenPriceUsdt = _tokenPriceUsdt;
+
+        emit TokenPriceUsdtUpdate(_tokenPriceUsdt);
     }
 
     /**
      * Buy tokens for someone else (admin only).
      *
      * @param _to Tokens receiver.
-     * @param _amountUsdt USDT amount.
+     * @param _amountUsdt USDT amount with 18 decimals.
      * @param _discountPercent Discount percent (multiplied by 10).
      */
     function buyFor(
@@ -141,11 +184,12 @@ contract TokenSale is
         uint _amountUsdt,
         uint _discountPercent
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(_to != address(0), "Invalid recipient address.");
-        require(
-            _discountPercent <= 10 * PERCENT_MULTIPLIER,
-            "Invalid discount."
-        );
+        if (_to == address(0)) {
+            revert ZeroAddressProvided("_to");
+        }
+        if (_discountPercent > 10 * PERCENT_MULTIPLIER) {
+            revert DiscountPercentIsTooBig(_discountPercent);
+        }
 
         internalBuy(_to, _amountUsdt, _discountPercent, address(0), 0);
     }
@@ -154,7 +198,7 @@ contract TokenSale is
      * Buy tokens using USDT.
      *
      * @param _to Tokens receiver.
-     * @param _amountUsdt USDT amount the user wants to spend.
+     * @param _amountUsdt USDT amount the user wants to spend (18 decimals).
      * @param _discountPercent Applied discount for buyer (multiplied by 10).
      * @param _referralWallet Referral wallet (or zero address).
      * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward.
@@ -188,7 +232,7 @@ contract TokenSale is
 
     /**
      * @param _to Tokens receiver.
-     * @param _amountUsdt USDT amount.
+     * @param _amountUsdt USDT amount with 18 decimals.
      * @param _discountPercent Discount percent (multiplied by 10).
      * @param _referralWallet Referral wallet (or zero address).
      * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward (multiplied by 10).
@@ -200,43 +244,65 @@ contract TokenSale is
         address _referralWallet,
         uint _referralRewardPercent
     ) internal {
-        require(_amountUsdt > 0, "USDT amount is 0.");
-        require(
-            usdtContract.allowance(msg.sender, address(this)) >=
-                castToTether(_amountUsdt),
-            "Not enough USDT allowance."
-        );
-        require(totalSoldTokens < totalTokensForSale, "Sold out.");
+        if (_amountUsdt == 0) {
+            revert ZeroValueProvided("_amountUsdt");
+        }
+        if (
+            usdtContract.allowance(msg.sender, address(this)) <
+            castToTether(_amountUsdt)
+        ) {
+            revert NotEnoughUsdtAllowance();
+        }
+        if (totalSoldTokens >= totalTokensForSale) {
+            revert SoldOut();
+        }
+        if (_discountPercent > 20 * PERCENT_MULTIPLIER) {
+            revert DiscountPercentIsTooBig(_discountPercent);
+        }
+        if (_referralRewardPercent > 10 * PERCENT_MULTIPLIER) {
+            revert ReferralRewardPercentIsTooBig(_referralRewardPercent);
+        }
 
         _amountUsdt = normalizeTether(_amountUsdt);
         uint _tokenPriceUsdt = tokenPriceUsdt -
             ((tokenPriceUsdt * _discountPercent) / 100 / PERCENT_MULTIPLIER);
         uint _tokenAmount = ((_amountUsdt * 1 ether) / _tokenPriceUsdt);
 
-        // if the amount user wants to buy exceeds the limit, sell as much as possible to the user
-        // and refund the rest later.
+        // if the amount the user wants to buy exceeds the limit, sell as much as possible to the user
         if (totalSoldTokens + _tokenAmount > totalTokensForSale) {
-            uint _redundantTokens = totalSoldTokens +
-                _tokenAmount -
-                totalTokensForSale;
-            _tokenAmount -= _redundantTokens;
+            _tokenAmount = totalTokensForSale - totalSoldTokens;
             _amountUsdt = getUsdtPrice(_tokenAmount, _tokenPriceUsdt);
         }
 
         uint _treasuryWalletAmountUsdt = _amountUsdt;
-
-        if (_referralWallet != address(0)) {
-            _treasuryWalletAmountUsdt = buyWithReferral(
-                _to,
-                _amountUsdt,
-                _referralWallet,
-                _referralRewardPercent
-            );
-        }
+        uint _referralAmountUsdt = calculateReferralReward(
+            _amountUsdt,
+            _referralWallet,
+            _referralRewardPercent
+        );
 
         tokenBalances[_to] += _tokenAmount;
         totalSoldTokens += _tokenAmount;
 
+        // transfer USDT referral reward to this contract
+        if (_referralAmountUsdt > 0) {
+            _treasuryWalletAmountUsdt -= _referralAmountUsdt;
+
+            usdtContract.safeTransferFrom(
+                msg.sender,
+                address(this),
+                castToTether(_referralAmountUsdt)
+            );
+
+            emit ReferralReward(
+                _to,
+                _referralWallet,
+                _referralAmountUsdt,
+                _amountUsdt
+            );
+        }
+
+        // transfer USDT to the treasury wallet
         usdtContract.safeTransferFrom(
             msg.sender,
             treasuryWallet,
@@ -264,55 +330,40 @@ contract TokenSale is
                     _discountPercent,
                     _referralWallet,
                     _referralRewardPercent,
+                    tokenPriceUsdt,
                     msg.sender
                 )
             )
         );
 
-        require(
-            ECDSA.recover(_digest, _signature) == apiSigner,
-            "Invalid signature."
-        );
+        if (ECDSA.recover(_digest, _signature) != apiSigner) {
+            revert InvalidSignature();
+        }
     }
 
     /**
-     * Distribute referral rewards from the purchase.
-     * May modify purchased amount of tokens and the USDT amount that should be sent to the treasury.
+     * Calculate the USDT amount (with 18 decimals) that should be kept on this contract as a referral reward.
      *
-     * @param _buyer Tokens buyer wallet.
-     * @param _amountUsdt Purchase amount in USDT.
+     * @param _amountUsdt Purchase amount in USDT with 18 decimals.
      * @param _referralWallet Referral wallet address.
      * @param _referralRewardPercent Percentage of the purchase amount the referral wallet should receive (multiplied by 10).
-     * @return USDT amount that should be sent to the treasury (with 18 decimals).
+     * @return The USDT amount (with 18 decimals) that should be sent to this contract as a referral reward.
      */
-    function buyWithReferral(
-        address _buyer,
+    function calculateReferralReward(
         uint _amountUsdt,
         address _referralWallet,
         uint _referralRewardPercent
     ) internal returns (uint) {
-        uint _treasuryWalletAmountUsdt = _amountUsdt;
+        if (_referralWallet == address(0)) {
+            return 0;
+        }
+
         uint _referralUsdtAmount = normalizeTether(
             (_amountUsdt * _referralRewardPercent) / 100 / PERCENT_MULTIPLIER
         );
-
         usdtBalances[_referralWallet] += _referralUsdtAmount;
-        _treasuryWalletAmountUsdt -= _referralUsdtAmount;
 
-        usdtContract.safeTransferFrom(
-            msg.sender,
-            address(this),
-            castToTether(_referralUsdtAmount)
-        );
-
-        emit ReferralReward(
-            _buyer,
-            _referralWallet,
-            _referralUsdtAmount,
-            _amountUsdt
-        );
-
-        return _treasuryWalletAmountUsdt;
+        return _referralUsdtAmount;
     }
 
     /**
@@ -322,10 +373,9 @@ contract TokenSale is
      * @param _amount USDT amount to withdraw. Should be 18 decimals here.
      */
     function withdrawUsdt(address _to, uint _amount) external whenNotPaused {
-        require(
-            usdtBalances[msg.sender] >= _amount,
-            "Not enough USDT on balance."
-        );
+        if (_amount > usdtBalances[msg.sender]) {
+            revert NotEnoughUsdtOnBalance();
+        }
 
         usdtBalances[msg.sender] -= _amount;
         usdtContract.safeTransfer(_to, castToTether(_amount));
