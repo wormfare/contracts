@@ -185,7 +185,7 @@ contract TokenSale is
      * Buy tokens using USDT.
      *
      * @param _to Tokens receiver.
-     * @param _amountUsdt USDT amount the user wants to spend.
+     * @param _amountUsdt USDT amount the user wants to spend (18 decimals).
      * @param _discountPercent Applied discount for buyer (multiplied by 10).
      * @param _referralWallet Referral wallet (or zero address).
      * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward.
@@ -219,7 +219,7 @@ contract TokenSale is
 
     /**
      * @param _to Tokens receiver.
-     * @param _amountUsdt USDT amount.
+     * @param _amountUsdt USDT amount with 18 decimals.
      * @param _discountPercent Discount percent (multiplied by 10).
      * @param _referralWallet Referral wallet (or zero address).
      * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward (multiplied by 10).
@@ -255,19 +255,34 @@ contract TokenSale is
         }
 
         uint _treasuryWalletAmountUsdt = _amountUsdt;
-
-        if (_referralWallet != address(0)) {
-            _treasuryWalletAmountUsdt = buyWithReferral(
-                _to,
-                _amountUsdt,
-                _referralWallet,
-                _referralRewardPercent
-            );
-        }
+        uint _referralAmountUsdt = calculateReferralReward(
+            _amountUsdt,
+            _referralWallet,
+            _referralRewardPercent
+        );
 
         tokenBalances[_to] += _tokenAmount;
         totalSoldTokens += _tokenAmount;
 
+        // transfer USDT referral reward to this contract
+        if (_referralAmountUsdt > 0) {
+            _treasuryWalletAmountUsdt -= _referralAmountUsdt;
+
+            usdtContract.safeTransferFrom(
+                msg.sender,
+                address(this),
+                castToTether(_referralAmountUsdt)
+            );
+
+            emit ReferralReward(
+                _to,
+                _referralWallet,
+                _referralAmountUsdt,
+                _amountUsdt
+            );
+        }
+
+        // transfer USDT to the treasury wallet
         usdtContract.safeTransferFrom(
             msg.sender,
             treasuryWallet,
@@ -307,43 +322,28 @@ contract TokenSale is
     }
 
     /**
-     * Distribute referral rewards from the purchase.
-     * May modify purchased amount of tokens and the USDT amount that should be sent to the treasury.
+     * Calculate the USDT amount (with 18 decimals) that should be kept on this contract as a referral reward.
      *
-     * @param _buyer Tokens buyer wallet.
      * @param _amountUsdt Purchase amount in USDT.
      * @param _referralWallet Referral wallet address.
      * @param _referralRewardPercent Percentage of the purchase amount the referral wallet should receive (multiplied by 10).
-     * @return USDT amount that should be sent to the treasury (with 18 decimals).
+     * @return The USDT amount (with 18 decimals) that should be sent to this contract as a referral reward.
      */
-    function buyWithReferral(
-        address _buyer,
+    function calculateReferralReward(
         uint _amountUsdt,
         address _referralWallet,
         uint _referralRewardPercent
     ) internal returns (uint) {
-        uint _treasuryWalletAmountUsdt = _amountUsdt;
+        if (_referralWallet == address(0)) {
+            return 0;
+        }
+
         uint _referralUsdtAmount = normalizeTether(
             (_amountUsdt * _referralRewardPercent) / 100 / PERCENT_MULTIPLIER
         );
-
         usdtBalances[_referralWallet] += _referralUsdtAmount;
-        _treasuryWalletAmountUsdt -= _referralUsdtAmount;
 
-        usdtContract.safeTransferFrom(
-            msg.sender,
-            address(this),
-            castToTether(_referralUsdtAmount)
-        );
-
-        emit ReferralReward(
-            _buyer,
-            _referralWallet,
-            _referralUsdtAmount,
-            _amountUsdt
-        );
-
-        return _treasuryWalletAmountUsdt;
+        return _referralUsdtAmount;
     }
 
     /**
