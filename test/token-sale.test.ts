@@ -494,7 +494,10 @@ describe('TokenSale contract tests', () => {
           signature,
         );
 
-      await expect(promise).revertedWith('Invalid signature.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'InvalidSignature',
+      );
     });
 
     it("Cannot buy tokens with someone else's signature 2", async () => {
@@ -520,7 +523,10 @@ describe('TokenSale contract tests', () => {
           signature,
         );
 
-      await expect(promise).revertedWith('Invalid signature.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'InvalidSignature',
+      );
     });
   });
 
@@ -574,7 +580,10 @@ describe('TokenSale contract tests', () => {
       );
       const promise = saleContract.connect(aliceWallet).buy(...params);
 
-      await expect(promise).revertedWith('Not enough USDT allowance.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'NotEnoughUsdtAllowance',
+      );
     });
 
     it('User buys tokens several times without a discount and referral', async () => {
@@ -663,14 +672,17 @@ describe('TokenSale contract tests', () => {
     it('Cannot buy tokens for 0 USDT', async () => {
       const promise = buy(aliceWallet, 0n);
 
-      await expect(promise).revertedWith('USDT amount is 0.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'ZeroValueProvided',
+      );
     });
 
     it('Cannot buy more tokens if all tokens have been sold out', async () => {
       await buy(aliceWallet, totalTokensForSale / 2n);
       const promise = buy(aliceWallet, 1n);
 
-      await expect(promise).revertedWith('Sold out.');
+      await expect(promise).revertedWithCustomError(saleContract, 'SoldOut');
     });
 
     it('Admin buys tokens for someone else without a discount', async () => {
@@ -693,7 +705,10 @@ describe('TokenSale contract tests', () => {
     it('Admin cannot apply a discount that exceeds 10 percent when buying tokens for someone else', async () => {
       const promise = buyFor(bobWallet, parseEther('500'), 11);
 
-      await expect(promise).revertedWith('Invalid discount.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'DiscountPercentIsTooBig',
+      );
     });
 
     it('Admin cannot buy tokens for zero address', async () => {
@@ -701,7 +716,10 @@ describe('TokenSale contract tests', () => {
         .connect(adminWallet)
         .buyFor(ZeroAddress, parseEther('500'), 0);
 
-      await expect(promise).revertedWith('Invalid recipient address.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'ZeroAddressProvided',
+      );
     });
 
     it('API buys tokens for a user using a deposit wallet (discount + referral)', async () => {
@@ -854,13 +872,19 @@ describe('TokenSale contract tests', () => {
     it('Cannot withdraw more USDT than user has on their balance', async () => {
       let promise = withdrawUsdt(bobWallet, 1n);
 
-      await expect(promise).revertedWith('Not enough USDT on balance.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'NotEnoughUsdtOnBalance',
+      );
 
       await buy(aliceWallet, parseEther('450'), 10, bobWallet, 10);
 
       promise = withdrawUsdt(bobWallet, parseEther('45') + 1n);
 
-      await expect(promise).revertedWith('Not enough USDT on balance.');
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'NotEnoughUsdtOnBalance',
+      );
     });
 
     it('User buys tokens with a referral, then referral withdraws all USDT rewards', async () => {

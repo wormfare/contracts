@@ -78,6 +78,10 @@ contract TokenSale is
     error ZeroValueProvided(string param);
     error DiscountPercentIsTooBig(uint value);
     error ReferralRewardPercentIsTooBig(uint value);
+    error NotEnoughUsdtAllowance();
+    error SoldOut();
+    error InvalidSignature();
+    error NotEnoughUsdtOnBalance();
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -180,11 +184,12 @@ contract TokenSale is
         uint _amountUsdt,
         uint _discountPercent
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(_to != address(0), "Invalid recipient address.");
-        require(
-            _discountPercent <= 10 * PERCENT_MULTIPLIER,
-            "Invalid discount."
-        );
+        if (_to == address(0)) {
+            revert ZeroAddressProvided("_to");
+        }
+        if (_discountPercent > 10 * PERCENT_MULTIPLIER) {
+            revert DiscountPercentIsTooBig(_discountPercent);
+        }
 
         internalBuy(_to, _amountUsdt, _discountPercent, address(0), 0);
     }
@@ -239,14 +244,18 @@ contract TokenSale is
         address _referralWallet,
         uint _referralRewardPercent
     ) internal {
-        require(_amountUsdt > 0, "USDT amount is 0.");
-        require(
-            usdtContract.allowance(msg.sender, address(this)) >=
-                castToTether(_amountUsdt),
-            "Not enough USDT allowance."
-        );
-        require(totalSoldTokens < totalTokensForSale, "Sold out.");
-
+        if (_amountUsdt == 0) {
+            revert ZeroValueProvided("_amountUsdt");
+        }
+        if (
+            usdtContract.allowance(msg.sender, address(this)) <
+            castToTether(_amountUsdt)
+        ) {
+            revert NotEnoughUsdtAllowance();
+        }
+        if (totalSoldTokens >= totalTokensForSale) {
+            revert SoldOut();
+        }
         if (_discountPercent > 20 * PERCENT_MULTIPLIER) {
             revert DiscountPercentIsTooBig(_discountPercent);
         }
@@ -326,10 +335,9 @@ contract TokenSale is
             )
         );
 
-        require(
-            ECDSA.recover(_digest, _signature) == apiSigner,
-            "Invalid signature."
-        );
+        if (ECDSA.recover(_digest, _signature) != apiSigner) {
+            revert InvalidSignature();
+        }
     }
 
     /**
@@ -364,10 +372,9 @@ contract TokenSale is
      * @param _amount USDT amount to withdraw. Should be 18 decimals here.
      */
     function withdrawUsdt(address _to, uint _amount) external whenNotPaused {
-        require(
-            usdtBalances[msg.sender] >= _amount,
-            "Not enough USDT on balance."
-        );
+        if (_amount > usdtBalances[msg.sender]) {
+            revert NotEnoughUsdtOnBalance();
+        }
 
         usdtBalances[msg.sender] -= _amount;
         usdtContract.safeTransfer(_to, castToTether(_amount));
