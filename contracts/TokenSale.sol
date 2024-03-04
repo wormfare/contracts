@@ -250,13 +250,9 @@ contract TokenSale is
             ((tokenPriceUsdt * _discountPercent) / 100 / PERCENT_MULTIPLIER);
         uint _tokenAmount = ((_amountUsdt * 1 ether) / _tokenPriceUsdt);
 
-        // if the amount user wants to buy exceeds the limit, sell as much as possible to the user
-        // and refund the rest later.
+        // if the amount the user wants to buy exceeds the limit, sell as much as possible to the user
         if (totalSoldTokens + _tokenAmount > totalTokensForSale) {
-            uint _redundantTokens = totalSoldTokens +
-                _tokenAmount -
-                totalTokensForSale;
-            _tokenAmount -= _redundantTokens;
+            _tokenAmount = totalTokensForSale - totalSoldTokens;
             _amountUsdt = getUsdtPrice(_tokenAmount, _tokenPriceUsdt);
         }
 
