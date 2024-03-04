@@ -19,7 +19,7 @@ contract TokenSale is
 
     bytes32 internal constant BUY_PARAMS_TYPEHASH =
         keccak256(
-            "BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,address sender)"
+            "BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,uint256 tokenPriceUsdt,address sender)"
         );
     uint256 public constant PERCENT_MULTIPLIER = 10;
 
@@ -330,6 +330,7 @@ contract TokenSale is
                     _discountPercent,
                     _referralWallet,
                     _referralRewardPercent,
+                    tokenPriceUsdt,
                     msg.sender
                 )
             )

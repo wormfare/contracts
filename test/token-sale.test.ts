@@ -119,6 +119,7 @@ describe('TokenSale contract tests', () => {
         { name: 'discountPercent', type: 'uint256' },
         { name: 'referralWallet', type: 'address' },
         { name: 'referralRewardPercent', type: 'uint256' },
+        { name: 'tokenPriceUsdt', type: 'uint256' },
         { name: 'sender', type: 'address' },
       ],
     };
@@ -136,6 +137,7 @@ describe('TokenSale contract tests', () => {
       referralRewardPercent: referralRewardPercent
         ? referralRewardPercent * PERCENT_MULTIPLIER
         : 0,
+      tokenPriceUsdt,
       sender: signerWallet.address,
     };
 
@@ -485,6 +487,37 @@ describe('TokenSale contract tests', () => {
       // Bob tries to buy
       const promise = saleContract
         .connect(bobWallet)
+        .buy(
+          to,
+          amountUsdt,
+          discountPercent,
+          referralWallet,
+          referralRewardPercent,
+          signature,
+        );
+
+      await expect(promise).revertedWithCustomError(
+        saleContract,
+        'InvalidSignature',
+      );
+    });
+
+    it("Cannot buy tokens if the token price changes after the signature has been produced", async () => {
+      // Alice gets params
+      const [
+        to,
+        amountUsdt,
+        discountPercent,
+        referralWallet,
+        referralRewardPercent,
+        signature,
+      ] = await prepareBuyData(aliceWallet, aliceWallet, parseEther('100'), 30);
+
+      await saleContract.connect(adminWallet).setTokenPriceUsdt(111);
+
+      // try to buy
+      const promise = saleContract
+        .connect(aliceWallet)
         .buy(
           to,
           amountUsdt,
