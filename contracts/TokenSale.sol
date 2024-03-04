@@ -76,6 +76,8 @@ contract TokenSale is
     // custom errors
     error ZeroAddressProvided(string param);
     error ZeroValueProvided(string param);
+    error DiscountPercentIsTooBig(uint value);
+    error ReferralRewardPercentIsTooBig(uint value);
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -244,6 +246,13 @@ contract TokenSale is
             "Not enough USDT allowance."
         );
         require(totalSoldTokens < totalTokensForSale, "Sold out.");
+
+        if (_discountPercent > 20 * PERCENT_MULTIPLIER) {
+            revert DiscountPercentIsTooBig(_discountPercent);
+        }
+        if (_referralRewardPercent > 10 * PERCENT_MULTIPLIER) {
+            revert ReferralRewardPercentIsTooBig(_referralRewardPercent);
+        }
 
         _amountUsdt = normalizeTether(_amountUsdt);
         uint _tokenPriceUsdt = tokenPriceUsdt -

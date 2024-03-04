@@ -762,6 +762,24 @@ describe('TokenSale contract tests', () => {
         'EnforcedPause',
       );
     });
+
+    it('Cannot purchase with a discount that exceeds 20 percent', async () => {
+      const promise = buy(aliceWallet, parseEther('1'), 21);
+
+      await expect(promise).to.revertedWithCustomError(
+        saleContract,
+        'DiscountPercentIsTooBig',
+      );
+    });
+
+    it('Cannot purchase with a referral reward percent that exceeds 10 percent', async () => {
+      const promise = buy(aliceWallet, parseEther('1'), 0, bobWallet, 11);
+
+      await expect(promise).to.revertedWithCustomError(
+        saleContract,
+        'ReferralRewardPercentIsTooBig',
+      );
+    });
   });
 
   describe('Withdraw USDT', () => {
