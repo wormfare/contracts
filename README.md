@@ -128,12 +128,14 @@ yarn deploy-dev
 yarn deploy-stage
 ```
 
+When deploying to the `stage2` or `mainnet` environments, the `GAS_PRICE` env variable must be specified (in GWei).
+
 ### Production deployment
 
-Deploy the TokenSale contract:
+Deploy the TokenSale contract with a gas price set to 250 GWei:
 
 ```sh
-yarn deploy-mainnet --tags TokenSale
+GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
 ```
 
 ### Upgrading contracts
@@ -141,7 +143,7 @@ yarn deploy-mainnet --tags TokenSale
 Upgrade the TokenSale contract:
 
 ```sh
-UPGRADE=1 yarn deploy-mainnet --tags TokenSale
+UPGRADE=1 GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
 ```
 
 ## Project Structure
