@@ -70,6 +70,8 @@ contract TokenSale is
     );
 
     event WithdrawUsdt(address indexed from, address indexed to, uint amount);
+    event ApiSignerUpdate(address newApiSigner);
+    event TokenPriceUsdtUpdate(uint newTokenPriceUsdt);
 
     // custom errors
     error ZeroAddressProvided(string param);
@@ -147,6 +149,8 @@ contract TokenSale is
         }
 
         apiSigner = _apiSigner;
+
+        emit ApiSignerUpdate(_apiSigner);
     }
 
     /// Update token price in USDT. 18 decimals should be used here.
@@ -158,6 +162,8 @@ contract TokenSale is
         }
 
         tokenPriceUsdt = _tokenPriceUsdt;
+
+        emit TokenPriceUsdtUpdate(_tokenPriceUsdt);
     }
 
     /**

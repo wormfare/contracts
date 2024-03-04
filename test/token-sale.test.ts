@@ -407,19 +407,26 @@ describe('TokenSale contract tests', () => {
     });
 
     it('Admin calls the setTokenPriceUsdt() function', async () => {
-      await saleContract
+      const promise = saleContract
         .connect(adminWallet)
         .setTokenPriceUsdt(parseEther('1.23'));
 
+      await expect(promise)
+        .to.emit(saleContract, 'TokenPriceUsdtUpdate')
+        .withArgs(parseEther('1.23'));
       await expect(await saleContract.tokenPriceUsdt()).to.eq(
         parseEther('1.23'),
       );
     });
 
     it('Admin calls the setApiSigner() function', async () => {
-      await saleContract
+      const promise = saleContract
         .connect(adminWallet)
         .setApiSigner(randomWallet.address);
+
+      await expect(promise)
+        .to.emit(saleContract, 'ApiSignerUpdate')
+        .withArgs(randomWallet.address);
     });
   });
 
