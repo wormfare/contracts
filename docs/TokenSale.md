@@ -46,3 +46,25 @@ This scenario assumes a direct communication between a user and the administrato
 1. User contacts the admin and transfers USDT to their wallet.
 2. Admin approves the USDT withdrawal from their account.
 3. Admin buys tokens for the user by calling the `buyFor` function on the TokenSale contract. In this scenario the admin can set an arbitrary discount for the purchase (up to 10%), but the referral program is not available.
+
+
+## Deployment
+
+We have three TokenSale contract instances deployed for three investment rounds: public, private, and call.
+
+Available deployment commands:
+```sh
+yarn deploy-dev
+yarn deploy-stage
+yarn deploy-stage2
+yarn deploy-mainnet
+```
+
+Deploy them all to mainnet (adjust the gas price https://polygonscan.com/gastracker):
+```sh
+GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
+GAS_PRICE=250 yarn deploy-mainnet --tags TokenSalePrivate
+GAS_PRICE=250 yarn deploy-mainnet --tags TokenSaleKol
+# TODO
+```
+

@@ -19,6 +19,10 @@ const rules: ZodRules = {
   API_SIGNER_ADDRESS: z.string().superRefine(ethAddress),
   TOKEN_SALE_MAX_TOKENS: z.coerce.number().min(1),
   TOKEN_SALE_TOKEN_PRICE_USDT: z.coerce.number().min(0.01).max(1),
+  TOKEN_SALE_PRIVATE_MAX_TOKENS: z.coerce.number().min(1),
+  TOKEN_SALE_PRIVATE_TOKEN_PRICE_USDT: z.coerce.number().min(0.01).max(1),
+  TOKEN_SALE_KOL_MAX_TOKENS: z.coerce.number().min(1),
+  TOKEN_SALE_KOL_TOKEN_PRICE_USDT: z.coerce.number().min(0.01).max(1),
 };
 
 if (isStage2Network() || isMainnetNetwork()) {
