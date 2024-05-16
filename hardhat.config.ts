@@ -1,6 +1,6 @@
 import 'dotenv-flow/config';
 
-import { HardhatUserConfig } from 'hardhat/config';
+import { HardhatUserConfig, vars } from 'hardhat/config';
 import { relative } from 'path';
 import { validateEnv } from './hardhat.validate';
 
@@ -106,6 +106,12 @@ const config: HardhatUserConfig = {
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS ? true : false,
+  },
+  verify: {
+    etherscan: {
+      apiKey: vars.get('ETHERSCAN_API_KEY'),
+      apiUrl: 'https://api.polygonscan.com',
+    } as any,
   },
 };
 

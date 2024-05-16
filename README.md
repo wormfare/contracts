@@ -146,6 +146,18 @@ Upgrade the TokenSale contract:
 UPGRADE=1 GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
 ```
 
+### Verify contracts
+
+1. Get an API key from polygonscan https://polygonscan.com/myapikey
+2. Run `npx hardhat vars set ETHERSCAN_API_KEY` and paste your API key
+3. Run:
+
+```sh
+NODE_ENV=mainnet yarn hardhat --network mainnet etherscan-verify
+```
+
+This command uses the `handhat-deploy` plugin to verify the contracts.
+
 ## Project Structure
 
 This is a Hardhat TypeScript project composed of contracts, tests, and deploy instructions that provides a great starting point for developers to quickly get up and running and deploying smart contracts on the Ethereum blockchain.
