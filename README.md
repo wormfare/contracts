@@ -117,7 +117,7 @@ Deploy the Tether contract first:
 ```sh
 yarn deploy-dev --tags Tether
 yarn deploy-stage --tags Tether
-yarn deploy-testnet --tags Tether
+GAS_PRICE=100 yarn deploy-testnet --tags Tether
 ```
 
 Open `.env.dev` or `.env.stage` and fill the `USDT_CONTRACT_ADDRESS` var.
