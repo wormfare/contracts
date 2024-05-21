@@ -10,7 +10,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 contract Tether is ERC20, Ownable {
     constructor(address _owner) ERC20("Tether", "USDT") Ownable(_owner) {}
 
-    function mint(address _to, uint256 _amount) public onlyOwner {
+    function mint(address _to, uint256 _amount) public {
         _mint(_to, _amount);
     }
 
