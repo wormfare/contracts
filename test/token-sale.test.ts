@@ -502,7 +502,7 @@ describe('TokenSale contract tests', () => {
       );
     });
 
-    it("Cannot buy tokens if the token price changes after the signature has been produced", async () => {
+    it('Cannot buy tokens if the token price changes after the signature has been produced', async () => {
       // Alice gets params
       const [
         to,
@@ -830,6 +830,15 @@ describe('TokenSale contract tests', () => {
         saleContract,
         'ReferralRewardPercentIsTooBig',
       );
+    });
+
+    it('tokenBalanceOf() method returns the balance of any user', async () => {
+      await buy(aliceWallet, parseEther('1'));
+
+      expect(await saleContract.tokenBalanceOf(aliceWallet.address)).to.eq(
+        parseEther('2'),
+      );
+      expect(await saleContract.tokenBalanceOf(bobWallet.address)).to.eq(0);
     });
   });
 

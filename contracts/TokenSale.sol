@@ -388,6 +388,11 @@ contract TokenSale is
         return tokenBalances[msg.sender];
     }
 
+    /// Returns the token balance of the given address.
+    function tokenBalanceOf(address _address) external view returns (uint) {
+        return tokenBalances[_address];
+    }
+
     /// Returns sender's USDT balance. Return value uses 18 decimals.
     function getUsdtBalance() external view returns (uint) {
         return usdtBalances[msg.sender];
