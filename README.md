@@ -10,6 +10,7 @@
 
 [TokenSale](./docs/TokenSale.md) - `contracts/TokenSale.sol`  
 [WormfareGenesis](./docs/WormfareGenesis.md) - `contracts/nft/WormfareGenesis.sol`
+[Spinner](./docs/Spinner.md) - `contracts/spinner/Spinner.sol`
 
 ## Getting Started
 

@@ -1,0 +1,1 @@
+# Spinner game Contract
