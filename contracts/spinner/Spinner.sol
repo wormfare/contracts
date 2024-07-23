@@ -54,7 +54,8 @@ contract Spinner is
     address internal treasuryWallet;
 
     struct PurchaseInfo {
-        uint count;
+        uint total;
+        uint perDay;
         uint lastTime;
     }
 
@@ -271,13 +272,13 @@ contract Spinner is
             revert NotEnoughUsdtOnBalance();
         }
 
-        // Update the purchase count and timestamp
         if (block.timestamp - purchaseInfo[msg.sender].lastTime >= DAY_IN_SECONDS) {
             // Reset the purchase count if a day has passed
-            purchaseInfo[msg.sender].count = 0;
+            purchaseInfo[msg.sender].perDay = 0;
         }
 
-        purchaseInfo[msg.sender].count += _amountSpins;
+        purchaseInfo[msg.sender].perDay += _amountSpins;
+        purchaseInfo[msg.sender].total += _amountSpins;
         purchaseInfo[msg.sender].lastTime = block.timestamp;
 
         // transfer USDT to the treasury wallet
@@ -319,11 +320,23 @@ contract Spinner is
     }
 
     function canBuySpins(address buyer) public view returns (bool) {
-        if (purchaseInfo[buyer].count >= maxSpinsPerDay) {
+        if (purchaseInfo[buyer].perDay >= maxSpinsPerDay) {
             return false;
         }
 
         return true;
+    }
+
+    function getAvailableSpins(address buyer) public view returns (uint) {
+        return maxSpinsPerDay - purchaseInfo[buyer].perDay;
+    }
+
+    function getTotalSpins(address buyer) public view returns (uint) {
+        return purchaseInfo[buyer].total;
+    }
+
+    function getNonce(address _address) public view returns (uint) {
+        return nonces[_address];
     }
 
     // The following functions are overrides required by Solidity.
