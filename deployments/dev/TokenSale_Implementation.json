@@ -1,0 +1,1210 @@
+{
+  "address": "0x939088b6314495d8f6B2AA9956da306FF029Fdb1",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AccessControlBadConfirmation",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "neededRole",
+          "type": "bytes32"
+        }
+      ],
+      "name": "AccessControlUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        }
+      ],
+      "name": "AddressEmptyCode",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "AddressInsufficientBalance",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "DiscountPercentIsTooBig",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ECDSAInvalidSignature",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "length",
+          "type": "uint256"
+        }
+      ],
+      "name": "ECDSAInvalidSignatureLength",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "s",
+          "type": "bytes32"
+        }
+      ],
+      "name": "ECDSAInvalidSignatureS",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EnforcedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ExpectedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FailedInnerCall",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidSignature",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotEnoughUsdtAllowance",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotEnoughUsdtOnBalance",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "ReferralRewardPercentIsTooBig",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "SafeERC20FailedOperation",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SoldOut",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "param",
+          "type": "string"
+        }
+      ],
+      "name": "ZeroAddressProvided",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "param",
+          "type": "string"
+        }
+      ],
+      "name": "ZeroValueProvided",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newApiSigner",
+          "type": "address"
+        }
+      ],
+      "name": "ApiSignerUpdate",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountUsdt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "discountPercent",
+          "type": "uint256"
+        }
+      ],
+      "name": "Buy",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "EIP712DomainChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "fromBuyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountUsdt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "spentAmountUsdt",
+          "type": "uint256"
+        }
+      ],
+      "name": "ReferralReward",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "previousAdminRole",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "newAdminRole",
+          "type": "bytes32"
+        }
+      ],
+      "name": "RoleAdminChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RoleGranted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RoleRevoked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newTokenPriceUsdt",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenPriceUsdtUpdate",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "WithdrawUsdt",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "DEFAULT_ADMIN_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "PERCENT_MULTIPLIER",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amountUsdt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_discountPercent",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_referralWallet",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_referralRewardPercent",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "buy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amountUsdt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_discountPercent",
+          "type": "uint256"
+        }
+      ],
+      "name": "buyFor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "eip712Domain",
+      "outputs": [
+        {
+          "internalType": "bytes1",
+          "name": "fields",
+          "type": "bytes1"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "version",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "chainId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "verifyingContract",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "salt",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "extensions",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getRoleAdmin",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTokenBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getUsdtBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "grantRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "hasRole",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_admin",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IERC20",
+          "name": "_usdtContract",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_treasuryWallet",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_apiSigner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_totalTokensForSale",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_tokenPriceUsdt",
+          "type": "uint256"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "callerConfirmation",
+          "type": "address"
+        }
+      ],
+      "name": "renounceRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "revokeRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_apiSigner",
+          "type": "address"
+        }
+      ],
+      "name": "setApiSigner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenPriceUsdt",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTokenPriceUsdt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "tokenBalanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tokenPriceUsdt",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalSoldTokens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalTokensForSale",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "usdtContract",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawUsdt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xcc7af89ffb5fbe2587bf64fbadb59b007ba9e5e483f6ec2cadc316c288e7d3b6",
+  "receipt": {
+    "to": null,
+    "from": "0x3267B6D9D542A57F1f309921477835570b566038",
+    "contractAddress": "0x939088b6314495d8f6B2AA9956da306FF029Fdb1",
+    "transactionIndex": 0,
+    "gasUsed": "1865212",
+    "logsBloom": "0x00000000000000000000000000000000000000000000010800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000080000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x0c203dcc6d21f19f9020f8c3b9401995d0a901d3d9b0889b6494c683dfcb976d",
+    "transactionHash": "0xcc7af89ffb5fbe2587bf64fbadb59b007ba9e5e483f6ec2cadc316c288e7d3b6",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 2,
+        "transactionHash": "0xcc7af89ffb5fbe2587bf64fbadb59b007ba9e5e483f6ec2cadc316c288e7d3b6",
+        "address": "0x939088b6314495d8f6B2AA9956da306FF029Fdb1",
+        "topics": [
+          "0xc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000ffffffffffffffff",
+        "logIndex": 0,
+        "blockHash": "0x0c203dcc6d21f19f9020f8c3b9401995d0a901d3d9b0889b6494c683dfcb976d"
+      }
+    ],
+    "blockNumber": 2,
+    "cumulativeGasUsed": "1865212",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "08d5238fc8c0446e53de6747d72bf9a9",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.23+commit.f704f362\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AccessControlBadConfirmation\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"neededRole\",\"type\":\"bytes32\"}],\"name\":\"AccessControlUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"}],\"name\":\"AddressEmptyCode\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AddressInsufficientBalance\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"DiscountPercentIsTooBig\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ECDSAInvalidSignature\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"}],\"name\":\"ECDSAInvalidSignatureLength\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"ECDSAInvalidSignatureS\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EnforcedPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExpectedPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FailedInnerCall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidInitialization\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidSignature\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotEnoughUsdtAllowance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotEnoughUsdtOnBalance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotInitializing\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ReferralRewardPercentIsTooBig\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"SafeERC20FailedOperation\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SoldOut\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"param\",\"type\":\"string\"}],\"name\":\"ZeroAddressProvided\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"param\",\"type\":\"string\"}],\"name\":\"ZeroValueProvided\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newApiSigner\",\"type\":\"address\"}],\"name\":\"ApiSignerUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountUsdt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"discountPercent\",\"type\":\"uint256\"}],\"name\":\"Buy\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"EIP712DomainChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"version\",\"type\":\"uint64\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"fromBuyer\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountUsdt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"spentAmountUsdt\",\"type\":\"uint256\"}],\"name\":\"ReferralReward\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTokenPriceUsdt\",\"type\":\"uint256\"}],\"name\":\"TokenPriceUsdtUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"WithdrawUsdt\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"PERCENT_MULTIPLIER\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountUsdt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_discountPercent\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_referralWallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_referralRewardPercent\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_signature\",\"type\":\"bytes\"}],\"name\":\"buy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountUsdt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_discountPercent\",\"type\":\"uint256\"}],\"name\":\"buyFor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"eip712Domain\",\"outputs\":[{\"internalType\":\"bytes1\",\"name\":\"fields\",\"type\":\"bytes1\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"version\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"chainId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"verifyingContract\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"},{\"internalType\":\"uint256[]\",\"name\":\"extensions\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTokenBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getUsdtBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_admin\",\"type\":\"address\"},{\"internalType\":\"contract IERC20\",\"name\":\"_usdtContract\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_treasuryWallet\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_apiSigner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_totalTokensForSale\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_tokenPriceUsdt\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"callerConfirmation\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_apiSigner\",\"type\":\"address\"}],\"name\":\"setApiSigner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenPriceUsdt\",\"type\":\"uint256\"}],\"name\":\"setTokenPriceUsdt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"tokenBalanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenPriceUsdt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSoldTokens\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalTokensForSale\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"usdtContract\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdrawUsdt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"AccessControlBadConfirmation()\":[{\"details\":\"The caller of a function is not the expected one. NOTE: Don't confuse with {AccessControlUnauthorizedAccount}.\"}],\"AccessControlUnauthorizedAccount(address,bytes32)\":[{\"details\":\"The `account` is missing a role.\"}],\"AddressEmptyCode(address)\":[{\"details\":\"There's no code at `target` (it is not a contract).\"}],\"AddressInsufficientBalance(address)\":[{\"details\":\"The ETH balance of the account is not enough to perform the operation.\"}],\"ECDSAInvalidSignature()\":[{\"details\":\"The signature derives the `address(0)`.\"}],\"ECDSAInvalidSignatureLength(uint256)\":[{\"details\":\"The signature has an invalid length.\"}],\"ECDSAInvalidSignatureS(bytes32)\":[{\"details\":\"The signature has an S value that is in the upper half order.\"}],\"EnforcedPause()\":[{\"details\":\"The operation failed because the contract is paused.\"}],\"ExpectedPause()\":[{\"details\":\"The operation failed because the contract is not paused.\"}],\"FailedInnerCall()\":[{\"details\":\"A call to an address target failed. The target may have reverted.\"}],\"InvalidInitialization()\":[{\"details\":\"The contract is already initialized.\"}],\"NotInitializing()\":[{\"details\":\"The contract is not initializing.\"}],\"SafeERC20FailedOperation(address)\":[{\"details\":\"An operation with an ERC20 token failed.\"}]},\"events\":{\"EIP712DomainChanged()\":{\"details\":\"MAY be emitted to signal that the domain could have changed.\"},\"Initialized(uint64)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"},\"Paused(address)\":{\"details\":\"Emitted when the pause is triggered by `account`.\"},\"RoleAdminChanged(bytes32,bytes32,bytes32)\":{\"details\":\"Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole` `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite {RoleAdminChanged} not being emitted signaling this.\"},\"RoleGranted(bytes32,address,address)\":{\"details\":\"Emitted when `account` is granted `role`. `sender` is the account that originated the contract call, an admin role bearer except when using {AccessControl-_setupRole}.\"},\"RoleRevoked(bytes32,address,address)\":{\"details\":\"Emitted when `account` is revoked `role`. `sender` is the account that originated the contract call:   - if using `revokeRole`, it is the admin role bearer   - if using `renounceRole`, it is the role bearer (i.e. `account`)\"},\"Unpaused(address)\":{\"details\":\"Emitted when the pause is lifted by `account`.\"}},\"kind\":\"dev\",\"methods\":{\"buy(address,uint256,uint256,address,uint256,bytes)\":{\"params\":{\"_amountUsdt\":\"USDT amount the user wants to spend (18 decimals).\",\"_discountPercent\":\"Applied discount for buyer (multiplied by 10).\",\"_referralRewardPercent\":\"Percentage of bought amount the referral account should receive as a reward.\",\"_referralWallet\":\"Referral wallet (or zero address).\",\"_signature\":\"API signature.\",\"_to\":\"Tokens receiver.\"}},\"buyFor(address,uint256,uint256)\":{\"params\":{\"_amountUsdt\":\"USDT amount with 18 decimals.\",\"_discountPercent\":\"Discount percent (multiplied by 10).\",\"_to\":\"Tokens receiver.\"}},\"constructor\":{\"custom:oz-upgrades-unsafe-allow\":\"constructor\"},\"eip712Domain()\":{\"details\":\"See {IERC-5267}.\"},\"getRoleAdmin(bytes32)\":{\"details\":\"Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}.\"},\"grantRole(bytes32,address)\":{\"details\":\"Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event.\"},\"hasRole(bytes32,address)\":{\"details\":\"Returns `true` if `account` has been granted `role`.\"},\"initialize(address,address,address,address,uint256,uint256)\":{\"params\":{\"_admin\":\"Admin wallet address.\",\"_apiSigner\":\"API signer wallet address.\",\"_tokenPriceUsdt\":\"USDT price for 10**18 tokens (should use 18 decimals).\",\"_totalTokensForSale\":\"Total amount of tokens this contract may sell.\",\"_treasuryWallet\":\"Wallet that will receive all incoming USDT.\",\"_usdtContract\":\"USDT contract address.\"}},\"paused()\":{\"details\":\"Returns true if the contract is paused, and false otherwise.\"},\"renounceRole(bytes32,address)\":{\"details\":\"Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `callerConfirmation`. May emit a {RoleRevoked} event.\"},\"revokeRole(bytes32,address)\":{\"details\":\"Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"withdrawUsdt(address,uint256)\":{\"params\":{\"_amount\":\"USDT amount to withdraw. Should be 18 decimals here.\",\"_to\":\"Receiver address.\"}}},\"stateVariables\":{\"apiSigner\":{\"details\":\"API wallet address.\"},\"tokenBalances\":{\"details\":\"Bought tokens + referral rewards in tokens.\"},\"tokenPriceUsdt\":{\"details\":\"Token price in USDT. 18 decimals should be used here, though USDT has 6 decimals.\"},\"totalSoldTokens\":{\"details\":\"Sold tokens amount.\"},\"totalTokensForSale\":{\"details\":\"Total amount of tokens this contract may sell.\"},\"treasuryWallet\":{\"details\":\"Wallet that all incoming USDT will be transfered to.\"},\"usdtBalances\":{\"details\":\"USDT referral rewards.\"},\"usdtContract\":{\"details\":\"USDT contract address.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"buy(address,uint256,uint256,address,uint256,bytes)\":{\"notice\":\"Buy tokens using USDT.\"},\"buyFor(address,uint256,uint256)\":{\"notice\":\"Buy tokens for someone else (admin only).\"},\"getTokenBalance()\":{\"notice\":\"Returns sender's token balance.\"},\"getUsdtBalance()\":{\"notice\":\"Returns sender's USDT balance. Return value uses 18 decimals.\"},\"pause()\":{\"notice\":\"Disable some contract functions.\"},\"setApiSigner(address)\":{\"notice\":\"Update apiSigner address.\"},\"setTokenPriceUsdt(uint256)\":{\"notice\":\"Update token price in USDT. 18 decimals should be used here.\"},\"tokenBalanceOf(address)\":{\"notice\":\"Returns the token balance of the given address.\"},\"unpause()\":{\"notice\":\"Enable all contract functions.\"},\"withdrawUsdt(address,uint256)\":{\"notice\":\"Withdraw USDT rewards.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/TokenSale.sol\":\"TokenSale\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/AccessControl.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {IAccessControl} from \\\"@openzeppelin/contracts/access/IAccessControl.sol\\\";\\nimport {ContextUpgradeable} from \\\"../utils/ContextUpgradeable.sol\\\";\\nimport {ERC165Upgradeable} from \\\"../utils/introspection/ERC165Upgradeable.sol\\\";\\nimport {Initializable} from \\\"../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev Contract module that allows children to implement role-based access\\n * control mechanisms. This is a lightweight version that doesn't allow enumerating role\\n * members except through off-chain means by accessing the contract event logs. Some\\n * applications may benefit from on-chain enumerability, for those cases see\\n * {AccessControlEnumerable}.\\n *\\n * Roles are referred to by their `bytes32` identifier. These should be exposed\\n * in the external API and be unique. The best way to achieve this is by\\n * using `public constant` hash digests:\\n *\\n * ```solidity\\n * bytes32 public constant MY_ROLE = keccak256(\\\"MY_ROLE\\\");\\n * ```\\n *\\n * Roles can be used to represent a set of permissions. To restrict access to a\\n * function call, use {hasRole}:\\n *\\n * ```solidity\\n * function foo() public {\\n *     require(hasRole(MY_ROLE, msg.sender));\\n *     ...\\n * }\\n * ```\\n *\\n * Roles can be granted and revoked dynamically via the {grantRole} and\\n * {revokeRole} functions. Each role has an associated admin role, and only\\n * accounts that have a role's admin role can call {grantRole} and {revokeRole}.\\n *\\n * By default, the admin role for all roles is `DEFAULT_ADMIN_ROLE`, which means\\n * that only accounts with this role will be able to grant or revoke other\\n * roles. More complex role relationships can be created by using\\n * {_setRoleAdmin}.\\n *\\n * WARNING: The `DEFAULT_ADMIN_ROLE` is also its own admin: it has permission to\\n * grant and revoke this role. Extra precautions should be taken to secure\\n * accounts that have been granted it. We recommend using {AccessControlDefaultAdminRules}\\n * to enforce additional security measures for this role.\\n */\\nabstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable, IAccessControl, ERC165Upgradeable {\\n    struct RoleData {\\n        mapping(address account => bool) hasRole;\\n        bytes32 adminRole;\\n    }\\n\\n    bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;\\n\\n\\n    /// @custom:storage-location erc7201:openzeppelin.storage.AccessControl\\n    struct AccessControlStorage {\\n        mapping(bytes32 role => RoleData) _roles;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.AccessControl\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant AccessControlStorageLocation = 0x02dd7bc7dec4dceedda775e58dd541e08a116c6c53815c0bd028192f7b626800;\\n\\n    function _getAccessControlStorage() private pure returns (AccessControlStorage storage $) {\\n        assembly {\\n            $.slot := AccessControlStorageLocation\\n        }\\n    }\\n\\n    /**\\n     * @dev Modifier that checks that an account has a specific role. Reverts\\n     * with an {AccessControlUnauthorizedAccount} error including the required role.\\n     */\\n    modifier onlyRole(bytes32 role) {\\n        _checkRole(role);\\n        _;\\n    }\\n\\n    function __AccessControl_init() internal onlyInitializing {\\n    }\\n\\n    function __AccessControl_init_unchained() internal onlyInitializing {\\n    }\\n    /**\\n     * @dev See {IERC165-supportsInterface}.\\n     */\\n    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\\n        return interfaceId == type(IAccessControl).interfaceId || super.supportsInterface(interfaceId);\\n    }\\n\\n    /**\\n     * @dev Returns `true` if `account` has been granted `role`.\\n     */\\n    function hasRole(bytes32 role, address account) public view virtual returns (bool) {\\n        AccessControlStorage storage $ = _getAccessControlStorage();\\n        return $._roles[role].hasRole[account];\\n    }\\n\\n    /**\\n     * @dev Reverts with an {AccessControlUnauthorizedAccount} error if `_msgSender()`\\n     * is missing `role`. Overriding this function changes the behavior of the {onlyRole} modifier.\\n     */\\n    function _checkRole(bytes32 role) internal view virtual {\\n        _checkRole(role, _msgSender());\\n    }\\n\\n    /**\\n     * @dev Reverts with an {AccessControlUnauthorizedAccount} error if `account`\\n     * is missing `role`.\\n     */\\n    function _checkRole(bytes32 role, address account) internal view virtual {\\n        if (!hasRole(role, account)) {\\n            revert AccessControlUnauthorizedAccount(account, role);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the admin role that controls `role`. See {grantRole} and\\n     * {revokeRole}.\\n     *\\n     * To change a role's admin, use {_setRoleAdmin}.\\n     */\\n    function getRoleAdmin(bytes32 role) public view virtual returns (bytes32) {\\n        AccessControlStorage storage $ = _getAccessControlStorage();\\n        return $._roles[role].adminRole;\\n    }\\n\\n    /**\\n     * @dev Grants `role` to `account`.\\n     *\\n     * If `account` had not been already granted `role`, emits a {RoleGranted}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     *\\n     * May emit a {RoleGranted} event.\\n     */\\n    function grantRole(bytes32 role, address account) public virtual onlyRole(getRoleAdmin(role)) {\\n        _grantRole(role, account);\\n    }\\n\\n    /**\\n     * @dev Revokes `role` from `account`.\\n     *\\n     * If `account` had been granted `role`, emits a {RoleRevoked} event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     *\\n     * May emit a {RoleRevoked} event.\\n     */\\n    function revokeRole(bytes32 role, address account) public virtual onlyRole(getRoleAdmin(role)) {\\n        _revokeRole(role, account);\\n    }\\n\\n    /**\\n     * @dev Revokes `role` from the calling account.\\n     *\\n     * Roles are often managed via {grantRole} and {revokeRole}: this function's\\n     * purpose is to provide a mechanism for accounts to lose their privileges\\n     * if they are compromised (such as when a trusted device is misplaced).\\n     *\\n     * If the calling account had been revoked `role`, emits a {RoleRevoked}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must be `callerConfirmation`.\\n     *\\n     * May emit a {RoleRevoked} event.\\n     */\\n    function renounceRole(bytes32 role, address callerConfirmation) public virtual {\\n        if (callerConfirmation != _msgSender()) {\\n            revert AccessControlBadConfirmation();\\n        }\\n\\n        _revokeRole(role, callerConfirmation);\\n    }\\n\\n    /**\\n     * @dev Sets `adminRole` as ``role``'s admin role.\\n     *\\n     * Emits a {RoleAdminChanged} event.\\n     */\\n    function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {\\n        AccessControlStorage storage $ = _getAccessControlStorage();\\n        bytes32 previousAdminRole = getRoleAdmin(role);\\n        $._roles[role].adminRole = adminRole;\\n        emit RoleAdminChanged(role, previousAdminRole, adminRole);\\n    }\\n\\n    /**\\n     * @dev Attempts to grant `role` to `account` and returns a boolean indicating if `role` was granted.\\n     *\\n     * Internal function without access restriction.\\n     *\\n     * May emit a {RoleGranted} event.\\n     */\\n    function _grantRole(bytes32 role, address account) internal virtual returns (bool) {\\n        AccessControlStorage storage $ = _getAccessControlStorage();\\n        if (!hasRole(role, account)) {\\n            $._roles[role].hasRole[account] = true;\\n            emit RoleGranted(role, account, _msgSender());\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Attempts to revoke `role` to `account` and returns a boolean indicating if `role` was revoked.\\n     *\\n     * Internal function without access restriction.\\n     *\\n     * May emit a {RoleRevoked} event.\\n     */\\n    function _revokeRole(bytes32 role, address account) internal virtual returns (bool) {\\n        AccessControlStorage storage $ = _getAccessControlStorage();\\n        if (hasRole(role, account)) {\\n            $._roles[role].hasRole[account] = false;\\n            emit RoleRevoked(role, account, _msgSender());\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x6662ec4e5cefca03eeadd073e9469df8d2944bb2ee8ec8f7622c2c46aab5f225\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * The initialization functions use a version number. Once a version number is used, it is consumed and cannot be\\n * reused. This mechanism prevents re-execution of each \\\"step\\\" but allows the creation of new initialization steps in\\n * case an upgrade adds a module that needs to be initialized.\\n *\\n * For example:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```solidity\\n * contract MyToken is ERC20Upgradeable {\\n *     function initialize() initializer public {\\n *         __ERC20_init(\\\"MyToken\\\", \\\"MTK\\\");\\n *     }\\n * }\\n *\\n * contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {\\n *     function initializeV2() reinitializer(2) public {\\n *         __ERC20Permit_init(\\\"MyToken\\\");\\n *     }\\n * }\\n * ```\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke\\n * the {_disableInitializers} function in the constructor to automatically lock it when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() {\\n *     _disableInitializers();\\n * }\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Storage of the initializable contract.\\n     *\\n     * It's implemented on a custom ERC-7201 namespace to reduce the risk of storage collisions\\n     * when using with upgradeable contracts.\\n     *\\n     * @custom:storage-location erc7201:openzeppelin.storage.Initializable\\n     */\\n    struct InitializableStorage {\\n        /**\\n         * @dev Indicates that the contract has been initialized.\\n         */\\n        uint64 _initialized;\\n        /**\\n         * @dev Indicates that the contract is in the process of being initialized.\\n         */\\n        bool _initializing;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Initializable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant INITIALIZABLE_STORAGE = 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00;\\n\\n    /**\\n     * @dev The contract is already initialized.\\n     */\\n    error InvalidInitialization();\\n\\n    /**\\n     * @dev The contract is not initializing.\\n     */\\n    error NotInitializing();\\n\\n    /**\\n     * @dev Triggered when the contract has been initialized or reinitialized.\\n     */\\n    event Initialized(uint64 version);\\n\\n    /**\\n     * @dev A modifier that defines a protected initializer function that can be invoked at most once. In its scope,\\n     * `onlyInitializing` functions can be used to initialize parent contracts.\\n     *\\n     * Similar to `reinitializer(1)`, except that in the context of a constructor an `initializer` may be invoked any\\n     * number of times. This behavior in the constructor can be useful during testing and is not expected to be used in\\n     * production.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier initializer() {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        // Cache values to avoid duplicated sloads\\n        bool isTopLevelCall = !$._initializing;\\n        uint64 initialized = $._initialized;\\n\\n        // Allowed calls:\\n        // - initialSetup: the contract is not in the initializing state and no previous version was\\n        //                 initialized\\n        // - construction: the contract is initialized at version 1 (no reininitialization) and the\\n        //                 current contract is just being deployed\\n        bool initialSetup = initialized == 0 && isTopLevelCall;\\n        bool construction = initialized == 1 && address(this).code.length == 0;\\n\\n        if (!initialSetup && !construction) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = 1;\\n        if (isTopLevelCall) {\\n            $._initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            $._initializing = false;\\n            emit Initialized(1);\\n        }\\n    }\\n\\n    /**\\n     * @dev A modifier that defines a protected reinitializer function that can be invoked at most once, and only if the\\n     * contract hasn't been initialized to a greater version before. In its scope, `onlyInitializing` functions can be\\n     * used to initialize parent contracts.\\n     *\\n     * A reinitializer may be used after the original initialization step. This is essential to configure modules that\\n     * are added through upgrades and that require initialization.\\n     *\\n     * When `version` is 1, this modifier is similar to `initializer`, except that functions marked with `reinitializer`\\n     * cannot be nested. If one is invoked in the context of another, execution will revert.\\n     *\\n     * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in\\n     * a contract, executing them in the right order is up to the developer or operator.\\n     *\\n     * WARNING: Setting the version to 2**64 - 1 will prevent any future reinitialization.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier reinitializer(uint64 version) {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing || $._initialized >= version) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = version;\\n        $._initializing = true;\\n        _;\\n        $._initializing = false;\\n        emit Initialized(version);\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} and {reinitializer} modifiers, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        _checkInitializing();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Reverts if the contract is not in an initializing state. See {onlyInitializing}.\\n     */\\n    function _checkInitializing() internal view virtual {\\n        if (!_isInitializing()) {\\n            revert NotInitializing();\\n        }\\n    }\\n\\n    /**\\n     * @dev Locks the contract, preventing any future reinitialization. This cannot be part of an initializer call.\\n     * Calling this in the constructor of a contract will prevent that contract from being initialized or reinitialized\\n     * to any version. It is recommended to use this to lock implementation contracts that are designed to be called\\n     * through proxies.\\n     *\\n     * Emits an {Initialized} event the first time it is successfully executed.\\n     */\\n    function _disableInitializers() internal virtual {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing) {\\n            revert InvalidInitialization();\\n        }\\n        if ($._initialized != type(uint64).max) {\\n            $._initialized = type(uint64).max;\\n            emit Initialized(type(uint64).max);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the highest version that has been initialized. See {reinitializer}.\\n     */\\n    function _getInitializedVersion() internal view returns (uint64) {\\n        return _getInitializableStorage()._initialized;\\n    }\\n\\n    /**\\n     * @dev Returns `true` if the contract is currently initializing. See {onlyInitializing}.\\n     */\\n    function _isInitializing() internal view returns (bool) {\\n        return _getInitializableStorage()._initializing;\\n    }\\n\\n    /**\\n     * @dev Returns a pointer to the storage namespace.\\n     */\\n    // solhint-disable-next-line var-name-mixedcase\\n    function _getInitializableStorage() private pure returns (InitializableStorage storage $) {\\n        assembly {\\n            $.slot := INITIALIZABLE_STORAGE\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x631188737069917d2f909d29ce62c4d48611d326686ba6683e26b72a23bfac0b\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\nimport {Initializable} from \\\"../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract ContextUpgradeable is Initializable {\\n    function __Context_init() internal onlyInitializing {\\n    }\\n\\n    function __Context_init_unchained() internal onlyInitializing {\\n    }\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0xdbef5f0c787055227243a7318ef74c8a5a1108ca3a07f2b3a00ef67769e1e397\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/Pausable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {ContextUpgradeable} from \\\"../utils/ContextUpgradeable.sol\\\";\\nimport {Initializable} from \\\"../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev Contract module which allows children to implement an emergency stop\\n * mechanism that can be triggered by an authorized account.\\n *\\n * This module is used through inheritance. It will make available the\\n * modifiers `whenNotPaused` and `whenPaused`, which can be applied to\\n * the functions of your contract. Note that they will not be pausable by\\n * simply including this module, only once the modifiers are put in place.\\n */\\nabstract contract PausableUpgradeable is Initializable, ContextUpgradeable {\\n    /// @custom:storage-location erc7201:openzeppelin.storage.Pausable\\n    struct PausableStorage {\\n        bool _paused;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Pausable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant PausableStorageLocation = 0xcd5ed15c6e187e77e9aee88184c21f4f2182ab5827cb3b7e07fbedcd63f03300;\\n\\n    function _getPausableStorage() private pure returns (PausableStorage storage $) {\\n        assembly {\\n            $.slot := PausableStorageLocation\\n        }\\n    }\\n\\n    /**\\n     * @dev Emitted when the pause is triggered by `account`.\\n     */\\n    event Paused(address account);\\n\\n    /**\\n     * @dev Emitted when the pause is lifted by `account`.\\n     */\\n    event Unpaused(address account);\\n\\n    /**\\n     * @dev The operation failed because the contract is paused.\\n     */\\n    error EnforcedPause();\\n\\n    /**\\n     * @dev The operation failed because the contract is not paused.\\n     */\\n    error ExpectedPause();\\n\\n    /**\\n     * @dev Initializes the contract in unpaused state.\\n     */\\n    function __Pausable_init() internal onlyInitializing {\\n        __Pausable_init_unchained();\\n    }\\n\\n    function __Pausable_init_unchained() internal onlyInitializing {\\n        PausableStorage storage $ = _getPausableStorage();\\n        $._paused = false;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is not paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    modifier whenNotPaused() {\\n        _requireNotPaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    modifier whenPaused() {\\n        _requirePaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the contract is paused, and false otherwise.\\n     */\\n    function paused() public view virtual returns (bool) {\\n        PausableStorage storage $ = _getPausableStorage();\\n        return $._paused;\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is paused.\\n     */\\n    function _requireNotPaused() internal view virtual {\\n        if (paused()) {\\n            revert EnforcedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is not paused.\\n     */\\n    function _requirePaused() internal view virtual {\\n        if (!paused()) {\\n            revert ExpectedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Triggers stopped state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    function _pause() internal virtual whenNotPaused {\\n        PausableStorage storage $ = _getPausableStorage();\\n        $._paused = true;\\n        emit Paused(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns to normal state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    function _unpause() internal virtual whenPaused {\\n        PausableStorage storage $ = _getPausableStorage();\\n        $._paused = false;\\n        emit Unpaused(_msgSender());\\n    }\\n}\\n\",\"keccak256\":\"0x92915b7f7f642c6be3f65bfd1522feb5d5b6ef25f755f4dbb51df32c868f2f97\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/cryptography/EIP712.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {MessageHashUtils} from \\\"@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol\\\";\\nimport {IERC5267} from \\\"@openzeppelin/contracts/interfaces/IERC5267.sol\\\";\\nimport {Initializable} from \\\"../../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev https://eips.ethereum.org/EIPS/eip-712[EIP 712] is a standard for hashing and signing of typed structured data.\\n *\\n * The encoding scheme specified in the EIP requires a domain separator and a hash of the typed structured data, whose\\n * encoding is very generic and therefore its implementation in Solidity is not feasible, thus this contract\\n * does not implement the encoding itself. Protocols need to implement the type-specific encoding they need in order to\\n * produce the hash of their typed data using a combination of `abi.encode` and `keccak256`.\\n *\\n * This contract implements the EIP 712 domain separator ({_domainSeparatorV4}) that is used as part of the encoding\\n * scheme, and the final step of the encoding to obtain the message digest that is then signed via ECDSA\\n * ({_hashTypedDataV4}).\\n *\\n * The implementation of the domain separator was designed to be as efficient as possible while still properly updating\\n * the chain id to protect against replay attacks on an eventual fork of the chain.\\n *\\n * NOTE: This contract implements the version of the encoding known as \\\"v4\\\", as implemented by the JSON RPC method\\n * https://docs.metamask.io/guide/signing-data.html[`eth_signTypedDataV4` in MetaMask].\\n *\\n * NOTE: In the upgradeable version of this contract, the cached values will correspond to the address, and the domain\\n * separator of the implementation contract. This will cause the {_domainSeparatorV4} function to always rebuild the\\n * separator from the immutable values, which is cheaper than accessing a cached version in cold storage.\\n */\\nabstract contract EIP712Upgradeable is Initializable, IERC5267 {\\n    bytes32 private constant TYPE_HASH =\\n        keccak256(\\\"EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)\\\");\\n\\n    /// @custom:storage-location erc7201:openzeppelin.storage.EIP712\\n    struct EIP712Storage {\\n        /// @custom:oz-renamed-from _HASHED_NAME\\n        bytes32 _hashedName;\\n        /// @custom:oz-renamed-from _HASHED_VERSION\\n        bytes32 _hashedVersion;\\n\\n        string _name;\\n        string _version;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.EIP712\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant EIP712StorageLocation = 0xa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d100;\\n\\n    function _getEIP712Storage() private pure returns (EIP712Storage storage $) {\\n        assembly {\\n            $.slot := EIP712StorageLocation\\n        }\\n    }\\n\\n    /**\\n     * @dev Initializes the domain separator and parameter caches.\\n     *\\n     * The meaning of `name` and `version` is specified in\\n     * https://eips.ethereum.org/EIPS/eip-712#definition-of-domainseparator[EIP 712]:\\n     *\\n     * - `name`: the user readable name of the signing domain, i.e. the name of the DApp or the protocol.\\n     * - `version`: the current major version of the signing domain.\\n     *\\n     * NOTE: These parameters cannot be changed except through a xref:learn::upgrading-smart-contracts.adoc[smart\\n     * contract upgrade].\\n     */\\n    function __EIP712_init(string memory name, string memory version) internal onlyInitializing {\\n        __EIP712_init_unchained(name, version);\\n    }\\n\\n    function __EIP712_init_unchained(string memory name, string memory version) internal onlyInitializing {\\n        EIP712Storage storage $ = _getEIP712Storage();\\n        $._name = name;\\n        $._version = version;\\n\\n        // Reset prior values in storage if upgrading\\n        $._hashedName = 0;\\n        $._hashedVersion = 0;\\n    }\\n\\n    /**\\n     * @dev Returns the domain separator for the current chain.\\n     */\\n    function _domainSeparatorV4() internal view returns (bytes32) {\\n        return _buildDomainSeparator();\\n    }\\n\\n    function _buildDomainSeparator() private view returns (bytes32) {\\n        return keccak256(abi.encode(TYPE_HASH, _EIP712NameHash(), _EIP712VersionHash(), block.chainid, address(this)));\\n    }\\n\\n    /**\\n     * @dev Given an already https://eips.ethereum.org/EIPS/eip-712#definition-of-hashstruct[hashed struct], this\\n     * function returns the hash of the fully encoded EIP712 message for this domain.\\n     *\\n     * This hash can be used together with {ECDSA-recover} to obtain the signer of a message. For example:\\n     *\\n     * ```solidity\\n     * bytes32 digest = _hashTypedDataV4(keccak256(abi.encode(\\n     *     keccak256(\\\"Mail(address to,string contents)\\\"),\\n     *     mailTo,\\n     *     keccak256(bytes(mailContents))\\n     * )));\\n     * address signer = ECDSA.recover(digest, signature);\\n     * ```\\n     */\\n    function _hashTypedDataV4(bytes32 structHash) internal view virtual returns (bytes32) {\\n        return MessageHashUtils.toTypedDataHash(_domainSeparatorV4(), structHash);\\n    }\\n\\n    /**\\n     * @dev See {IERC-5267}.\\n     */\\n    function eip712Domain()\\n        public\\n        view\\n        virtual\\n        returns (\\n            bytes1 fields,\\n            string memory name,\\n            string memory version,\\n            uint256 chainId,\\n            address verifyingContract,\\n            bytes32 salt,\\n            uint256[] memory extensions\\n        )\\n    {\\n        EIP712Storage storage $ = _getEIP712Storage();\\n        // If the hashed name and version in storage are non-zero, the contract hasn't been properly initialized\\n        // and the EIP712 domain is not reliable, as it will be missing name and version.\\n        require($._hashedName == 0 && $._hashedVersion == 0, \\\"EIP712: Uninitialized\\\");\\n\\n        return (\\n            hex\\\"0f\\\", // 01111\\n            _EIP712Name(),\\n            _EIP712Version(),\\n            block.chainid,\\n            address(this),\\n            bytes32(0),\\n            new uint256[](0)\\n        );\\n    }\\n\\n    /**\\n     * @dev The name parameter for the EIP712 domain.\\n     *\\n     * NOTE: This function reads from storage by default, but can be redefined to return a constant value if gas costs\\n     * are a concern.\\n     */\\n    function _EIP712Name() internal view virtual returns (string memory) {\\n        EIP712Storage storage $ = _getEIP712Storage();\\n        return $._name;\\n    }\\n\\n    /**\\n     * @dev The version parameter for the EIP712 domain.\\n     *\\n     * NOTE: This function reads from storage by default, but can be redefined to return a constant value if gas costs\\n     * are a concern.\\n     */\\n    function _EIP712Version() internal view virtual returns (string memory) {\\n        EIP712Storage storage $ = _getEIP712Storage();\\n        return $._version;\\n    }\\n\\n    /**\\n     * @dev The hash of the name parameter for the EIP712 domain.\\n     *\\n     * NOTE: In previous versions this function was virtual. In this version you should override `_EIP712Name` instead.\\n     */\\n    function _EIP712NameHash() internal view returns (bytes32) {\\n        EIP712Storage storage $ = _getEIP712Storage();\\n        string memory name = _EIP712Name();\\n        if (bytes(name).length > 0) {\\n            return keccak256(bytes(name));\\n        } else {\\n            // If the name is empty, the contract may have been upgraded without initializing the new storage.\\n            // We return the name hash in storage if non-zero, otherwise we assume the name is empty by design.\\n            bytes32 hashedName = $._hashedName;\\n            if (hashedName != 0) {\\n                return hashedName;\\n            } else {\\n                return keccak256(\\\"\\\");\\n            }\\n        }\\n    }\\n\\n    /**\\n     * @dev The hash of the version parameter for the EIP712 domain.\\n     *\\n     * NOTE: In previous versions this function was virtual. In this version you should override `_EIP712Version` instead.\\n     */\\n    function _EIP712VersionHash() internal view returns (bytes32) {\\n        EIP712Storage storage $ = _getEIP712Storage();\\n        string memory version = _EIP712Version();\\n        if (bytes(version).length > 0) {\\n            return keccak256(bytes(version));\\n        } else {\\n            // If the version is empty, the contract may have been upgraded without initializing the new storage.\\n            // We return the version hash in storage if non-zero, otherwise we assume the version is empty by design.\\n            bytes32 hashedVersion = $._hashedVersion;\\n            if (hashedVersion != 0) {\\n                return hashedVersion;\\n            } else {\\n                return keccak256(\\\"\\\");\\n            }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x85462422a22578744581e012e9aa0a391958cb360288b0b63f29bf0431d70327\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/introspection/ERC165.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {IERC165} from \\\"@openzeppelin/contracts/utils/introspection/IERC165.sol\\\";\\nimport {Initializable} from \\\"../../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev Implementation of the {IERC165} interface.\\n *\\n * Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check\\n * for the additional interface id that will be supported. For example:\\n *\\n * ```solidity\\n * function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\\n *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);\\n * }\\n * ```\\n */\\nabstract contract ERC165Upgradeable is Initializable, IERC165 {\\n    function __ERC165_init() internal onlyInitializing {\\n    }\\n\\n    function __ERC165_init_unchained() internal onlyInitializing {\\n    }\\n    /**\\n     * @dev See {IERC165-supportsInterface}.\\n     */\\n    function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {\\n        return interfaceId == type(IERC165).interfaceId;\\n    }\\n}\\n\",\"keccak256\":\"0xdaba3f7c42c55b2896353f32bd27d4d5f8bae741b3b05d4c53f67abc4dc47ce8\",\"license\":\"MIT\"},\"@openzeppelin/contracts/access/IAccessControl.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/IAccessControl.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev External interface of AccessControl declared to support ERC165 detection.\\n */\\ninterface IAccessControl {\\n    /**\\n     * @dev The `account` is missing a role.\\n     */\\n    error AccessControlUnauthorizedAccount(address account, bytes32 neededRole);\\n\\n    /**\\n     * @dev The caller of a function is not the expected one.\\n     *\\n     * NOTE: Don't confuse with {AccessControlUnauthorizedAccount}.\\n     */\\n    error AccessControlBadConfirmation();\\n\\n    /**\\n     * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`\\n     *\\n     * `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite\\n     * {RoleAdminChanged} not being emitted signaling this.\\n     */\\n    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);\\n\\n    /**\\n     * @dev Emitted when `account` is granted `role`.\\n     *\\n     * `sender` is the account that originated the contract call, an admin role\\n     * bearer except when using {AccessControl-_setupRole}.\\n     */\\n    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);\\n\\n    /**\\n     * @dev Emitted when `account` is revoked `role`.\\n     *\\n     * `sender` is the account that originated the contract call:\\n     *   - if using `revokeRole`, it is the admin role bearer\\n     *   - if using `renounceRole`, it is the role bearer (i.e. `account`)\\n     */\\n    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);\\n\\n    /**\\n     * @dev Returns `true` if `account` has been granted `role`.\\n     */\\n    function hasRole(bytes32 role, address account) external view returns (bool);\\n\\n    /**\\n     * @dev Returns the admin role that controls `role`. See {grantRole} and\\n     * {revokeRole}.\\n     *\\n     * To change a role's admin, use {AccessControl-_setRoleAdmin}.\\n     */\\n    function getRoleAdmin(bytes32 role) external view returns (bytes32);\\n\\n    /**\\n     * @dev Grants `role` to `account`.\\n     *\\n     * If `account` had not been already granted `role`, emits a {RoleGranted}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     */\\n    function grantRole(bytes32 role, address account) external;\\n\\n    /**\\n     * @dev Revokes `role` from `account`.\\n     *\\n     * If `account` had been granted `role`, emits a {RoleRevoked} event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     */\\n    function revokeRole(bytes32 role, address account) external;\\n\\n    /**\\n     * @dev Revokes `role` from the calling account.\\n     *\\n     * Roles are often managed via {grantRole} and {revokeRole}: this function's\\n     * purpose is to provide a mechanism for accounts to lose their privileges\\n     * if they are compromised (such as when a trusted device is misplaced).\\n     *\\n     * If the calling account had been granted `role`, emits a {RoleRevoked}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must be `callerConfirmation`.\\n     */\\n    function renounceRole(bytes32 role, address callerConfirmation) external;\\n}\\n\",\"keccak256\":\"0xb6b36edd6a2999fd243ff226d6cbf84bd71af2432bbd0dfe19392996a1d9cb41\",\"license\":\"MIT\"},\"@openzeppelin/contracts/interfaces/IERC5267.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (interfaces/IERC5267.sol)\\n\\npragma solidity ^0.8.20;\\n\\ninterface IERC5267 {\\n    /**\\n     * @dev MAY be emitted to signal that the domain could have changed.\\n     */\\n    event EIP712DomainChanged();\\n\\n    /**\\n     * @dev returns the fields and values that describe the domain separator used by this contract for EIP-712\\n     * signature.\\n     */\\n    function eip712Domain()\\n        external\\n        view\\n        returns (\\n            bytes1 fields,\\n            string memory name,\\n            string memory version,\\n            uint256 chainId,\\n            address verifyingContract,\\n            bytes32 salt,\\n            uint256[] memory extensions\\n        );\\n}\\n\",\"keccak256\":\"0x92aa1df62dc3d33f1656d63bede0923e0df0b706ad4137c8b10b0a8fe549fd92\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/extensions/IERC20Permit.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in\\n * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].\\n *\\n * Adds the {permit} method, which can be used to change an account's ERC20 allowance (see {IERC20-allowance}) by\\n * presenting a message signed by the account. By not relying on {IERC20-approve}, the token holder account doesn't\\n * need to send a transaction, and thus is not required to hold Ether at all.\\n *\\n * ==== Security Considerations\\n *\\n * There are two important considerations concerning the use of `permit`. The first is that a valid permit signature\\n * expresses an allowance, and it should not be assumed to convey additional meaning. In particular, it should not be\\n * considered as an intention to spend the allowance in any specific way. The second is that because permits have\\n * built-in replay protection and can be submitted by anyone, they can be frontrun. A protocol that uses permits should\\n * take this into consideration and allow a `permit` call to fail. Combining these two aspects, a pattern that may be\\n * generally recommended is:\\n *\\n * ```solidity\\n * function doThingWithPermit(..., uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s) public {\\n *     try token.permit(msg.sender, address(this), value, deadline, v, r, s) {} catch {}\\n *     doThing(..., value);\\n * }\\n *\\n * function doThing(..., uint256 value) public {\\n *     token.safeTransferFrom(msg.sender, address(this), value);\\n *     ...\\n * }\\n * ```\\n *\\n * Observe that: 1) `msg.sender` is used as the owner, leaving no ambiguity as to the signer intent, and 2) the use of\\n * `try/catch` allows the permit to fail and makes the code tolerant to frontrunning. (See also\\n * {SafeERC20-safeTransferFrom}).\\n *\\n * Additionally, note that smart contract wallets (such as Argent or Safe) are not able to produce permit signatures, so\\n * contracts should have entry points that don't rely on permit.\\n */\\ninterface IERC20Permit {\\n    /**\\n     * @dev Sets `value` as the allowance of `spender` over ``owner``'s tokens,\\n     * given ``owner``'s signed approval.\\n     *\\n     * IMPORTANT: The same issues {IERC20-approve} has related to transaction\\n     * ordering also apply here.\\n     *\\n     * Emits an {Approval} event.\\n     *\\n     * Requirements:\\n     *\\n     * - `spender` cannot be the zero address.\\n     * - `deadline` must be a timestamp in the future.\\n     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`\\n     * over the EIP712-formatted function arguments.\\n     * - the signature must use ``owner``'s current nonce (see {nonces}).\\n     *\\n     * For more information on the signature format, see the\\n     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP\\n     * section].\\n     *\\n     * CAUTION: See Security Considerations above.\\n     */\\n    function permit(\\n        address owner,\\n        address spender,\\n        uint256 value,\\n        uint256 deadline,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) external;\\n\\n    /**\\n     * @dev Returns the current nonce for `owner`. This value must be\\n     * included whenever a signature is generated for {permit}.\\n     *\\n     * Every successful call to {permit} increases ``owner``'s nonce by one. This\\n     * prevents a signature from being used multiple times.\\n     */\\n    function nonces(address owner) external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the domain separator used in the encoding of the signature for {permit}, as defined by {EIP712}.\\n     */\\n    // solhint-disable-next-line func-name-mixedcase\\n    function DOMAIN_SEPARATOR() external view returns (bytes32);\\n}\\n\",\"keccak256\":\"0x6008dabfe393240d73d7dd7688033f72740d570aa422254d29a7dce8568f3aff\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/utils/SafeERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {IERC20} from \\\"../IERC20.sol\\\";\\nimport {IERC20Permit} from \\\"../extensions/IERC20Permit.sol\\\";\\nimport {Address} from \\\"../../../utils/Address.sol\\\";\\n\\n/**\\n * @title SafeERC20\\n * @dev Wrappers around ERC20 operations that throw on failure (when the token\\n * contract returns false). Tokens that return no value (and instead revert or\\n * throw on failure) are also supported, non-reverting calls are assumed to be\\n * successful.\\n * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,\\n * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.\\n */\\nlibrary SafeERC20 {\\n    using Address for address;\\n\\n    /**\\n     * @dev An operation with an ERC20 token failed.\\n     */\\n    error SafeERC20FailedOperation(address token);\\n\\n    /**\\n     * @dev Indicates a failed `decreaseAllowance` request.\\n     */\\n    error SafeERC20FailedDecreaseAllowance(address spender, uint256 currentAllowance, uint256 requestedDecrease);\\n\\n    /**\\n     * @dev Transfer `value` amount of `token` from the calling contract to `to`. If `token` returns no value,\\n     * non-reverting calls are assumed to be successful.\\n     */\\n    function safeTransfer(IERC20 token, address to, uint256 value) internal {\\n        _callOptionalReturn(token, abi.encodeCall(token.transfer, (to, value)));\\n    }\\n\\n    /**\\n     * @dev Transfer `value` amount of `token` from `from` to `to`, spending the approval given by `from` to the\\n     * calling contract. If `token` returns no value, non-reverting calls are assumed to be successful.\\n     */\\n    function safeTransferFrom(IERC20 token, address from, address to, uint256 value) internal {\\n        _callOptionalReturn(token, abi.encodeCall(token.transferFrom, (from, to, value)));\\n    }\\n\\n    /**\\n     * @dev Increase the calling contract's allowance toward `spender` by `value`. If `token` returns no value,\\n     * non-reverting calls are assumed to be successful.\\n     */\\n    function safeIncreaseAllowance(IERC20 token, address spender, uint256 value) internal {\\n        uint256 oldAllowance = token.allowance(address(this), spender);\\n        forceApprove(token, spender, oldAllowance + value);\\n    }\\n\\n    /**\\n     * @dev Decrease the calling contract's allowance toward `spender` by `requestedDecrease`. If `token` returns no\\n     * value, non-reverting calls are assumed to be successful.\\n     */\\n    function safeDecreaseAllowance(IERC20 token, address spender, uint256 requestedDecrease) internal {\\n        unchecked {\\n            uint256 currentAllowance = token.allowance(address(this), spender);\\n            if (currentAllowance < requestedDecrease) {\\n                revert SafeERC20FailedDecreaseAllowance(spender, currentAllowance, requestedDecrease);\\n            }\\n            forceApprove(token, spender, currentAllowance - requestedDecrease);\\n        }\\n    }\\n\\n    /**\\n     * @dev Set the calling contract's allowance toward `spender` to `value`. If `token` returns no value,\\n     * non-reverting calls are assumed to be successful. Meant to be used with tokens that require the approval\\n     * to be set to zero before setting it to a non-zero value, such as USDT.\\n     */\\n    function forceApprove(IERC20 token, address spender, uint256 value) internal {\\n        bytes memory approvalCall = abi.encodeCall(token.approve, (spender, value));\\n\\n        if (!_callOptionalReturnBool(token, approvalCall)) {\\n            _callOptionalReturn(token, abi.encodeCall(token.approve, (spender, 0)));\\n            _callOptionalReturn(token, approvalCall);\\n        }\\n    }\\n\\n    /**\\n     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement\\n     * on the return value: the return value is optional (but if data is returned, it must not be false).\\n     * @param token The token targeted by the call.\\n     * @param data The call data (encoded using abi.encode or one of its variants).\\n     */\\n    function _callOptionalReturn(IERC20 token, bytes memory data) private {\\n        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since\\n        // we're implementing it ourselves. We use {Address-functionCall} to perform this call, which verifies that\\n        // the target address contains contract code and also asserts for success in the low-level call.\\n\\n        bytes memory returndata = address(token).functionCall(data);\\n        if (returndata.length != 0 && !abi.decode(returndata, (bool))) {\\n            revert SafeERC20FailedOperation(address(token));\\n        }\\n    }\\n\\n    /**\\n     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement\\n     * on the return value: the return value is optional (but if data is returned, it must not be false).\\n     * @param token The token targeted by the call.\\n     * @param data The call data (encoded using abi.encode or one of its variants).\\n     *\\n     * This is a variant of {_callOptionalReturn} that silents catches all reverts and returns a bool instead.\\n     */\\n    function _callOptionalReturnBool(IERC20 token, bytes memory data) private returns (bool) {\\n        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since\\n        // we're implementing it ourselves. We cannot use {Address-functionCall} here since this should return false\\n        // and not revert is the subcall reverts.\\n\\n        (bool success, bytes memory returndata) = address(token).call(data);\\n        return success && (returndata.length == 0 || abi.decode(returndata, (bool))) && address(token).code.length > 0;\\n    }\\n}\\n\",\"keccak256\":\"0x37bb49513c49c87c4642a891b13b63571bc87013dde806617aa1efb54605f386\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Address.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/Address.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev The ETH balance of the account is not enough to perform the operation.\\n     */\\n    error AddressInsufficientBalance(address account);\\n\\n    /**\\n     * @dev There's no code at `target` (it is not a contract).\\n     */\\n    error AddressEmptyCode(address target);\\n\\n    /**\\n     * @dev A call to an address target failed. The target may have reverted.\\n     */\\n    error FailedInnerCall();\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.8.20/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        if (address(this).balance < amount) {\\n            revert AddressInsufficientBalance(address(this));\\n        }\\n\\n        (bool success, ) = recipient.call{value: amount}(\\\"\\\");\\n        if (!success) {\\n            revert FailedInnerCall();\\n        }\\n    }\\n\\n    /**\\n     * @dev Performs a Solidity function call using a low level `call`. A\\n     * plain `call` is an unsafe replacement for a function call: use this\\n     * function instead.\\n     *\\n     * If `target` reverts with a revert reason or custom error, it is bubbled\\n     * up by this function (like regular Solidity function calls). However, if\\n     * the call reverted with no returned reason, this function reverts with a\\n     * {FailedInnerCall} error.\\n     *\\n     * Returns the raw returned data. To convert to the expected return value,\\n     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].\\n     *\\n     * Requirements:\\n     *\\n     * - `target` must be a contract.\\n     * - calling `target` with `data` must not revert.\\n     */\\n    function functionCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, 0);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but also transferring `value` wei to `target`.\\n     *\\n     * Requirements:\\n     *\\n     * - the calling contract must have an ETH balance of at least `value`.\\n     * - the called Solidity function must be `payable`.\\n     */\\n    function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {\\n        if (address(this).balance < value) {\\n            revert AddressInsufficientBalance(address(this));\\n        }\\n        (bool success, bytes memory returndata) = target.call{value: value}(data);\\n        return verifyCallResultFromTarget(target, success, returndata);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a static call.\\n     */\\n    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {\\n        (bool success, bytes memory returndata) = target.staticcall(data);\\n        return verifyCallResultFromTarget(target, success, returndata);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a delegate call.\\n     */\\n    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {\\n        (bool success, bytes memory returndata) = target.delegatecall(data);\\n        return verifyCallResultFromTarget(target, success, returndata);\\n    }\\n\\n    /**\\n     * @dev Tool to verify that a low level call to smart-contract was successful, and reverts if the target\\n     * was not a contract or bubbling up the revert reason (falling back to {FailedInnerCall}) in case of an\\n     * unsuccessful call.\\n     */\\n    function verifyCallResultFromTarget(\\n        address target,\\n        bool success,\\n        bytes memory returndata\\n    ) internal view returns (bytes memory) {\\n        if (!success) {\\n            _revert(returndata);\\n        } else {\\n            // only check if target is a contract if the call was successful and the return data is empty\\n            // otherwise we already know that it was a contract\\n            if (returndata.length == 0 && target.code.length == 0) {\\n                revert AddressEmptyCode(target);\\n            }\\n            return returndata;\\n        }\\n    }\\n\\n    /**\\n     * @dev Tool to verify that a low level call was successful, and reverts if it wasn't, either by bubbling the\\n     * revert reason or with a default {FailedInnerCall} error.\\n     */\\n    function verifyCallResult(bool success, bytes memory returndata) internal pure returns (bytes memory) {\\n        if (!success) {\\n            _revert(returndata);\\n        } else {\\n            return returndata;\\n        }\\n    }\\n\\n    /**\\n     * @dev Reverts with returndata if present. Otherwise reverts with {FailedInnerCall}.\\n     */\\n    function _revert(bytes memory returndata) private pure {\\n        // Look for revert reason and bubble it up if present\\n        if (returndata.length > 0) {\\n            // The easiest way to bubble the revert reason is using memory via assembly\\n            /// @solidity memory-safe-assembly\\n            assembly {\\n                let returndata_size := mload(returndata)\\n                revert(add(32, returndata), returndata_size)\\n            }\\n        } else {\\n            revert FailedInnerCall();\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xaf28a975a78550e45f65e559a3ad6a5ad43b9b8a37366999abd1b7084eb70721\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Strings.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/Strings.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Math} from \\\"./math/Math.sol\\\";\\nimport {SignedMath} from \\\"./math/SignedMath.sol\\\";\\n\\n/**\\n * @dev String operations.\\n */\\nlibrary Strings {\\n    bytes16 private constant HEX_DIGITS = \\\"0123456789abcdef\\\";\\n    uint8 private constant ADDRESS_LENGTH = 20;\\n\\n    /**\\n     * @dev The `value` string doesn't fit in the specified `length`.\\n     */\\n    error StringsInsufficientHexLength(uint256 value, uint256 length);\\n\\n    /**\\n     * @dev Converts a `uint256` to its ASCII `string` decimal representation.\\n     */\\n    function toString(uint256 value) internal pure returns (string memory) {\\n        unchecked {\\n            uint256 length = Math.log10(value) + 1;\\n            string memory buffer = new string(length);\\n            uint256 ptr;\\n            /// @solidity memory-safe-assembly\\n            assembly {\\n                ptr := add(buffer, add(32, length))\\n            }\\n            while (true) {\\n                ptr--;\\n                /// @solidity memory-safe-assembly\\n                assembly {\\n                    mstore8(ptr, byte(mod(value, 10), HEX_DIGITS))\\n                }\\n                value /= 10;\\n                if (value == 0) break;\\n            }\\n            return buffer;\\n        }\\n    }\\n\\n    /**\\n     * @dev Converts a `int256` to its ASCII `string` decimal representation.\\n     */\\n    function toStringSigned(int256 value) internal pure returns (string memory) {\\n        return string.concat(value < 0 ? \\\"-\\\" : \\\"\\\", toString(SignedMath.abs(value)));\\n    }\\n\\n    /**\\n     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.\\n     */\\n    function toHexString(uint256 value) internal pure returns (string memory) {\\n        unchecked {\\n            return toHexString(value, Math.log256(value) + 1);\\n        }\\n    }\\n\\n    /**\\n     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.\\n     */\\n    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {\\n        uint256 localValue = value;\\n        bytes memory buffer = new bytes(2 * length + 2);\\n        buffer[0] = \\\"0\\\";\\n        buffer[1] = \\\"x\\\";\\n        for (uint256 i = 2 * length + 1; i > 1; --i) {\\n            buffer[i] = HEX_DIGITS[localValue & 0xf];\\n            localValue >>= 4;\\n        }\\n        if (localValue != 0) {\\n            revert StringsInsufficientHexLength(value, length);\\n        }\\n        return string(buffer);\\n    }\\n\\n    /**\\n     * @dev Converts an `address` with fixed length of 20 bytes to its not checksummed ASCII `string` hexadecimal\\n     * representation.\\n     */\\n    function toHexString(address addr) internal pure returns (string memory) {\\n        return toHexString(uint256(uint160(addr)), ADDRESS_LENGTH);\\n    }\\n\\n    /**\\n     * @dev Returns true if the two strings are equal.\\n     */\\n    function equal(string memory a, string memory b) internal pure returns (bool) {\\n        return bytes(a).length == bytes(b).length && keccak256(bytes(a)) == keccak256(bytes(b));\\n    }\\n}\\n\",\"keccak256\":\"0x55f102ea785d8399c0e58d1108e2d289506dde18abc6db1b7f68c1f9f9bc5792\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/cryptography/ECDSA.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/cryptography/ECDSA.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Elliptic Curve Digital Signature Algorithm (ECDSA) operations.\\n *\\n * These functions can be used to verify that a message was signed by the holder\\n * of the private keys of a given address.\\n */\\nlibrary ECDSA {\\n    enum RecoverError {\\n        NoError,\\n        InvalidSignature,\\n        InvalidSignatureLength,\\n        InvalidSignatureS\\n    }\\n\\n    /**\\n     * @dev The signature derives the `address(0)`.\\n     */\\n    error ECDSAInvalidSignature();\\n\\n    /**\\n     * @dev The signature has an invalid length.\\n     */\\n    error ECDSAInvalidSignatureLength(uint256 length);\\n\\n    /**\\n     * @dev The signature has an S value that is in the upper half order.\\n     */\\n    error ECDSAInvalidSignatureS(bytes32 s);\\n\\n    /**\\n     * @dev Returns the address that signed a hashed message (`hash`) with `signature` or an error. This will not\\n     * return address(0) without also returning an error description. Errors are documented using an enum (error type)\\n     * and a bytes32 providing additional information about the error.\\n     *\\n     * If no error is returned, then the address can be used for verification purposes.\\n     *\\n     * The `ecrecover` EVM precompile allows for malleable (non-unique) signatures:\\n     * this function rejects them by requiring the `s` value to be in the lower\\n     * half order, and the `v` value to be either 27 or 28.\\n     *\\n     * IMPORTANT: `hash` _must_ be the result of a hash operation for the\\n     * verification to be secure: it is possible to craft signatures that\\n     * recover to arbitrary addresses for non-hashed data. A safe way to ensure\\n     * this is by receiving a hash of the original message (which may otherwise\\n     * be too long), and then calling {MessageHashUtils-toEthSignedMessageHash} on it.\\n     *\\n     * Documentation for signature generation:\\n     * - with https://web3js.readthedocs.io/en/v1.3.4/web3-eth-accounts.html#sign[Web3.js]\\n     * - with https://docs.ethers.io/v5/api/signer/#Signer-signMessage[ethers]\\n     */\\n    function tryRecover(bytes32 hash, bytes memory signature) internal pure returns (address, RecoverError, bytes32) {\\n        if (signature.length == 65) {\\n            bytes32 r;\\n            bytes32 s;\\n            uint8 v;\\n            // ecrecover takes the signature parameters, and the only way to get them\\n            // currently is to use assembly.\\n            /// @solidity memory-safe-assembly\\n            assembly {\\n                r := mload(add(signature, 0x20))\\n                s := mload(add(signature, 0x40))\\n                v := byte(0, mload(add(signature, 0x60)))\\n            }\\n            return tryRecover(hash, v, r, s);\\n        } else {\\n            return (address(0), RecoverError.InvalidSignatureLength, bytes32(signature.length));\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the address that signed a hashed message (`hash`) with\\n     * `signature`. This address can then be used for verification purposes.\\n     *\\n     * The `ecrecover` EVM precompile allows for malleable (non-unique) signatures:\\n     * this function rejects them by requiring the `s` value to be in the lower\\n     * half order, and the `v` value to be either 27 or 28.\\n     *\\n     * IMPORTANT: `hash` _must_ be the result of a hash operation for the\\n     * verification to be secure: it is possible to craft signatures that\\n     * recover to arbitrary addresses for non-hashed data. A safe way to ensure\\n     * this is by receiving a hash of the original message (which may otherwise\\n     * be too long), and then calling {MessageHashUtils-toEthSignedMessageHash} on it.\\n     */\\n    function recover(bytes32 hash, bytes memory signature) internal pure returns (address) {\\n        (address recovered, RecoverError error, bytes32 errorArg) = tryRecover(hash, signature);\\n        _throwError(error, errorArg);\\n        return recovered;\\n    }\\n\\n    /**\\n     * @dev Overload of {ECDSA-tryRecover} that receives the `r` and `vs` short-signature fields separately.\\n     *\\n     * See https://eips.ethereum.org/EIPS/eip-2098[EIP-2098 short signatures]\\n     */\\n    function tryRecover(bytes32 hash, bytes32 r, bytes32 vs) internal pure returns (address, RecoverError, bytes32) {\\n        unchecked {\\n            bytes32 s = vs & bytes32(0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);\\n            // We do not check for an overflow here since the shift operation results in 0 or 1.\\n            uint8 v = uint8((uint256(vs) >> 255) + 27);\\n            return tryRecover(hash, v, r, s);\\n        }\\n    }\\n\\n    /**\\n     * @dev Overload of {ECDSA-recover} that receives the `r and `vs` short-signature fields separately.\\n     */\\n    function recover(bytes32 hash, bytes32 r, bytes32 vs) internal pure returns (address) {\\n        (address recovered, RecoverError error, bytes32 errorArg) = tryRecover(hash, r, vs);\\n        _throwError(error, errorArg);\\n        return recovered;\\n    }\\n\\n    /**\\n     * @dev Overload of {ECDSA-tryRecover} that receives the `v`,\\n     * `r` and `s` signature fields separately.\\n     */\\n    function tryRecover(\\n        bytes32 hash,\\n        uint8 v,\\n        bytes32 r,\\n        bytes32 s\\n    ) internal pure returns (address, RecoverError, bytes32) {\\n        // EIP-2 still allows signature malleability for ecrecover(). Remove this possibility and make the signature\\n        // unique. Appendix F in the Ethereum Yellow paper (https://ethereum.github.io/yellowpaper/paper.pdf), defines\\n        // the valid range for s in (301): 0 < s < secp256k1n \\u00f7 2 + 1, and for v in (302): v \\u2208 {27, 28}. Most\\n        // signatures from current libraries generate a unique signature with an s-value in the lower half order.\\n        //\\n        // If your library generates malleable signatures, such as s-values in the upper range, calculate a new s-value\\n        // with 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141 - s1 and flip v from 27 to 28 or\\n        // vice versa. If your library also generates signatures with 0/1 for v instead 27/28, add 27 to v to accept\\n        // these malleable signatures as well.\\n        if (uint256(s) > 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0) {\\n            return (address(0), RecoverError.InvalidSignatureS, s);\\n        }\\n\\n        // If the signature is valid (and not malleable), return the signer address\\n        address signer = ecrecover(hash, v, r, s);\\n        if (signer == address(0)) {\\n            return (address(0), RecoverError.InvalidSignature, bytes32(0));\\n        }\\n\\n        return (signer, RecoverError.NoError, bytes32(0));\\n    }\\n\\n    /**\\n     * @dev Overload of {ECDSA-recover} that receives the `v`,\\n     * `r` and `s` signature fields separately.\\n     */\\n    function recover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal pure returns (address) {\\n        (address recovered, RecoverError error, bytes32 errorArg) = tryRecover(hash, v, r, s);\\n        _throwError(error, errorArg);\\n        return recovered;\\n    }\\n\\n    /**\\n     * @dev Optionally reverts with the corresponding custom error according to the `error` argument provided.\\n     */\\n    function _throwError(RecoverError error, bytes32 errorArg) private pure {\\n        if (error == RecoverError.NoError) {\\n            return; // no error: do nothing\\n        } else if (error == RecoverError.InvalidSignature) {\\n            revert ECDSAInvalidSignature();\\n        } else if (error == RecoverError.InvalidSignatureLength) {\\n            revert ECDSAInvalidSignatureLength(uint256(errorArg));\\n        } else if (error == RecoverError.InvalidSignatureS) {\\n            revert ECDSAInvalidSignatureS(errorArg);\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xeed0a08b0b091f528356cbc7245891a4c748682d4f6a18055e8e6ca77d12a6cf\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/cryptography/MessageHashUtils.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Strings} from \\\"../Strings.sol\\\";\\n\\n/**\\n * @dev Signature message hash utilities for producing digests to be consumed by {ECDSA} recovery or signing.\\n *\\n * The library provides methods for generating a hash of a message that conforms to the\\n * https://eips.ethereum.org/EIPS/eip-191[EIP 191] and https://eips.ethereum.org/EIPS/eip-712[EIP 712]\\n * specifications.\\n */\\nlibrary MessageHashUtils {\\n    /**\\n     * @dev Returns the keccak256 digest of an EIP-191 signed data with version\\n     * `0x45` (`personal_sign` messages).\\n     *\\n     * The digest is calculated by prefixing a bytes32 `messageHash` with\\n     * `\\\"\\\\x19Ethereum Signed Message:\\\\n32\\\"` and hashing the result. It corresponds with the\\n     * hash signed when using the https://eth.wiki/json-rpc/API#eth_sign[`eth_sign`] JSON-RPC method.\\n     *\\n     * NOTE: The `messageHash` parameter is intended to be the result of hashing a raw message with\\n     * keccak256, although any bytes32 value can be safely used because the final digest will\\n     * be re-hashed.\\n     *\\n     * See {ECDSA-recover}.\\n     */\\n    function toEthSignedMessageHash(bytes32 messageHash) internal pure returns (bytes32 digest) {\\n        /// @solidity memory-safe-assembly\\n        assembly {\\n            mstore(0x00, \\\"\\\\x19Ethereum Signed Message:\\\\n32\\\") // 32 is the bytes-length of messageHash\\n            mstore(0x1c, messageHash) // 0x1c (28) is the length of the prefix\\n            digest := keccak256(0x00, 0x3c) // 0x3c is the length of the prefix (0x1c) + messageHash (0x20)\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the keccak256 digest of an EIP-191 signed data with version\\n     * `0x45` (`personal_sign` messages).\\n     *\\n     * The digest is calculated by prefixing an arbitrary `message` with\\n     * `\\\"\\\\x19Ethereum Signed Message:\\\\n\\\" + len(message)` and hashing the result. It corresponds with the\\n     * hash signed when using the https://eth.wiki/json-rpc/API#eth_sign[`eth_sign`] JSON-RPC method.\\n     *\\n     * See {ECDSA-recover}.\\n     */\\n    function toEthSignedMessageHash(bytes memory message) internal pure returns (bytes32) {\\n        return\\n            keccak256(bytes.concat(\\\"\\\\x19Ethereum Signed Message:\\\\n\\\", bytes(Strings.toString(message.length)), message));\\n    }\\n\\n    /**\\n     * @dev Returns the keccak256 digest of an EIP-191 signed data with version\\n     * `0x00` (data with intended validator).\\n     *\\n     * The digest is calculated by prefixing an arbitrary `data` with `\\\"\\\\x19\\\\x00\\\"` and the intended\\n     * `validator` address. Then hashing the result.\\n     *\\n     * See {ECDSA-recover}.\\n     */\\n    function toDataWithIntendedValidatorHash(address validator, bytes memory data) internal pure returns (bytes32) {\\n        return keccak256(abi.encodePacked(hex\\\"19_00\\\", validator, data));\\n    }\\n\\n    /**\\n     * @dev Returns the keccak256 digest of an EIP-712 typed data (EIP-191 version `0x01`).\\n     *\\n     * The digest is calculated from a `domainSeparator` and a `structHash`, by prefixing them with\\n     * `\\\\x19\\\\x01` and hashing the result. It corresponds to the hash signed by the\\n     * https://eips.ethereum.org/EIPS/eip-712[`eth_signTypedData`] JSON-RPC method as part of EIP-712.\\n     *\\n     * See {ECDSA-recover}.\\n     */\\n    function toTypedDataHash(bytes32 domainSeparator, bytes32 structHash) internal pure returns (bytes32 digest) {\\n        /// @solidity memory-safe-assembly\\n        assembly {\\n            let ptr := mload(0x40)\\n            mstore(ptr, hex\\\"19_01\\\")\\n            mstore(add(ptr, 0x02), domainSeparator)\\n            mstore(add(ptr, 0x22), structHash)\\n            digest := keccak256(ptr, 0x42)\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xba333517a3add42cd35fe877656fc3dfcc9de53baa4f3aabbd6d12a92e4ea435\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/introspection/IERC165.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[EIP].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x4296879f55019b23e135000eb36896057e7101fb7fb859c5ef690cf14643757b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/math/Math.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/math/Math.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Standard math utilities missing in the Solidity language.\\n */\\nlibrary Math {\\n    /**\\n     * @dev Muldiv operation overflow.\\n     */\\n    error MathOverflowedMulDiv();\\n\\n    enum Rounding {\\n        Floor, // Toward negative infinity\\n        Ceil, // Toward positive infinity\\n        Trunc, // Toward zero\\n        Expand // Away from zero\\n    }\\n\\n    /**\\n     * @dev Returns the addition of two unsigned integers, with an overflow flag.\\n     */\\n    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            uint256 c = a + b;\\n            if (c < a) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, with an overflow flag.\\n     */\\n    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b > a) return (false, 0);\\n            return (true, a - b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.\\n     */\\n    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n            // benefit is lost if 'b' is also tested.\\n            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n            if (a == 0) return (true, 0);\\n            uint256 c = a * b;\\n            if (c / a != b) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the division of two unsigned integers, with a division by zero flag.\\n     */\\n    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a / b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.\\n     */\\n    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a % b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the largest of two numbers.\\n     */\\n    function max(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a > b ? a : b;\\n    }\\n\\n    /**\\n     * @dev Returns the smallest of two numbers.\\n     */\\n    function min(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a < b ? a : b;\\n    }\\n\\n    /**\\n     * @dev Returns the average of two numbers. The result is rounded towards\\n     * zero.\\n     */\\n    function average(uint256 a, uint256 b) internal pure returns (uint256) {\\n        // (a + b) / 2 can overflow.\\n        return (a & b) + (a ^ b) / 2;\\n    }\\n\\n    /**\\n     * @dev Returns the ceiling of the division of two numbers.\\n     *\\n     * This differs from standard division with `/` in that it rounds towards infinity instead\\n     * of rounding towards zero.\\n     */\\n    function ceilDiv(uint256 a, uint256 b) internal pure returns (uint256) {\\n        if (b == 0) {\\n            // Guarantee the same behavior as in a regular Solidity division.\\n            return a / b;\\n        }\\n\\n        // (a + b - 1) / b can overflow on addition, so we distribute.\\n        return a == 0 ? 0 : (a - 1) / b + 1;\\n    }\\n\\n    /**\\n     * @notice Calculates floor(x * y / denominator) with full precision. Throws if result overflows a uint256 or\\n     * denominator == 0.\\n     * @dev Original credit to Remco Bloemen under MIT license (https://xn--2-umb.com/21/muldiv) with further edits by\\n     * Uniswap Labs also under MIT license.\\n     */\\n    function mulDiv(uint256 x, uint256 y, uint256 denominator) internal pure returns (uint256 result) {\\n        unchecked {\\n            // 512-bit multiply [prod1 prod0] = x * y. Compute the product mod 2^256 and mod 2^256 - 1, then use\\n            // use the Chinese Remainder Theorem to reconstruct the 512 bit result. The result is stored in two 256\\n            // variables such that product = prod1 * 2^256 + prod0.\\n            uint256 prod0 = x * y; // Least significant 256 bits of the product\\n            uint256 prod1; // Most significant 256 bits of the product\\n            assembly {\\n                let mm := mulmod(x, y, not(0))\\n                prod1 := sub(sub(mm, prod0), lt(mm, prod0))\\n            }\\n\\n            // Handle non-overflow cases, 256 by 256 division.\\n            if (prod1 == 0) {\\n                // Solidity will revert if denominator == 0, unlike the div opcode on its own.\\n                // The surrounding unchecked block does not change this fact.\\n                // See https://docs.soliditylang.org/en/latest/control-structures.html#checked-or-unchecked-arithmetic.\\n                return prod0 / denominator;\\n            }\\n\\n            // Make sure the result is less than 2^256. Also prevents denominator == 0.\\n            if (denominator <= prod1) {\\n                revert MathOverflowedMulDiv();\\n            }\\n\\n            ///////////////////////////////////////////////\\n            // 512 by 256 division.\\n            ///////////////////////////////////////////////\\n\\n            // Make division exact by subtracting the remainder from [prod1 prod0].\\n            uint256 remainder;\\n            assembly {\\n                // Compute remainder using mulmod.\\n                remainder := mulmod(x, y, denominator)\\n\\n                // Subtract 256 bit number from 512 bit number.\\n                prod1 := sub(prod1, gt(remainder, prod0))\\n                prod0 := sub(prod0, remainder)\\n            }\\n\\n            // Factor powers of two out of denominator and compute largest power of two divisor of denominator.\\n            // Always >= 1. See https://cs.stackexchange.com/q/138556/92363.\\n\\n            uint256 twos = denominator & (0 - denominator);\\n            assembly {\\n                // Divide denominator by twos.\\n                denominator := div(denominator, twos)\\n\\n                // Divide [prod1 prod0] by twos.\\n                prod0 := div(prod0, twos)\\n\\n                // Flip twos such that it is 2^256 / twos. If twos is zero, then it becomes one.\\n                twos := add(div(sub(0, twos), twos), 1)\\n            }\\n\\n            // Shift in bits from prod1 into prod0.\\n            prod0 |= prod1 * twos;\\n\\n            // Invert denominator mod 2^256. Now that denominator is an odd number, it has an inverse modulo 2^256 such\\n            // that denominator * inv = 1 mod 2^256. Compute the inverse by starting with a seed that is correct for\\n            // four bits. That is, denominator * inv = 1 mod 2^4.\\n            uint256 inverse = (3 * denominator) ^ 2;\\n\\n            // Use the Newton-Raphson iteration to improve the precision. Thanks to Hensel's lifting lemma, this also\\n            // works in modular arithmetic, doubling the correct bits in each step.\\n            inverse *= 2 - denominator * inverse; // inverse mod 2^8\\n            inverse *= 2 - denominator * inverse; // inverse mod 2^16\\n            inverse *= 2 - denominator * inverse; // inverse mod 2^32\\n            inverse *= 2 - denominator * inverse; // inverse mod 2^64\\n            inverse *= 2 - denominator * inverse; // inverse mod 2^128\\n            inverse *= 2 - denominator * inverse; // inverse mod 2^256\\n\\n            // Because the division is now exact we can divide by multiplying with the modular inverse of denominator.\\n            // This will give us the correct result modulo 2^256. Since the preconditions guarantee that the outcome is\\n            // less than 2^256, this is the final result. We don't need to compute the high bits of the result and prod1\\n            // is no longer required.\\n            result = prod0 * inverse;\\n            return result;\\n        }\\n    }\\n\\n    /**\\n     * @notice Calculates x * y / denominator with full precision, following the selected rounding direction.\\n     */\\n    function mulDiv(uint256 x, uint256 y, uint256 denominator, Rounding rounding) internal pure returns (uint256) {\\n        uint256 result = mulDiv(x, y, denominator);\\n        if (unsignedRoundsUp(rounding) && mulmod(x, y, denominator) > 0) {\\n            result += 1;\\n        }\\n        return result;\\n    }\\n\\n    /**\\n     * @dev Returns the square root of a number. If the number is not a perfect square, the value is rounded\\n     * towards zero.\\n     *\\n     * Inspired by Henry S. Warren, Jr.'s \\\"Hacker's Delight\\\" (Chapter 11).\\n     */\\n    function sqrt(uint256 a) internal pure returns (uint256) {\\n        if (a == 0) {\\n            return 0;\\n        }\\n\\n        // For our first guess, we get the biggest power of 2 which is smaller than the square root of the target.\\n        //\\n        // We know that the \\\"msb\\\" (most significant bit) of our target number `a` is a power of 2 such that we have\\n        // `msb(a) <= a < 2*msb(a)`. This value can be written `msb(a)=2**k` with `k=log2(a)`.\\n        //\\n        // This can be rewritten `2**log2(a) <= a < 2**(log2(a) + 1)`\\n        // \\u2192 `sqrt(2**k) <= sqrt(a) < sqrt(2**(k+1))`\\n        // \\u2192 `2**(k/2) <= sqrt(a) < 2**((k+1)/2) <= 2**(k/2 + 1)`\\n        //\\n        // Consequently, `2**(log2(a) / 2)` is a good first approximation of `sqrt(a)` with at least 1 correct bit.\\n        uint256 result = 1 << (log2(a) >> 1);\\n\\n        // At this point `result` is an estimation with one bit of precision. We know the true value is a uint128,\\n        // since it is the square root of a uint256. Newton's method converges quadratically (precision doubles at\\n        // every iteration). We thus need at most 7 iteration to turn our partial result with one bit of precision\\n        // into the expected uint128 result.\\n        unchecked {\\n            result = (result + a / result) >> 1;\\n            result = (result + a / result) >> 1;\\n            result = (result + a / result) >> 1;\\n            result = (result + a / result) >> 1;\\n            result = (result + a / result) >> 1;\\n            result = (result + a / result) >> 1;\\n            result = (result + a / result) >> 1;\\n            return min(result, a / result);\\n        }\\n    }\\n\\n    /**\\n     * @notice Calculates sqrt(a), following the selected rounding direction.\\n     */\\n    function sqrt(uint256 a, Rounding rounding) internal pure returns (uint256) {\\n        unchecked {\\n            uint256 result = sqrt(a);\\n            return result + (unsignedRoundsUp(rounding) && result * result < a ? 1 : 0);\\n        }\\n    }\\n\\n    /**\\n     * @dev Return the log in base 2 of a positive value rounded towards zero.\\n     * Returns 0 if given 0.\\n     */\\n    function log2(uint256 value) internal pure returns (uint256) {\\n        uint256 result = 0;\\n        unchecked {\\n            if (value >> 128 > 0) {\\n                value >>= 128;\\n                result += 128;\\n            }\\n            if (value >> 64 > 0) {\\n                value >>= 64;\\n                result += 64;\\n            }\\n            if (value >> 32 > 0) {\\n                value >>= 32;\\n                result += 32;\\n            }\\n            if (value >> 16 > 0) {\\n                value >>= 16;\\n                result += 16;\\n            }\\n            if (value >> 8 > 0) {\\n                value >>= 8;\\n                result += 8;\\n            }\\n            if (value >> 4 > 0) {\\n                value >>= 4;\\n                result += 4;\\n            }\\n            if (value >> 2 > 0) {\\n                value >>= 2;\\n                result += 2;\\n            }\\n            if (value >> 1 > 0) {\\n                result += 1;\\n            }\\n        }\\n        return result;\\n    }\\n\\n    /**\\n     * @dev Return the log in base 2, following the selected rounding direction, of a positive value.\\n     * Returns 0 if given 0.\\n     */\\n    function log2(uint256 value, Rounding rounding) internal pure returns (uint256) {\\n        unchecked {\\n            uint256 result = log2(value);\\n            return result + (unsignedRoundsUp(rounding) && 1 << result < value ? 1 : 0);\\n        }\\n    }\\n\\n    /**\\n     * @dev Return the log in base 10 of a positive value rounded towards zero.\\n     * Returns 0 if given 0.\\n     */\\n    function log10(uint256 value) internal pure returns (uint256) {\\n        uint256 result = 0;\\n        unchecked {\\n            if (value >= 10 ** 64) {\\n                value /= 10 ** 64;\\n                result += 64;\\n            }\\n            if (value >= 10 ** 32) {\\n                value /= 10 ** 32;\\n                result += 32;\\n            }\\n            if (value >= 10 ** 16) {\\n                value /= 10 ** 16;\\n                result += 16;\\n            }\\n            if (value >= 10 ** 8) {\\n                value /= 10 ** 8;\\n                result += 8;\\n            }\\n            if (value >= 10 ** 4) {\\n                value /= 10 ** 4;\\n                result += 4;\\n            }\\n            if (value >= 10 ** 2) {\\n                value /= 10 ** 2;\\n                result += 2;\\n            }\\n            if (value >= 10 ** 1) {\\n                result += 1;\\n            }\\n        }\\n        return result;\\n    }\\n\\n    /**\\n     * @dev Return the log in base 10, following the selected rounding direction, of a positive value.\\n     * Returns 0 if given 0.\\n     */\\n    function log10(uint256 value, Rounding rounding) internal pure returns (uint256) {\\n        unchecked {\\n            uint256 result = log10(value);\\n            return result + (unsignedRoundsUp(rounding) && 10 ** result < value ? 1 : 0);\\n        }\\n    }\\n\\n    /**\\n     * @dev Return the log in base 256 of a positive value rounded towards zero.\\n     * Returns 0 if given 0.\\n     *\\n     * Adding one to the result gives the number of pairs of hex symbols needed to represent `value` as a hex string.\\n     */\\n    function log256(uint256 value) internal pure returns (uint256) {\\n        uint256 result = 0;\\n        unchecked {\\n            if (value >> 128 > 0) {\\n                value >>= 128;\\n                result += 16;\\n            }\\n            if (value >> 64 > 0) {\\n                value >>= 64;\\n                result += 8;\\n            }\\n            if (value >> 32 > 0) {\\n                value >>= 32;\\n                result += 4;\\n            }\\n            if (value >> 16 > 0) {\\n                value >>= 16;\\n                result += 2;\\n            }\\n            if (value >> 8 > 0) {\\n                result += 1;\\n            }\\n        }\\n        return result;\\n    }\\n\\n    /**\\n     * @dev Return the log in base 256, following the selected rounding direction, of a positive value.\\n     * Returns 0 if given 0.\\n     */\\n    function log256(uint256 value, Rounding rounding) internal pure returns (uint256) {\\n        unchecked {\\n            uint256 result = log256(value);\\n            return result + (unsignedRoundsUp(rounding) && 1 << (result << 3) < value ? 1 : 0);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns whether a provided rounding mode is considered rounding up for unsigned integers.\\n     */\\n    function unsignedRoundsUp(Rounding rounding) internal pure returns (bool) {\\n        return uint8(rounding) % 2 == 1;\\n    }\\n}\\n\",\"keccak256\":\"0x005ec64c6313f0555d59e278f9a7a5ab2db5bdc72a027f255a37c327af1ec02d\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/math/SignedMath.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/math/SignedMath.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Standard signed math utilities missing in the Solidity language.\\n */\\nlibrary SignedMath {\\n    /**\\n     * @dev Returns the largest of two signed numbers.\\n     */\\n    function max(int256 a, int256 b) internal pure returns (int256) {\\n        return a > b ? a : b;\\n    }\\n\\n    /**\\n     * @dev Returns the smallest of two signed numbers.\\n     */\\n    function min(int256 a, int256 b) internal pure returns (int256) {\\n        return a < b ? a : b;\\n    }\\n\\n    /**\\n     * @dev Returns the average of two signed numbers without overflow.\\n     * The result is rounded towards zero.\\n     */\\n    function average(int256 a, int256 b) internal pure returns (int256) {\\n        // Formula from the book \\\"Hacker's Delight\\\"\\n        int256 x = (a & b) + ((a ^ b) >> 1);\\n        return x + (int256(uint256(x) >> 255) & (a ^ b));\\n    }\\n\\n    /**\\n     * @dev Returns the absolute unsigned value of a signed value.\\n     */\\n    function abs(int256 n) internal pure returns (uint256) {\\n        unchecked {\\n            // must be unchecked in order to support `n = type(int256).min`\\n            return uint256(n >= 0 ? n : -n);\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x5f7e4076e175393767754387c962926577f1660dd9b810187b9002407656be72\",\"license\":\"MIT\"},\"contracts/TokenSale.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\npragma solidity 0.8.23;\\n\\nimport {Initializable} from \\\"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol\\\";\\nimport {AccessControlUpgradeable} from \\\"@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol\\\";\\nimport {PausableUpgradeable} from \\\"@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol\\\";\\nimport {SafeERC20} from \\\"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\\\";\\nimport {IERC20} from \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\nimport {ECDSA} from \\\"@openzeppelin/contracts/utils/cryptography/ECDSA.sol\\\";\\nimport {EIP712Upgradeable} from \\\"@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol\\\";\\n\\ncontract TokenSale is\\n    Initializable,\\n    AccessControlUpgradeable,\\n    PausableUpgradeable,\\n    EIP712Upgradeable\\n{\\n    using SafeERC20 for IERC20;\\n\\n    bytes32 internal constant BUY_PARAMS_TYPEHASH =\\n        keccak256(\\n            \\\"BuyParams(address to,uint256 amountUsdt,uint256 discountPercent,address referralWallet,uint256 referralRewardPercent,uint256 tokenPriceUsdt,address sender)\\\"\\n        );\\n    uint256 public constant PERCENT_MULTIPLIER = 10;\\n\\n    /// @dev Wallet that all incoming USDT will be transfered to.\\n    address internal treasuryWallet;\\n\\n    /// @dev API wallet address.\\n    address internal apiSigner;\\n\\n    /// @dev USDT contract address.\\n    IERC20 public usdtContract;\\n\\n    /// @dev Token price in USDT. 18 decimals should be used here, though USDT has 6 decimals.\\n    uint public tokenPriceUsdt;\\n\\n    /// @dev Total amount of tokens this contract may sell.\\n    uint public totalTokensForSale;\\n\\n    /// @dev Sold tokens amount.\\n    uint public totalSoldTokens;\\n\\n    /// @dev Bought tokens + referral rewards in tokens.\\n    mapping(address => uint) internal tokenBalances;\\n\\n    /// @dev USDT referral rewards.\\n    mapping(address => uint) internal usdtBalances;\\n\\n    event Buy(\\n        /// @dev Buyer's account.\\n        address indexed buyer,\\n        /// @dev USDT amount that user spent.\\n        uint amountUsdt,\\n        /// @dev Amount of tokens the user received.\\n        uint amount,\\n        /// @dev Applied discount.\\n        uint discountPercent\\n    );\\n\\n    event ReferralReward(\\n        /// @dev Account that bought tokens.\\n        address indexed fromBuyer,\\n        /// @dev Account that received the reward.\\n        address indexed to,\\n        /// @dev Reward amount in USDT.\\n        uint amountUsdt,\\n        /// @dev The amount the user spent for purchasing tokens.\\n        uint spentAmountUsdt\\n    );\\n\\n    event WithdrawUsdt(address indexed from, address indexed to, uint amount);\\n    event ApiSignerUpdate(address newApiSigner);\\n    event TokenPriceUsdtUpdate(uint newTokenPriceUsdt);\\n\\n    // custom errors\\n    error ZeroAddressProvided(string param);\\n    error ZeroValueProvided(string param);\\n    error DiscountPercentIsTooBig(uint value);\\n    error ReferralRewardPercentIsTooBig(uint value);\\n    error NotEnoughUsdtAllowance();\\n    error SoldOut();\\n    error InvalidSignature();\\n    error NotEnoughUsdtOnBalance();\\n\\n    /// @custom:oz-upgrades-unsafe-allow constructor\\n    constructor() {\\n        _disableInitializers();\\n    }\\n\\n    /**\\n     * @param _admin Admin wallet address.\\n     * @param _usdtContract USDT contract address.\\n     * @param _treasuryWallet Wallet that will receive all incoming USDT.\\n     * @param _apiSigner API signer wallet address.\\n     * @param _totalTokensForSale Total amount of tokens this contract may sell.\\n     * @param _tokenPriceUsdt USDT price for 10**18 tokens (should use 18 decimals).\\n     */\\n    function initialize(\\n        address _admin,\\n        IERC20 _usdtContract,\\n        address _treasuryWallet,\\n        address _apiSigner,\\n        uint _totalTokensForSale,\\n        uint _tokenPriceUsdt\\n    ) external initializer {\\n        __AccessControl_init();\\n        __Pausable_init();\\n        __EIP712_init(\\\"Wormfare Token Sale\\\", \\\"1\\\");\\n\\n        if (_admin == address(0)) {\\n            revert ZeroAddressProvided(\\\"_admin\\\");\\n        }\\n        if (address(_usdtContract) == address(0)) {\\n            revert ZeroAddressProvided(\\\"_usdtContract\\\");\\n        }\\n        if (_treasuryWallet == address(0)) {\\n            revert ZeroAddressProvided(\\\"_treasuryWallet\\\");\\n        }\\n        if (_apiSigner == address(0)) {\\n            revert ZeroAddressProvided(\\\"_apiSigner\\\");\\n        }\\n        if (_totalTokensForSale == 0) {\\n            revert ZeroValueProvided(\\\"_totalTokensForSale\\\");\\n        }\\n        if (_tokenPriceUsdt == 0) {\\n            revert ZeroValueProvided(\\\"_tokenPriceUsdt\\\");\\n        }\\n\\n        _grantRole(DEFAULT_ADMIN_ROLE, _admin);\\n\\n        usdtContract = _usdtContract;\\n        treasuryWallet = _treasuryWallet;\\n        apiSigner = _apiSigner;\\n        totalTokensForSale = _totalTokensForSale;\\n        tokenPriceUsdt = _tokenPriceUsdt;\\n    }\\n\\n    /// Disable some contract functions.\\n    function pause() external onlyRole(DEFAULT_ADMIN_ROLE) {\\n        _pause();\\n    }\\n\\n    /// Enable all contract functions.\\n    function unpause() external onlyRole(DEFAULT_ADMIN_ROLE) {\\n        _unpause();\\n    }\\n\\n    /// Update apiSigner address.\\n    function setApiSigner(\\n        address _apiSigner\\n    ) external onlyRole(DEFAULT_ADMIN_ROLE) {\\n        if (_apiSigner == address(0)) {\\n            revert ZeroAddressProvided(\\\"_apiSigner\\\");\\n        }\\n\\n        apiSigner = _apiSigner;\\n\\n        emit ApiSignerUpdate(_apiSigner);\\n    }\\n\\n    /// Update token price in USDT. 18 decimals should be used here.\\n    function setTokenPriceUsdt(\\n        uint _tokenPriceUsdt\\n    ) external onlyRole(DEFAULT_ADMIN_ROLE) {\\n        if (_tokenPriceUsdt == 0) {\\n            revert ZeroValueProvided(\\\"_tokenPriceUsdt\\\");\\n        }\\n\\n        tokenPriceUsdt = _tokenPriceUsdt;\\n\\n        emit TokenPriceUsdtUpdate(_tokenPriceUsdt);\\n    }\\n\\n    /**\\n     * Buy tokens for someone else (admin only).\\n     *\\n     * @param _to Tokens receiver.\\n     * @param _amountUsdt USDT amount with 18 decimals.\\n     * @param _discountPercent Discount percent (multiplied by 10).\\n     */\\n    function buyFor(\\n        address _to,\\n        uint _amountUsdt,\\n        uint _discountPercent\\n    ) external onlyRole(DEFAULT_ADMIN_ROLE) {\\n        if (_to == address(0)) {\\n            revert ZeroAddressProvided(\\\"_to\\\");\\n        }\\n        if (_discountPercent > 10 * PERCENT_MULTIPLIER) {\\n            revert DiscountPercentIsTooBig(_discountPercent);\\n        }\\n\\n        internalBuy(_to, _amountUsdt, _discountPercent, address(0), 0);\\n    }\\n\\n    /**\\n     * Buy tokens using USDT.\\n     *\\n     * @param _to Tokens receiver.\\n     * @param _amountUsdt USDT amount the user wants to spend (18 decimals).\\n     * @param _discountPercent Applied discount for buyer (multiplied by 10).\\n     * @param _referralWallet Referral wallet (or zero address).\\n     * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward.\\n     * @param _signature API signature.\\n     */\\n    function buy(\\n        address _to,\\n        uint _amountUsdt,\\n        uint _discountPercent,\\n        address _referralWallet,\\n        uint _referralRewardPercent,\\n        bytes calldata _signature\\n    ) external whenNotPaused {\\n        checkSignature(\\n            _to,\\n            _amountUsdt,\\n            _discountPercent,\\n            _referralWallet,\\n            _referralRewardPercent,\\n            _signature\\n        );\\n\\n        internalBuy(\\n            _to,\\n            _amountUsdt,\\n            _discountPercent,\\n            _referralWallet,\\n            _referralRewardPercent\\n        );\\n    }\\n\\n    /**\\n     * @param _to Tokens receiver.\\n     * @param _amountUsdt USDT amount with 18 decimals.\\n     * @param _discountPercent Discount percent (multiplied by 10).\\n     * @param _referralWallet Referral wallet (or zero address).\\n     * @param _referralRewardPercent Percentage of bought amount the referral account should receive as a reward (multiplied by 10).\\n     */\\n    function internalBuy(\\n        address _to,\\n        uint _amountUsdt,\\n        uint _discountPercent,\\n        address _referralWallet,\\n        uint _referralRewardPercent\\n    ) internal {\\n        if (_amountUsdt == 0) {\\n            revert ZeroValueProvided(\\\"_amountUsdt\\\");\\n        }\\n        if (\\n            usdtContract.allowance(msg.sender, address(this)) <\\n            castToTether(_amountUsdt)\\n        ) {\\n            revert NotEnoughUsdtAllowance();\\n        }\\n        if (totalSoldTokens >= totalTokensForSale) {\\n            revert SoldOut();\\n        }\\n        if (_discountPercent > 20 * PERCENT_MULTIPLIER) {\\n            revert DiscountPercentIsTooBig(_discountPercent);\\n        }\\n        if (_referralRewardPercent > 10 * PERCENT_MULTIPLIER) {\\n            revert ReferralRewardPercentIsTooBig(_referralRewardPercent);\\n        }\\n\\n        _amountUsdt = normalizeTether(_amountUsdt);\\n        uint _tokenPriceUsdt = tokenPriceUsdt -\\n            ((tokenPriceUsdt * _discountPercent) / 100 / PERCENT_MULTIPLIER);\\n        uint _tokenAmount = ((_amountUsdt * 1 ether) / _tokenPriceUsdt);\\n\\n        // if the amount the user wants to buy exceeds the limit, sell as much as possible to the user\\n        if (totalSoldTokens + _tokenAmount > totalTokensForSale) {\\n            _tokenAmount = totalTokensForSale - totalSoldTokens;\\n            _amountUsdt = getUsdtPrice(_tokenAmount, _tokenPriceUsdt);\\n        }\\n\\n        uint _treasuryWalletAmountUsdt = _amountUsdt;\\n        uint _referralAmountUsdt = calculateReferralReward(\\n            _amountUsdt,\\n            _referralWallet,\\n            _referralRewardPercent\\n        );\\n\\n        tokenBalances[_to] += _tokenAmount;\\n        totalSoldTokens += _tokenAmount;\\n\\n        // transfer USDT referral reward to this contract\\n        if (_referralAmountUsdt > 0) {\\n            _treasuryWalletAmountUsdt -= _referralAmountUsdt;\\n\\n            usdtContract.safeTransferFrom(\\n                msg.sender,\\n                address(this),\\n                castToTether(_referralAmountUsdt)\\n            );\\n\\n            emit ReferralReward(\\n                _to,\\n                _referralWallet,\\n                _referralAmountUsdt,\\n                _amountUsdt\\n            );\\n        }\\n\\n        // transfer USDT to the treasury wallet\\n        usdtContract.safeTransferFrom(\\n            msg.sender,\\n            treasuryWallet,\\n            castToTether(_treasuryWalletAmountUsdt)\\n        );\\n\\n        emit Buy(_to, _amountUsdt, _tokenAmount, _discountPercent);\\n    }\\n\\n    /// @dev Check signature for the buy() function call.\\n    function checkSignature(\\n        address _to,\\n        uint _amountUsdt,\\n        uint _discountPercent,\\n        address _referralWallet,\\n        uint _referralRewardPercent,\\n        bytes calldata _signature\\n    ) internal view {\\n        bytes32 _digest = _hashTypedDataV4(\\n            keccak256(\\n                abi.encode(\\n                    BUY_PARAMS_TYPEHASH,\\n                    _to,\\n                    _amountUsdt,\\n                    _discountPercent,\\n                    _referralWallet,\\n                    _referralRewardPercent,\\n                    tokenPriceUsdt,\\n                    msg.sender\\n                )\\n            )\\n        );\\n\\n        if (ECDSA.recover(_digest, _signature) != apiSigner) {\\n            revert InvalidSignature();\\n        }\\n    }\\n\\n    /**\\n     * Calculate the USDT amount (with 18 decimals) that should be kept on this contract as a referral reward.\\n     *\\n     * @param _amountUsdt Purchase amount in USDT with 18 decimals.\\n     * @param _referralWallet Referral wallet address.\\n     * @param _referralRewardPercent Percentage of the purchase amount the referral wallet should receive (multiplied by 10).\\n     * @return The USDT amount (with 18 decimals) that should be sent to this contract as a referral reward.\\n     */\\n    function calculateReferralReward(\\n        uint _amountUsdt,\\n        address _referralWallet,\\n        uint _referralRewardPercent\\n    ) internal returns (uint) {\\n        if (_referralWallet == address(0)) {\\n            return 0;\\n        }\\n\\n        uint _referralUsdtAmount = normalizeTether(\\n            (_amountUsdt * _referralRewardPercent) / 100 / PERCENT_MULTIPLIER\\n        );\\n        usdtBalances[_referralWallet] += _referralUsdtAmount;\\n\\n        return _referralUsdtAmount;\\n    }\\n\\n    /**\\n     * Withdraw USDT rewards.\\n     *\\n     * @param _to Receiver address.\\n     * @param _amount USDT amount to withdraw. Should be 18 decimals here.\\n     */\\n    function withdrawUsdt(address _to, uint _amount) external whenNotPaused {\\n        if (_amount > usdtBalances[msg.sender]) {\\n            revert NotEnoughUsdtOnBalance();\\n        }\\n\\n        usdtBalances[msg.sender] -= _amount;\\n        usdtContract.safeTransfer(_to, castToTether(_amount));\\n\\n        emit WithdrawUsdt(msg.sender, _to, _amount);\\n    }\\n\\n    /// Returns sender's token balance.\\n    function getTokenBalance() external view returns (uint) {\\n        return tokenBalances[msg.sender];\\n    }\\n\\n    /// Returns the token balance of the given address.\\n    function tokenBalanceOf(address _address) external view returns (uint) {\\n        return tokenBalances[_address];\\n    }\\n\\n    /// Returns sender's USDT balance. Return value uses 18 decimals.\\n    function getUsdtBalance() external view returns (uint) {\\n        return usdtBalances[msg.sender];\\n    }\\n\\n    /**\\n     * Get token price in USDT. The return value uses 18 decimals.\\n     *\\n     * @param _amount Tokens amount.\\n     */\\n    function getUsdtPrice(\\n        uint _amount,\\n        uint _tokenPriceUsdt\\n    ) internal pure returns (uint) {\\n        return (_amount * _tokenPriceUsdt) / 1 ether;\\n    }\\n\\n    /**\\n     * Set all decimal digits after 6-th to 0 in a number with 18 decimals.\\n     *\\n     * @param _amount Tether amount with 18 decimals.\\n     */\\n    function normalizeTether(uint _amount) internal pure returns (uint) {\\n        return castToTether(_amount) * 10 ** 12;\\n    }\\n\\n    /**\\n     * Cast 18-decimal number to a 6-decimal number.\\n     *\\n     * @param _amount Tether amount with 18 decimals.\\n     */\\n    function castToTether(uint _amount) internal pure returns (uint) {\\n        return _amount / (10 ** 12);\\n    }\\n}\\n\",\"keccak256\":\"0xd5ab291663a5050519a3dd443b9b24d32fd7aa382234d65a382b1f94c1fa71f0\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001961001e565b6100d0565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00805468010000000000000000900460ff161561006e5760405163f92ee8a960e01b815260040160405180910390fd5b80546001600160401b03908116146100cd5780546001600160401b0319166001600160401b0390811782556040519081527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b50565b612049806100df6000396000f3fe608060405234801561001057600080fd5b50600436106101735760003560e01c806382b2e257116100de578063a217fddf11610097578063d7c41c7911610071578063d7c41c7914610311578063d7ca994914610324578063e42c08f21461032d578063ed0924511461035657600080fd5b8063a217fddf146102e3578063a3fb5bee146102eb578063d547741f146102fe57600080fd5b806382b2e2571461027c5780638456cb591461029157806384b0196e146102995780638a789716146102b457806391d14854146102bd578063935b7dbd146102d057600080fd5b806336568abe1161013057806336568abe1461020d5780633f4ba83a146102205780635c975abb1461022857806360219c7b14610240578063611509231461024957806363b815fa1461027457600080fd5b806301ffc9a71461017857806306292f2b146101a05780630b984995146101bf5780630d4192d9146101d4578063248a9ca3146101e75780632f2ff15d146101fa575b600080fd5b61018b610186366004611a5f565b610369565b60405190151581526020015b60405180910390f35b336000908152600760205260409020545b604051908152602001610197565b6101d26101cd366004611a9e565b6103a0565b005b6101d26101e2366004611abb565b61044a565b6101b16101f5366004611abb565b6104cd565b6101d2610208366004611ad4565b6104ef565b6101d261021b366004611ad4565b610511565b6101d2610549565b600080516020611ff48339815191525460ff1661018b565b6101b160045481565b60025461025c906001600160a01b031681565b6040516001600160a01b039091168152602001610197565b6101b1600a81565b336000908152600660205260409020546101b1565b6101d261055f565b6102a1610572565b6040516101979796959493929190611b54565b6101b160035481565b61018b6102cb366004611ad4565b61061e565b6101d26102de366004611bed565b610656565b6101b1600081565b6101d26102f9366004611c22565b6106da565b6101d261030c366004611ad4565b610707565b6101d261031f366004611cd7565b610723565b6101b160055481565b6101b161033b366004611a9e565b6001600160a01b031660009081526006602052604090205490565b6101d2610364366004611d45565b610a7e565b60006001600160e01b03198216637965db0b60e01b148061039a57506301ffc9a760e01b6001600160e01b03198316145b92915050565b60006103ab81610b3f565b6001600160a01b0382166103f4576040516356af9c8160e01b815260206004820152600a6024820152692fb0b834a9b4b3b732b960b11b60448201526064015b60405180910390fd5b600180546001600160a01b0319166001600160a01b0384169081179091556040519081527f3650804d6f777e7b5a4ca4a047fcef31c1327c3a01f1e4f7e5a0ceb8a453ccf6906020015b60405180910390a15050565b600061045581610b3f565b816000036104985760405163b2b81a1d60e01b815260206004820152600f60248201526e17dd1bdad95b941c9a58d9555cd91d608a1b60448201526064016103eb565b60038290556040518281527fb3f65b77fb08172cf146f63896002e0a91440e2ba50555db9e327d4553857d2a9060200161043e565b6000908152600080516020611fd4833981519152602052604090206001015490565b6104f8826104cd565b61050181610b3f565b61050b8383610b49565b50505050565b6001600160a01b038116331461053a5760405163334bd91960e11b815260040160405180910390fd5b6105448282610bee565b505050565b600061055481610b3f565b61055c610c6a565b50565b600061056a81610b3f565b61055c610cca565b60006060808280808381600080516020611fb4833981519152805490915015801561059f57506001810154155b6105e35760405162461bcd60e51b81526020600482015260156024820152741152540dcc4c8e88155b9a5b9a5d1a585b1a5e9959605a1b60448201526064016103eb565b6105eb610d13565b6105f3610dd6565b60408051600080825260208201909252600f60f81b9c939b5091995046985030975095509350915050565b6000918252600080516020611fd4833981519152602090815260408084206001600160a01b0393909316845291905290205460ff1690565b600061066181610b3f565b6001600160a01b03841661069e576040516356af9c8160e01b81526020600482015260036024820152625f746f60e81b60448201526064016103eb565b6106a9600a80611d9d565b8211156106cc57604051635fa709cd60e11b8152600481018390526024016103eb565b61050b848484600080610e15565b6106e261115e565b6106f187878787878787611191565b6106fe8787878787610e15565b50505050505050565b610710826104cd565b61071981610b3f565b61050b8383610bee565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a008054600160401b810460ff16159067ffffffffffffffff166000811580156107695750825b905060008267ffffffffffffffff1660011480156107865750303b155b905081158015610794575080155b156107b25760405163f92ee8a960e01b815260040160405180910390fd5b845467ffffffffffffffff1916600117855583156107dc57845460ff60401b1916600160401b1785555b6107e46112a5565b6107ec6112ad565b61083a60405180604001604052806013815260200172576f726d6661726520546f6b656e2053616c6560681b815250604051806040016040528060018152602001603160f81b8152506112bd565b6001600160a01b038b1661087a576040516356af9c8160e01b81526020600482015260066024820152652fb0b236b4b760d11b60448201526064016103eb565b6001600160a01b038a166108c1576040516356af9c8160e01b815260206004820152600d60248201526c17dd5cd91d10dbdb9d1c9858dd609a1b60448201526064016103eb565b6001600160a01b03891661090a576040516356af9c8160e01b815260206004820152600f60248201526e17dd1c99585cdd5c9e55d85b1b195d608a1b60448201526064016103eb565b6001600160a01b03881661094e576040516356af9c8160e01b815260206004820152600a6024820152692fb0b834a9b4b3b732b960b11b60448201526064016103eb565b866000036109955760405163b2b81a1d60e01b81526020600482015260136024820152725f746f74616c546f6b656e73466f7253616c6560681b60448201526064016103eb565b856000036109d85760405163b2b81a1d60e01b815260206004820152600f60248201526e17dd1bdad95b941c9a58d9555cd91d608a1b60448201526064016103eb565b6109e360008c610b49565b50600280546001600160a01b03808d166001600160a01b031992831617909255600080548c841690831617905560018054928b1692909116919091179055600487905560038690558315610a7157845460ff60401b19168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b5050505050505050505050565b610a8661115e565b33600090815260076020526040902054811115610ab6576040516305330f7360e01b815260040160405180910390fd5b3360009081526007602052604081208054839290610ad5908490611db4565b90915550610afb905082610ae8836112d3565b6002546001600160a01b031691906112e4565b6040518181526001600160a01b0383169033907fa4ebbcafcc06907d8b1e0959e51153e27ad8a599a1d2dfcb7a86dfbdfa21a7ed9060200160405180910390a35050565b61055c8133611343565b6000600080516020611fd4833981519152610b64848461061e565b610be4576000848152602082815260408083206001600160a01b03871684529091529020805460ff19166001179055610b9a3390565b6001600160a01b0316836001600160a01b0316857f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a4600191505061039a565b600091505061039a565b6000600080516020611fd4833981519152610c09848461061e565b15610be4576000848152602082815260408083206001600160a01b0387168085529252808320805460ff1916905551339287917ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b9190a4600191505061039a565b610c7261137c565b600080516020611ff4833981519152805460ff191681557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a150565b610cd261115e565b600080516020611ff4833981519152805460ff191660011781557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25833610cac565b7fa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d1028054606091600080516020611fb483398151915291610d5290611dc7565b80601f0160208091040260200160405190810160405280929190818152602001828054610d7e90611dc7565b8015610dcb5780601f10610da057610100808354040283529160200191610dcb565b820191906000526020600020905b815481529060010190602001808311610dae57829003601f168201915b505050505091505090565b7fa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d1038054606091600080516020611fb483398151915291610d5290611dc7565b83600003610e545760405163b2b81a1d60e01b815260206004820152600b60248201526a17d85b5bdd5b9d155cd91d60aa1b60448201526064016103eb565b610e5d846112d3565b600254604051636eb1769f60e11b81523360048201523060248201526001600160a01b039091169063dd62ed3e90604401602060405180830381865afa158015610eab573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ecf9190611e01565b1015610eee576040516341995fbf60e01b815260040160405180910390fd5b60045460055410610f12576040516352df9fe560e01b815260040160405180910390fd5b610f1e600a6014611d9d565b831115610f4157604051635fa709cd60e11b8152600481018490526024016103eb565b610f4c600a80611d9d565b811115610f6f5760405163e0de3ef960e01b8152600481018290526024016103eb565b610f78846113ac565b93506000600a606485600354610f8e9190611d9d565b610f989190611e1a565b610fa29190611e1a565b600354610faf9190611db4565b9050600081610fc687670de0b6b3a7640000611d9d565b610fd09190611e1a565b905060045481600554610fe39190611e3c565b111561100857600554600454610ff99190611db4565b905061100581836113c6565b95505b8560006110168287876113ec565b6001600160a01b038a16600090815260066020526040812080549293508592909190611043908490611e3c565b92505081905550826005600082825461105c9190611e3c565b909155505080156110ec576110718183611db4565b91506110953330611081846112d3565b6002546001600160a01b031692919061146b565b856001600160a01b0316896001600160a01b03167fbd7e5be34537a425747cf06d84eca4d59c865e2002b7d5f36f14558bdc5ae8cd838b6040516110e3929190918252602082015260400190565b60405180910390a35b6000546111079033906001600160a01b0316611081856112d3565b60408051898152602081018590529081018890526001600160a01b038a16907fbeae048c6d270d9469f86cf6e8fedda3c60ad770f16c24c9fc131c8e9a09101d9060600160405180910390a2505050505050505050565b600080516020611ff48339815191525460ff161561118f5760405163d93c066560e01b815260040160405180910390fd5b565b600354604080517f6848149eb78571779a56c9d7628e13c19a40da435f30a662c674cae77d5e998760208201526001600160a01b03808b1692820192909252606081018990526080810188905290861660a082015260c0810185905260e0810191909152336101008201526000906112229061012001604051602081830303815290604052805190602001206114a4565b600154604080516020601f87018190048102820181019092528581529293506001600160a01b03909116916112749184919087908790819084018382808284376000920191909152506114d192505050565b6001600160a01b03161461129b57604051638baa579f60e01b815260040160405180910390fd5b5050505050505050565b61118f6114fb565b6112b56114fb565b61118f611544565b6112c56114fb565b6112cf8282611565565b5050565b600061039a64e8d4a5100083611e1a565b6040516001600160a01b0383811660248301526044820183905261054491859182169063a9059cbb906064015b604051602081830303815290604052915060e01b6020820180516001600160e01b0383818316178352505050506115c6565b61134d828261061e565b6112cf5760405163e2517d3f60e01b81526001600160a01b0382166004820152602481018390526044016103eb565b600080516020611ff48339815191525460ff1661118f57604051638dfc202b60e01b815260040160405180910390fd5b60006113b7826112d3565b61039a9064e8d4a51000611d9d565b6000670de0b6b3a76400006113db8385611d9d565b6113e59190611e1a565b9392505050565b60006001600160a01b038316611404575060006113e5565b6000611430600a60646114178689611d9d565b6114219190611e1a565b61142b9190611e1a565b6113ac565b6001600160a01b03851660009081526007602052604081208054929350839290919061145d908490611e3c565b909155509095945050505050565b6040516001600160a01b03848116602483015283811660448301526064820183905261050b9186918216906323b872dd90608401611311565b600061039a6114b1611629565b8360405161190160f01b8152600281019290925260228201526042902090565b6000806000806114e18686611638565b9250925092506114f18282611685565b5090949350505050565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a0054600160401b900460ff1661118f57604051631afcd79f60e31b815260040160405180910390fd5b61154c6114fb565b600080516020611ff4833981519152805460ff19169055565b61156d6114fb565b600080516020611fb48339815191527fa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d1026115a78482611e9f565b50600381016115b68382611e9f565b5060008082556001909101555050565b60006115db6001600160a01b0384168361173e565b905080516000141580156116005750808060200190518101906115fe9190611f5f565b155b1561054457604051635274afe760e01b81526001600160a01b03841660048201526024016103eb565b600061163361174c565b905090565b600080600083516041036116725760208401516040850151606086015160001a611664888285856117c0565b95509550955050505061167e565b50508151600091506002905b9250925092565b600082600381111561169957611699611f81565b036116a2575050565b60018260038111156116b6576116b6611f81565b036116d45760405163f645eedf60e01b815260040160405180910390fd5b60028260038111156116e8576116e8611f81565b036117095760405163fce698f760e01b8152600481018290526024016103eb565b600382600381111561171d5761171d611f81565b036112cf576040516335e2f38360e21b8152600481018290526024016103eb565b60606113e58383600061188f565b60007f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f61177761192c565b61177f611996565b60408051602081019490945283019190915260608201524660808201523060a082015260c00160405160208183030381529060405280519060200120905090565b600080807f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a08411156117fb5750600091506003905082611885565b604080516000808252602082018084528a905260ff891692820192909252606081018790526080810186905260019060a0016020604051602081039080840390855afa15801561184f573d6000803e3d6000fd5b5050604051601f1901519150506001600160a01b03811661187b57506000925060019150829050611885565b9250600091508190505b9450945094915050565b6060814710156118b45760405163cd78605960e01b81523060048201526024016103eb565b600080856001600160a01b031684866040516118d09190611f97565b60006040518083038185875af1925050503d806000811461190d576040519150601f19603f3d011682016040523d82523d6000602084013e611912565b606091505b50915091506119228683836119da565b9695505050505050565b6000600080516020611fb483398151915281611946610d13565b80519091501561195e57805160209091012092915050565b8154801561196d579392505050565b7fc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470935050505090565b6000600080516020611fb4833981519152816119b0610dd6565b8051909150156119c857805160209091012092915050565b6001820154801561196d579392505050565b6060826119ef576119ea82611a36565b6113e5565b8151158015611a0657506001600160a01b0384163b155b15611a2f57604051639996b31560e01b81526001600160a01b03851660048201526024016103eb565b50806113e5565b805115611a465780518082602001fd5b604051630a12f52160e11b815260040160405180910390fd5b600060208284031215611a7157600080fd5b81356001600160e01b0319811681146113e557600080fd5b6001600160a01b038116811461055c57600080fd5b600060208284031215611ab057600080fd5b81356113e581611a89565b600060208284031215611acd57600080fd5b5035919050565b60008060408385031215611ae757600080fd5b823591506020830135611af981611a89565b809150509250929050565b60005b83811015611b1f578181015183820152602001611b07565b50506000910152565b60008151808452611b40816020860160208601611b04565b601f01601f19169290920160200192915050565b60ff60f81b881681526000602060e06020840152611b7560e084018a611b28565b8381036040850152611b87818a611b28565b606085018990526001600160a01b038816608086015260a0850187905284810360c08601528551808252602080880193509091019060005b81811015611bdb57835183529284019291840191600101611bbf565b50909c9b505050505050505050505050565b600080600060608486031215611c0257600080fd5b8335611c0d81611a89565b95602085013595506040909401359392505050565b600080600080600080600060c0888a031215611c3d57600080fd5b8735611c4881611a89565b965060208801359550604088013594506060880135611c6681611a89565b93506080880135925060a088013567ffffffffffffffff80821115611c8a57600080fd5b818a0191508a601f830112611c9e57600080fd5b813581811115611cad57600080fd5b8b6020828501011115611cbf57600080fd5b60208301945080935050505092959891949750929550565b60008060008060008060c08789031215611cf057600080fd5b8635611cfb81611a89565b95506020870135611d0b81611a89565b94506040870135611d1b81611a89565b93506060870135611d2b81611a89565b9598949750929560808101359460a0909101359350915050565b60008060408385031215611d5857600080fd5b8235611d6381611a89565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052601160045260246000fd5b808202811582820484141761039a5761039a611d87565b8181038181111561039a5761039a611d87565b600181811c90821680611ddb57607f821691505b602082108103611dfb57634e487b7160e01b600052602260045260246000fd5b50919050565b600060208284031215611e1357600080fd5b5051919050565b600082611e3757634e487b7160e01b600052601260045260246000fd5b500490565b8082018082111561039a5761039a611d87565b601f821115610544576000816000526020600020601f850160051c81016020861015611e785750805b601f850160051c820191505b81811015611e9757828155600101611e84565b505050505050565b815167ffffffffffffffff811115611eb957611eb9611d71565b611ecd81611ec78454611dc7565b84611e4f565b602080601f831160018114611f025760008415611eea5750858301515b600019600386901b1c1916600185901b178555611e97565b600085815260208120601f198616915b82811015611f3157888601518255948401946001909101908401611f12565b5085821015611f4f5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b600060208284031215611f7157600080fd5b815180151581146113e557600080fd5b634e487b7160e01b600052602160045260246000fd5b60008251611fa9818460208701611b04565b919091019291505056fea16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d10002dd7bc7dec4dceedda775e58dd541e08a116c6c53815c0bd028192f7b626800cd5ed15c6e187e77e9aee88184c21f4f2182ab5827cb3b7e07fbedcd63f03300a26469706673582212203fe6e9a2514c6e99783d78b6e555f85b82585931d0800d077fbf1a3d0f92162e64736f6c63430008170033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106101735760003560e01c806382b2e257116100de578063a217fddf11610097578063d7c41c7911610071578063d7c41c7914610311578063d7ca994914610324578063e42c08f21461032d578063ed0924511461035657600080fd5b8063a217fddf146102e3578063a3fb5bee146102eb578063d547741f146102fe57600080fd5b806382b2e2571461027c5780638456cb591461029157806384b0196e146102995780638a789716146102b457806391d14854146102bd578063935b7dbd146102d057600080fd5b806336568abe1161013057806336568abe1461020d5780633f4ba83a146102205780635c975abb1461022857806360219c7b14610240578063611509231461024957806363b815fa1461027457600080fd5b806301ffc9a71461017857806306292f2b146101a05780630b984995146101bf5780630d4192d9146101d4578063248a9ca3146101e75780632f2ff15d146101fa575b600080fd5b61018b610186366004611a5f565b610369565b60405190151581526020015b60405180910390f35b336000908152600760205260409020545b604051908152602001610197565b6101d26101cd366004611a9e565b6103a0565b005b6101d26101e2366004611abb565b61044a565b6101b16101f5366004611abb565b6104cd565b6101d2610208366004611ad4565b6104ef565b6101d261021b366004611ad4565b610511565b6101d2610549565b600080516020611ff48339815191525460ff1661018b565b6101b160045481565b60025461025c906001600160a01b031681565b6040516001600160a01b039091168152602001610197565b6101b1600a81565b336000908152600660205260409020546101b1565b6101d261055f565b6102a1610572565b6040516101979796959493929190611b54565b6101b160035481565b61018b6102cb366004611ad4565b61061e565b6101d26102de366004611bed565b610656565b6101b1600081565b6101d26102f9366004611c22565b6106da565b6101d261030c366004611ad4565b610707565b6101d261031f366004611cd7565b610723565b6101b160055481565b6101b161033b366004611a9e565b6001600160a01b031660009081526006602052604090205490565b6101d2610364366004611d45565b610a7e565b60006001600160e01b03198216637965db0b60e01b148061039a57506301ffc9a760e01b6001600160e01b03198316145b92915050565b60006103ab81610b3f565b6001600160a01b0382166103f4576040516356af9c8160e01b815260206004820152600a6024820152692fb0b834a9b4b3b732b960b11b60448201526064015b60405180910390fd5b600180546001600160a01b0319166001600160a01b0384169081179091556040519081527f3650804d6f777e7b5a4ca4a047fcef31c1327c3a01f1e4f7e5a0ceb8a453ccf6906020015b60405180910390a15050565b600061045581610b3f565b816000036104985760405163b2b81a1d60e01b815260206004820152600f60248201526e17dd1bdad95b941c9a58d9555cd91d608a1b60448201526064016103eb565b60038290556040518281527fb3f65b77fb08172cf146f63896002e0a91440e2ba50555db9e327d4553857d2a9060200161043e565b6000908152600080516020611fd4833981519152602052604090206001015490565b6104f8826104cd565b61050181610b3f565b61050b8383610b49565b50505050565b6001600160a01b038116331461053a5760405163334bd91960e11b815260040160405180910390fd5b6105448282610bee565b505050565b600061055481610b3f565b61055c610c6a565b50565b600061056a81610b3f565b61055c610cca565b60006060808280808381600080516020611fb4833981519152805490915015801561059f57506001810154155b6105e35760405162461bcd60e51b81526020600482015260156024820152741152540dcc4c8e88155b9a5b9a5d1a585b1a5e9959605a1b60448201526064016103eb565b6105eb610d13565b6105f3610dd6565b60408051600080825260208201909252600f60f81b9c939b5091995046985030975095509350915050565b6000918252600080516020611fd4833981519152602090815260408084206001600160a01b0393909316845291905290205460ff1690565b600061066181610b3f565b6001600160a01b03841661069e576040516356af9c8160e01b81526020600482015260036024820152625f746f60e81b60448201526064016103eb565b6106a9600a80611d9d565b8211156106cc57604051635fa709cd60e11b8152600481018390526024016103eb565b61050b848484600080610e15565b6106e261115e565b6106f187878787878787611191565b6106fe8787878787610e15565b50505050505050565b610710826104cd565b61071981610b3f565b61050b8383610bee565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a008054600160401b810460ff16159067ffffffffffffffff166000811580156107695750825b905060008267ffffffffffffffff1660011480156107865750303b155b905081158015610794575080155b156107b25760405163f92ee8a960e01b815260040160405180910390fd5b845467ffffffffffffffff1916600117855583156107dc57845460ff60401b1916600160401b1785555b6107e46112a5565b6107ec6112ad565b61083a60405180604001604052806013815260200172576f726d6661726520546f6b656e2053616c6560681b815250604051806040016040528060018152602001603160f81b8152506112bd565b6001600160a01b038b1661087a576040516356af9c8160e01b81526020600482015260066024820152652fb0b236b4b760d11b60448201526064016103eb565b6001600160a01b038a166108c1576040516356af9c8160e01b815260206004820152600d60248201526c17dd5cd91d10dbdb9d1c9858dd609a1b60448201526064016103eb565b6001600160a01b03891661090a576040516356af9c8160e01b815260206004820152600f60248201526e17dd1c99585cdd5c9e55d85b1b195d608a1b60448201526064016103eb565b6001600160a01b03881661094e576040516356af9c8160e01b815260206004820152600a6024820152692fb0b834a9b4b3b732b960b11b60448201526064016103eb565b866000036109955760405163b2b81a1d60e01b81526020600482015260136024820152725f746f74616c546f6b656e73466f7253616c6560681b60448201526064016103eb565b856000036109d85760405163b2b81a1d60e01b815260206004820152600f60248201526e17dd1bdad95b941c9a58d9555cd91d608a1b60448201526064016103eb565b6109e360008c610b49565b50600280546001600160a01b03808d166001600160a01b031992831617909255600080548c841690831617905560018054928b1692909116919091179055600487905560038690558315610a7157845460ff60401b19168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b5050505050505050505050565b610a8661115e565b33600090815260076020526040902054811115610ab6576040516305330f7360e01b815260040160405180910390fd5b3360009081526007602052604081208054839290610ad5908490611db4565b90915550610afb905082610ae8836112d3565b6002546001600160a01b031691906112e4565b6040518181526001600160a01b0383169033907fa4ebbcafcc06907d8b1e0959e51153e27ad8a599a1d2dfcb7a86dfbdfa21a7ed9060200160405180910390a35050565b61055c8133611343565b6000600080516020611fd4833981519152610b64848461061e565b610be4576000848152602082815260408083206001600160a01b03871684529091529020805460ff19166001179055610b9a3390565b6001600160a01b0316836001600160a01b0316857f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a4600191505061039a565b600091505061039a565b6000600080516020611fd4833981519152610c09848461061e565b15610be4576000848152602082815260408083206001600160a01b0387168085529252808320805460ff1916905551339287917ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b9190a4600191505061039a565b610c7261137c565b600080516020611ff4833981519152805460ff191681557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a150565b610cd261115e565b600080516020611ff4833981519152805460ff191660011781557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25833610cac565b7fa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d1028054606091600080516020611fb483398151915291610d5290611dc7565b80601f0160208091040260200160405190810160405280929190818152602001828054610d7e90611dc7565b8015610dcb5780601f10610da057610100808354040283529160200191610dcb565b820191906000526020600020905b815481529060010190602001808311610dae57829003601f168201915b505050505091505090565b7fa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d1038054606091600080516020611fb483398151915291610d5290611dc7565b83600003610e545760405163b2b81a1d60e01b815260206004820152600b60248201526a17d85b5bdd5b9d155cd91d60aa1b60448201526064016103eb565b610e5d846112d3565b600254604051636eb1769f60e11b81523360048201523060248201526001600160a01b039091169063dd62ed3e90604401602060405180830381865afa158015610eab573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ecf9190611e01565b1015610eee576040516341995fbf60e01b815260040160405180910390fd5b60045460055410610f12576040516352df9fe560e01b815260040160405180910390fd5b610f1e600a6014611d9d565b831115610f4157604051635fa709cd60e11b8152600481018490526024016103eb565b610f4c600a80611d9d565b811115610f6f5760405163e0de3ef960e01b8152600481018290526024016103eb565b610f78846113ac565b93506000600a606485600354610f8e9190611d9d565b610f989190611e1a565b610fa29190611e1a565b600354610faf9190611db4565b9050600081610fc687670de0b6b3a7640000611d9d565b610fd09190611e1a565b905060045481600554610fe39190611e3c565b111561100857600554600454610ff99190611db4565b905061100581836113c6565b95505b8560006110168287876113ec565b6001600160a01b038a16600090815260066020526040812080549293508592909190611043908490611e3c565b92505081905550826005600082825461105c9190611e3c565b909155505080156110ec576110718183611db4565b91506110953330611081846112d3565b6002546001600160a01b031692919061146b565b856001600160a01b0316896001600160a01b03167fbd7e5be34537a425747cf06d84eca4d59c865e2002b7d5f36f14558bdc5ae8cd838b6040516110e3929190918252602082015260400190565b60405180910390a35b6000546111079033906001600160a01b0316611081856112d3565b60408051898152602081018590529081018890526001600160a01b038a16907fbeae048c6d270d9469f86cf6e8fedda3c60ad770f16c24c9fc131c8e9a09101d9060600160405180910390a2505050505050505050565b600080516020611ff48339815191525460ff161561118f5760405163d93c066560e01b815260040160405180910390fd5b565b600354604080517f6848149eb78571779a56c9d7628e13c19a40da435f30a662c674cae77d5e998760208201526001600160a01b03808b1692820192909252606081018990526080810188905290861660a082015260c0810185905260e0810191909152336101008201526000906112229061012001604051602081830303815290604052805190602001206114a4565b600154604080516020601f87018190048102820181019092528581529293506001600160a01b03909116916112749184919087908790819084018382808284376000920191909152506114d192505050565b6001600160a01b03161461129b57604051638baa579f60e01b815260040160405180910390fd5b5050505050505050565b61118f6114fb565b6112b56114fb565b61118f611544565b6112c56114fb565b6112cf8282611565565b5050565b600061039a64e8d4a5100083611e1a565b6040516001600160a01b0383811660248301526044820183905261054491859182169063a9059cbb906064015b604051602081830303815290604052915060e01b6020820180516001600160e01b0383818316178352505050506115c6565b61134d828261061e565b6112cf5760405163e2517d3f60e01b81526001600160a01b0382166004820152602481018390526044016103eb565b600080516020611ff48339815191525460ff1661118f57604051638dfc202b60e01b815260040160405180910390fd5b60006113b7826112d3565b61039a9064e8d4a51000611d9d565b6000670de0b6b3a76400006113db8385611d9d565b6113e59190611e1a565b9392505050565b60006001600160a01b038316611404575060006113e5565b6000611430600a60646114178689611d9d565b6114219190611e1a565b61142b9190611e1a565b6113ac565b6001600160a01b03851660009081526007602052604081208054929350839290919061145d908490611e3c565b909155509095945050505050565b6040516001600160a01b03848116602483015283811660448301526064820183905261050b9186918216906323b872dd90608401611311565b600061039a6114b1611629565b8360405161190160f01b8152600281019290925260228201526042902090565b6000806000806114e18686611638565b9250925092506114f18282611685565b5090949350505050565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a0054600160401b900460ff1661118f57604051631afcd79f60e31b815260040160405180910390fd5b61154c6114fb565b600080516020611ff4833981519152805460ff19169055565b61156d6114fb565b600080516020611fb48339815191527fa16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d1026115a78482611e9f565b50600381016115b68382611e9f565b5060008082556001909101555050565b60006115db6001600160a01b0384168361173e565b905080516000141580156116005750808060200190518101906115fe9190611f5f565b155b1561054457604051635274afe760e01b81526001600160a01b03841660048201526024016103eb565b600061163361174c565b905090565b600080600083516041036116725760208401516040850151606086015160001a611664888285856117c0565b95509550955050505061167e565b50508151600091506002905b9250925092565b600082600381111561169957611699611f81565b036116a2575050565b60018260038111156116b6576116b6611f81565b036116d45760405163f645eedf60e01b815260040160405180910390fd5b60028260038111156116e8576116e8611f81565b036117095760405163fce698f760e01b8152600481018290526024016103eb565b600382600381111561171d5761171d611f81565b036112cf576040516335e2f38360e21b8152600481018290526024016103eb565b60606113e58383600061188f565b60007f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f61177761192c565b61177f611996565b60408051602081019490945283019190915260608201524660808201523060a082015260c00160405160208183030381529060405280519060200120905090565b600080807f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a08411156117fb5750600091506003905082611885565b604080516000808252602082018084528a905260ff891692820192909252606081018790526080810186905260019060a0016020604051602081039080840390855afa15801561184f573d6000803e3d6000fd5b5050604051601f1901519150506001600160a01b03811661187b57506000925060019150829050611885565b9250600091508190505b9450945094915050565b6060814710156118b45760405163cd78605960e01b81523060048201526024016103eb565b600080856001600160a01b031684866040516118d09190611f97565b60006040518083038185875af1925050503d806000811461190d576040519150601f19603f3d011682016040523d82523d6000602084013e611912565b606091505b50915091506119228683836119da565b9695505050505050565b6000600080516020611fb483398151915281611946610d13565b80519091501561195e57805160209091012092915050565b8154801561196d579392505050565b7fc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470935050505090565b6000600080516020611fb4833981519152816119b0610dd6565b8051909150156119c857805160209091012092915050565b6001820154801561196d579392505050565b6060826119ef576119ea82611a36565b6113e5565b8151158015611a0657506001600160a01b0384163b155b15611a2f57604051639996b31560e01b81526001600160a01b03851660048201526024016103eb565b50806113e5565b805115611a465780518082602001fd5b604051630a12f52160e11b815260040160405180910390fd5b600060208284031215611a7157600080fd5b81356001600160e01b0319811681146113e557600080fd5b6001600160a01b038116811461055c57600080fd5b600060208284031215611ab057600080fd5b81356113e581611a89565b600060208284031215611acd57600080fd5b5035919050565b60008060408385031215611ae757600080fd5b823591506020830135611af981611a89565b809150509250929050565b60005b83811015611b1f578181015183820152602001611b07565b50506000910152565b60008151808452611b40816020860160208601611b04565b601f01601f19169290920160200192915050565b60ff60f81b881681526000602060e06020840152611b7560e084018a611b28565b8381036040850152611b87818a611b28565b606085018990526001600160a01b038816608086015260a0850187905284810360c08601528551808252602080880193509091019060005b81811015611bdb57835183529284019291840191600101611bbf565b50909c9b505050505050505050505050565b600080600060608486031215611c0257600080fd5b8335611c0d81611a89565b95602085013595506040909401359392505050565b600080600080600080600060c0888a031215611c3d57600080fd5b8735611c4881611a89565b965060208801359550604088013594506060880135611c6681611a89565b93506080880135925060a088013567ffffffffffffffff80821115611c8a57600080fd5b818a0191508a601f830112611c9e57600080fd5b813581811115611cad57600080fd5b8b6020828501011115611cbf57600080fd5b60208301945080935050505092959891949750929550565b60008060008060008060c08789031215611cf057600080fd5b8635611cfb81611a89565b95506020870135611d0b81611a89565b94506040870135611d1b81611a89565b93506060870135611d2b81611a89565b9598949750929560808101359460a0909101359350915050565b60008060408385031215611d5857600080fd5b8235611d6381611a89565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052601160045260246000fd5b808202811582820484141761039a5761039a611d87565b8181038181111561039a5761039a611d87565b600181811c90821680611ddb57607f821691505b602082108103611dfb57634e487b7160e01b600052602260045260246000fd5b50919050565b600060208284031215611e1357600080fd5b5051919050565b600082611e3757634e487b7160e01b600052601260045260246000fd5b500490565b8082018082111561039a5761039a611d87565b601f821115610544576000816000526020600020601f850160051c81016020861015611e785750805b601f850160051c820191505b81811015611e9757828155600101611e84565b505050505050565b815167ffffffffffffffff811115611eb957611eb9611d71565b611ecd81611ec78454611dc7565b84611e4f565b602080601f831160018114611f025760008415611eea5750858301515b600019600386901b1c1916600185901b178555611e97565b600085815260208120601f198616915b82811015611f3157888601518255948401946001909101908401611f12565b5085821015611f4f5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b600060208284031215611f7157600080fd5b815180151581146113e557600080fd5b634e487b7160e01b600052602160045260246000fd5b60008251611fa9818460208701611b04565b919091019291505056fea16a46d94261c7517cc8ff89f61c0ce93598e3c849801011dee649a6a557d10002dd7bc7dec4dceedda775e58dd541e08a116c6c53815c0bd028192f7b626800cd5ed15c6e187e77e9aee88184c21f4f2182ab5827cb3b7e07fbedcd63f03300a26469706673582212203fe6e9a2514c6e99783d78b6e555f85b82585931d0800d077fbf1a3d0f92162e64736f6c63430008170033",
+  "devdoc": {
+    "errors": {
+      "AccessControlBadConfirmation()": [
+        {
+          "details": "The caller of a function is not the expected one. NOTE: Don't confuse with {AccessControlUnauthorizedAccount}."
+        }
+      ],
+      "AccessControlUnauthorizedAccount(address,bytes32)": [
+        {
+          "details": "The `account` is missing a role."
+        }
+      ],
+      "AddressEmptyCode(address)": [
+        {
+          "details": "There's no code at `target` (it is not a contract)."
+        }
+      ],
+      "AddressInsufficientBalance(address)": [
+        {
+          "details": "The ETH balance of the account is not enough to perform the operation."
+        }
+      ],
+      "ECDSAInvalidSignature()": [
+        {
+          "details": "The signature derives the `address(0)`."
+        }
+      ],
+      "ECDSAInvalidSignatureLength(uint256)": [
+        {
+          "details": "The signature has an invalid length."
+        }
+      ],
+      "ECDSAInvalidSignatureS(bytes32)": [
+        {
+          "details": "The signature has an S value that is in the upper half order."
+        }
+      ],
+      "EnforcedPause()": [
+        {
+          "details": "The operation failed because the contract is paused."
+        }
+      ],
+      "ExpectedPause()": [
+        {
+          "details": "The operation failed because the contract is not paused."
+        }
+      ],
+      "FailedInnerCall()": [
+        {
+          "details": "A call to an address target failed. The target may have reverted."
+        }
+      ],
+      "InvalidInitialization()": [
+        {
+          "details": "The contract is already initialized."
+        }
+      ],
+      "NotInitializing()": [
+        {
+          "details": "The contract is not initializing."
+        }
+      ],
+      "SafeERC20FailedOperation(address)": [
+        {
+          "details": "An operation with an ERC20 token failed."
+        }
+      ]
+    },
+    "events": {
+      "EIP712DomainChanged()": {
+        "details": "MAY be emitted to signal that the domain could have changed."
+      },
+      "Initialized(uint64)": {
+        "details": "Triggered when the contract has been initialized or reinitialized."
+      },
+      "Paused(address)": {
+        "details": "Emitted when the pause is triggered by `account`."
+      },
+      "RoleAdminChanged(bytes32,bytes32,bytes32)": {
+        "details": "Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole` `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite {RoleAdminChanged} not being emitted signaling this."
+      },
+      "RoleGranted(bytes32,address,address)": {
+        "details": "Emitted when `account` is granted `role`. `sender` is the account that originated the contract call, an admin role bearer except when using {AccessControl-_setupRole}."
+      },
+      "RoleRevoked(bytes32,address,address)": {
+        "details": "Emitted when `account` is revoked `role`. `sender` is the account that originated the contract call:   - if using `revokeRole`, it is the admin role bearer   - if using `renounceRole`, it is the role bearer (i.e. `account`)"
+      },
+      "Unpaused(address)": {
+        "details": "Emitted when the pause is lifted by `account`."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "buy(address,uint256,uint256,address,uint256,bytes)": {
+        "params": {
+          "_amountUsdt": "USDT amount the user wants to spend (18 decimals).",
+          "_discountPercent": "Applied discount for buyer (multiplied by 10).",
+          "_referralRewardPercent": "Percentage of bought amount the referral account should receive as a reward.",
+          "_referralWallet": "Referral wallet (or zero address).",
+          "_signature": "API signature.",
+          "_to": "Tokens receiver."
+        }
+      },
+      "buyFor(address,uint256,uint256)": {
+        "params": {
+          "_amountUsdt": "USDT amount with 18 decimals.",
+          "_discountPercent": "Discount percent (multiplied by 10).",
+          "_to": "Tokens receiver."
+        }
+      },
+      "constructor": {
+        "custom:oz-upgrades-unsafe-allow": "constructor"
+      },
+      "eip712Domain()": {
+        "details": "See {IERC-5267}."
+      },
+      "getRoleAdmin(bytes32)": {
+        "details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
+      },
+      "grantRole(bytes32,address)": {
+        "details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event."
+      },
+      "hasRole(bytes32,address)": {
+        "details": "Returns `true` if `account` has been granted `role`."
+      },
+      "initialize(address,address,address,address,uint256,uint256)": {
+        "params": {
+          "_admin": "Admin wallet address.",
+          "_apiSigner": "API signer wallet address.",
+          "_tokenPriceUsdt": "USDT price for 10**18 tokens (should use 18 decimals).",
+          "_totalTokensForSale": "Total amount of tokens this contract may sell.",
+          "_treasuryWallet": "Wallet that will receive all incoming USDT.",
+          "_usdtContract": "USDT contract address."
+        }
+      },
+      "paused()": {
+        "details": "Returns true if the contract is paused, and false otherwise."
+      },
+      "renounceRole(bytes32,address)": {
+        "details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `callerConfirmation`. May emit a {RoleRevoked} event."
+      },
+      "revokeRole(bytes32,address)": {
+        "details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event."
+      },
+      "supportsInterface(bytes4)": {
+        "details": "See {IERC165-supportsInterface}."
+      },
+      "withdrawUsdt(address,uint256)": {
+        "params": {
+          "_amount": "USDT amount to withdraw. Should be 18 decimals here.",
+          "_to": "Receiver address."
+        }
+      }
+    },
+    "stateVariables": {
+      "apiSigner": {
+        "details": "API wallet address."
+      },
+      "tokenBalances": {
+        "details": "Bought tokens + referral rewards in tokens."
+      },
+      "tokenPriceUsdt": {
+        "details": "Token price in USDT. 18 decimals should be used here, though USDT has 6 decimals."
+      },
+      "totalSoldTokens": {
+        "details": "Sold tokens amount."
+      },
+      "totalTokensForSale": {
+        "details": "Total amount of tokens this contract may sell."
+      },
+      "treasuryWallet": {
+        "details": "Wallet that all incoming USDT will be transfered to."
+      },
+      "usdtBalances": {
+        "details": "USDT referral rewards."
+      },
+      "usdtContract": {
+        "details": "USDT contract address."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "buy(address,uint256,uint256,address,uint256,bytes)": {
+        "notice": "Buy tokens using USDT."
+      },
+      "buyFor(address,uint256,uint256)": {
+        "notice": "Buy tokens for someone else (admin only)."
+      },
+      "getTokenBalance()": {
+        "notice": "Returns sender's token balance."
+      },
+      "getUsdtBalance()": {
+        "notice": "Returns sender's USDT balance. Return value uses 18 decimals."
+      },
+      "pause()": {
+        "notice": "Disable some contract functions."
+      },
+      "setApiSigner(address)": {
+        "notice": "Update apiSigner address."
+      },
+      "setTokenPriceUsdt(uint256)": {
+        "notice": "Update token price in USDT. 18 decimals should be used here."
+      },
+      "tokenBalanceOf(address)": {
+        "notice": "Returns the token balance of the given address."
+      },
+      "unpause()": {
+        "notice": "Enable all contract functions."
+      },
+      "withdrawUsdt(address,uint256)": {
+        "notice": "Withdraw USDT rewards."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8314,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "treasuryWallet",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 8317,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "apiSigner",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 8321,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "usdtContract",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_contract(IERC20)5336"
+      },
+      {
+        "astId": 8324,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "tokenPriceUsdt",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 8327,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "totalTokensForSale",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 8330,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "totalSoldTokens",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 8335,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "tokenBalances",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 8340,
+        "contract": "contracts/TokenSale.sol:TokenSale",
+        "label": "usdtBalances",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IERC20)5336": {
+        "encoding": "inplace",
+        "label": "contract IERC20",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
