@@ -1,4 +1,4 @@
-import { parseEther } from 'ethers';
+import { parseEther, parseUnits } from 'ethers';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import {
   logDeploymentInfo,
@@ -28,7 +28,7 @@ module.exports = async ({
         process.env.USDT_CONTRACT_ADDRESS,
         process.env.TREASURY_WALLET_ADDRESS,
         apiSigner,
-        parseEther(process.env.SPINNER_SPIN_PRICE_USDT),
+        parseUnits(process.env.SPINNER_SPIN_PRICE_USDT, 6),
         process.env.SPINNER_MAX_SPINS_PER_DAY,
       ],
     },
