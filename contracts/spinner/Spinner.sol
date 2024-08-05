@@ -327,8 +327,22 @@ contract Spinner is
         return true;
     }
 
-    function getAvailableSpins(address buyer) public view returns (uint) {
-        return maxSpinsPerDay - purchaseInfo[buyer].perDay;
+    function getAvailableSpinsForPurchase(address buyer) public view returns (uint) {
+        PurchaseInfo memory _purchaseInfo = purchaseInfo[buyer];
+
+        if (block.timestamp - _purchaseInfo.lastTime >= DAY_IN_SECONDS) {
+            return maxSpinsPerDay;
+        }
+
+        return maxSpinsPerDay - _purchaseInfo.perDay;
+    }
+
+    function getSpinsBoughtToday(address buyer) public view returns (uint) {
+        if (block.timestamp - purchaseInfo[buyer].lastTime >= DAY_IN_SECONDS) {
+            return 0;
+        }
+
+        return purchaseInfo[buyer].perDay;
     }
 
     function getTotalSpins(address buyer) public view returns (uint) {
