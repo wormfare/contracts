@@ -239,7 +239,7 @@ contract Spinner is
             usdtContract.safeTransfer(_to, _amountUsdt);
         }
 
-        _mint(_to, _tokenId, _amount, "0x");
+        _mint(_to, _tokenId, _amount, "");
 
         emit ClaimReward(_to, _tokenId, _amount);
     }
