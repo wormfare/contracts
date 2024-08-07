@@ -305,7 +305,7 @@ describe('Spinner contract tests', () => {
 
       const promise = spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokeId, amount, '0x', '0x');
+        .claim(to, tokeId, amount, '0x');
 
       await expect(promise).revertedWithCustomError(
         spinnerContract,
@@ -321,7 +321,7 @@ describe('Spinner contract tests', () => {
 
       const promise = spinnerContract
         .connect(bobWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       await expect(promise).revertedWithCustomError(
         spinnerContract,
@@ -337,10 +337,10 @@ describe('Spinner contract tests', () => {
 
       await spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
       const promise = spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       await expect(promise).revertedWithCustomError(
         spinnerContract,
@@ -358,7 +358,7 @@ describe('Spinner contract tests', () => {
 
       const promise = spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       await expect(promise).revertedWithCustomError(
         spinnerContract,
@@ -375,7 +375,7 @@ describe('Spinner contract tests', () => {
 
       const promise = spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       await expect(promise).revertedWithCustomError(
         spinnerContract,
@@ -393,7 +393,7 @@ describe('Spinner contract tests', () => {
 
       const promise = spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       await expect(promise).revertedWithCustomError(
         spinnerContract,
@@ -411,7 +411,7 @@ describe('Spinner contract tests', () => {
 
       await spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       expect(await spinnerContract.balanceOf(to, tokenId)).to.eq(amount);
     });
@@ -427,7 +427,7 @@ describe('Spinner contract tests', () => {
 
       const promise = spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       await expect(promise)
         .to.emit(spinnerContract, 'ClaimReward')
@@ -452,7 +452,7 @@ describe('Spinner contract tests', () => {
 
       await spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       expect(await spinnerContract.balanceOf(to, tokenId)).to.eq(amount);
     });
@@ -467,7 +467,7 @@ describe('Spinner contract tests', () => {
 
       await spinnerContract
         .connect(aliceWallet)
-        .claim(to, tokenId, amount, '0x', signature);
+        .claim(to, tokenId, amount, signature);
 
       expect(await spinnerContract.balanceOf(to, tokenId)).to.eq(amount);
     });
