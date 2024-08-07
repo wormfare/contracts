@@ -37,9 +37,6 @@ contract Spinner is
             "ClaimParams(address to,uint256 tokenId,uint256 amount,uint256 nonce,address sender)"
         );
 
-    /// @dev The amount of seconds in a day.
-    uint public constant DAY_IN_SECONDS = 86400;
-
     /// @dev API wallet address.
     address internal apiSigner;
 
@@ -273,7 +270,7 @@ contract Spinner is
             revert NotEnoughUsdtOnBalance();
         }
 
-        if (block.timestamp - purchaseInfo[msg.sender].lastTime >= DAY_IN_SECONDS) {
+        if (block.timestamp - purchaseInfo[msg.sender].lastTime >= 1 days) {
             // Reset the purchase count if a day has passed
             purchaseInfo[msg.sender].perDay = 0;
         }
@@ -331,7 +328,7 @@ contract Spinner is
     function getAvailableSpinsForPurchase(address buyer) public view returns (uint) {
         PurchaseInfo memory _purchaseInfo = purchaseInfo[buyer];
 
-        if (block.timestamp - _purchaseInfo.lastTime >= DAY_IN_SECONDS) {
+        if (block.timestamp - _purchaseInfo.lastTime >= 1 days) {
             return maxSpinsPerDay;
         }
 
@@ -339,7 +336,7 @@ contract Spinner is
     }
 
     function getBoughtSpinsToday(address buyer) public view returns (uint) {
-        if (block.timestamp - purchaseInfo[buyer].lastTime >= DAY_IN_SECONDS) {
+        if (block.timestamp - purchaseInfo[buyer].lastTime >= 1 days) {
             return 0;
         }
 
