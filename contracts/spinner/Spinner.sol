@@ -137,6 +137,7 @@ contract Spinner is
         _grantRole(DEFAULT_ADMIN_ROLE, _admin);
         _grantRole(PAUSER_ROLE, _admin);
         _grantRole(MINTER_ROLE, _admin);
+        _grantRole(URI_SETTER_ROLE, _admin);
 
         usdtContract = _usdtContract;
         spinPriceUsdt = _spinPriceUsdt;
