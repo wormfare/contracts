@@ -9,12 +9,14 @@ import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {EIP712Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol";
+import {ERC1155BurnableUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol";
 
 contract Spinner is 
     Initializable, 
     ERC1155Upgradeable, 
     AccessControlUpgradeable, 
     ERC1155PausableUpgradeable, 
+    ERC1155BurnableUpgradeable,
     ERC1155SupplyUpgradeable, 
     EIP712Upgradeable 
 {
@@ -91,6 +93,7 @@ contract Spinner is
     error NotEnoughUsdtOnBalance();
     error InvalidTokenId(string param);
     error PurchaseLimitExceeded(string param);
+    error SoulboundTransferFailed();
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -117,6 +120,7 @@ contract Spinner is
         __ERC1155_init("");
         __AccessControl_init();
         __ERC1155Pausable_init();
+        __ERC1155Burnable_init();
         __ERC1155Supply_init();
         __EIP712_init("Wormfare Spinner", "1");
 
@@ -200,7 +204,6 @@ contract Spinner is
      * @param _to The account to claim tokens to.
      * @param _tokenId The token ID to claim.
      * @param _amount The amount of tokens to claim.
-     * @param _data Additional data.
      * @param _signature The signature to verify the claim.
      * @notice The signature must be signed by the API wallet.
      */
@@ -208,7 +211,6 @@ contract Spinner is
         address _to, 
         uint _tokenId, 
         uint _amount, 
-        bytes memory _data, 
         bytes calldata _signature
     ) external whenNotPaused {
         checkSignature(
@@ -218,14 +220,13 @@ contract Spinner is
             _signature
         );
 
-        _claim(_to, _tokenId, _amount, _data);
+        _claim(_to, _tokenId, _amount);
     }
 
     function _claim(
         address _to, 
         uint _tokenId, 
-        uint _amount, 
-        bytes memory _data
+        uint _amount
     ) internal {
         if (_amount <= 0) {
             revert ZeroOrNegativeValueProvided("_amount");
@@ -239,7 +240,7 @@ contract Spinner is
             usdtContract.safeTransfer(_to, _amountUsdt);
         }
 
-        _mint(_to, _tokenId, _amount, _data);
+        _mint(_to, _tokenId, _amount, "0x");
 
         emit ClaimReward(_to, _tokenId, _amount);
     }
@@ -337,7 +338,7 @@ contract Spinner is
         return maxSpinsPerDay - _purchaseInfo.perDay;
     }
 
-    function getSpinsBoughtToday(address buyer) public view returns (uint) {
+    function getBoughtSpinsToday(address buyer) public view returns (uint) {
         if (block.timestamp - purchaseInfo[buyer].lastTime >= DAY_IN_SECONDS) {
             return 0;
         }
@@ -345,7 +346,7 @@ contract Spinner is
         return purchaseInfo[buyer].perDay;
     }
 
-    function getTotalSpins(address buyer) public view returns (uint) {
+    function getTotalBoughtSpins(address buyer) public view returns (uint) {
         return purchaseInfo[buyer].total;
     }
 
@@ -353,11 +354,24 @@ contract Spinner is
         return nonces[_address];
     }
 
+    function burn(address account, uint256 id, uint256 value) public override onlyRole(DEFAULT_ADMIN_ROLE)  {
+        super.burn(account, id, value);
+    }
+
+    function burnBatch(address account, uint256[] memory ids, uint256[] memory values) public override onlyRole(DEFAULT_ADMIN_ROLE) {
+        super.burnBatch(account, ids, values);
+    }
+
+
     // The following functions are overrides required by Solidity.
     function _update(address from, address to, uint[] memory ids, uint[] memory values)
         internal
         override(ERC1155Upgradeable, ERC1155PausableUpgradeable, ERC1155SupplyUpgradeable)
     {
+        if (from != address(0) && to != address(0)) {
+            revert SoulboundTransferFailed();
+        }
+        
         super._update(from, to, ids, values);
     }
 
