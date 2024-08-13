@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import { ZeroAddress, parseEther } from 'ethers';
 import { deployments, ethers, getNamedAccounts } from 'hardhat';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { Tether, Spinner } from '../typechain-types';
-import { deployTether } from './deploy/tether.deploy';
+import { Spinner, Tether } from '../typechain-types';
 import { deploySpinner } from './deploy/spinner.deploy';
+import { deployTether } from './deploy/tether.deploy';
 import { parseTether } from './utils/common';
 
 describe('Spinner contract tests', () => {
@@ -247,6 +247,17 @@ describe('Spinner contract tests', () => {
         'AccessControlUnauthorizedAccount',
       );
     });
+
+    it('Non-admin cannot call the withdrawUsdt() function', async () => {
+      const promise = spinnerContract
+        .connect(aliceWallet)
+        .withdrawUsdt(aliceWallet.address, parseTether('1'));
+
+      await expect(promise).to.be.revertedWithCustomError(
+        spinnerContract,
+        'AccessControlUnauthorizedAccount',
+      );
+    });
   });
 
   describe('Admin functions', () => {
@@ -293,6 +304,18 @@ describe('Spinner contract tests', () => {
       await expect(promise)
         .to.emit(spinnerContract, 'ApiSignerUpdate')
         .withArgs(randomWallet.address);
+    });
+
+    it('Admin can call the withdrawUsdt() function', async () => {
+      const promise = spinnerContract
+        .connect(adminWallet)
+        .withdrawUsdt(aliceWallet.address, parseTether('1'));
+
+      await expect(promise).to.changeTokenBalances(
+        tetherContract,
+        [spinnerContract, aliceWallet],
+        [parseTether('-1'), parseTether('1')],
+      );
     });
   });
 

@@ -12,14 +12,14 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {EIP712Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol";
 import {ERC1155BurnableUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol";
 
-contract Spinner is 
-    Initializable, 
-    ERC1155Upgradeable, 
-    AccessControlUpgradeable, 
-    ERC1155PausableUpgradeable, 
+contract Spinner is
+    Initializable,
+    ERC1155Upgradeable,
+    AccessControlUpgradeable,
+    ERC1155PausableUpgradeable,
     ERC1155BurnableUpgradeable,
-    ERC1155SupplyUpgradeable, 
-    EIP712Upgradeable 
+    ERC1155SupplyUpgradeable,
+    EIP712Upgradeable
 {
     using SafeERC20 for IERC20;
 
@@ -76,11 +76,7 @@ contract Spinner is
     event MaxSpinsPerDayUpdate(uint newMaxSpinsPerDay);
     event SpinPriceUsdtUpdate(uint newSpinPriceUsdt);
     event ApiSignerUpdate(address newApiSigner);
-    event ClaimReward(
-        address indexed claimer,
-        uint tokenId,
-        uint amount
-    );
+    event ClaimReward(address indexed claimer, uint tokenId, uint amount);
 
     // custom errors
     error ZeroAddressProvided(string param);
@@ -99,20 +95,20 @@ contract Spinner is
     }
 
     /**
-        * @dev Initialize the contract.
-        * @param _admin The admin address.
-        * @param _usdtContract The USDT contract address.
-        * @param _spinPriceUsdt The price of a single spin in USDT.
-        * @param _maxSpinsPerDay The maximum amount of spins a user can buy per day.
-        * @param _treasuryWallet The wallet that all incoming USDT will be transfered to.
-        * @param _apiSigner The API wallet address.
+     * @dev Initialize the contract.
+     * @param _admin The admin address.
+     * @param _usdtContract The USDT contract address.
+     * @param _spinPriceUsdt The price of a single spin in USDT.
+     * @param _maxSpinsPerDay The maximum amount of spins a user can buy per day.
+     * @param _treasuryWallet The wallet that all incoming USDT will be transfered to.
+     * @param _apiSigner The API wallet address.
      */
     function initialize(
         address _admin,
-        IERC20 _usdtContract, 
-        address _treasuryWallet, 
+        IERC20 _usdtContract,
+        address _treasuryWallet,
         address _apiSigner,
-        uint _spinPriceUsdt, 
+        uint _spinPriceUsdt,
         uint _maxSpinsPerDay
     ) external initializer {
         __ERC1155_init("");
@@ -207,26 +203,17 @@ contract Spinner is
      * @notice The signature must be signed by the API wallet.
      */
     function claim(
-        address _to, 
-        uint _tokenId, 
-        uint _amount, 
+        address _to,
+        uint _tokenId,
+        uint _amount,
         bytes calldata _signature
     ) external whenNotPaused {
-        checkSignature(
-            _to,
-            _tokenId,
-            _amount,
-            _signature
-        );
+        checkSignature(_to, _tokenId, _amount, _signature);
 
         _claim(_to, _tokenId, _amount);
     }
 
-    function _claim(
-        address _to, 
-        uint _tokenId, 
-        uint _amount
-    ) internal {
+    function _claim(address _to, uint _tokenId, uint _amount) internal {
         if (_amount <= 0) {
             revert ZeroOrNegativeValueProvided("_amount");
         }
@@ -235,7 +222,7 @@ contract Spinner is
         }
 
         if (_tokenId == USDT) {
-            uint _amountUsdt = _amount * (10**6);
+            uint _amountUsdt = _amount * (10 ** 6);
             usdtContract.safeTransfer(_to, _amountUsdt);
         }
 
@@ -262,10 +249,7 @@ contract Spinner is
 
         uint _amountUsdt = _amountSpins * spinPriceUsdt;
 
-        if (
-            usdtContract.allowance(msg.sender, address(this)) < 
-            _amountUsdt
-        ) {
+        if (usdtContract.allowance(msg.sender, address(this)) < _amountUsdt) {
             revert NotEnoughUsdtAllowance();
         }
         if (usdtContract.balanceOf(msg.sender) < _amountUsdt) {
@@ -282,11 +266,7 @@ contract Spinner is
         purchaseInfo[msg.sender].lastTime = block.timestamp;
 
         // transfer USDT to the treasury wallet
-        usdtContract.safeTransferFrom(
-            msg.sender,
-            treasuryWallet,
-           _amountUsdt
-        );
+        usdtContract.safeTransferFrom(msg.sender, treasuryWallet, _amountUsdt);
 
         emit BuySpins(msg.sender, _amountUsdt, _amountSpins);
     }
@@ -327,7 +307,9 @@ contract Spinner is
         return true;
     }
 
-    function getAvailableSpinsForPurchase(address buyer) public view returns (uint) {
+    function getAvailableSpinsForPurchase(
+        address buyer
+    ) public view returns (uint) {
         PurchaseInfo memory _purchaseInfo = purchaseInfo[buyer];
 
         if (block.timestamp - _purchaseInfo.lastTime >= 1 days) {
@@ -353,28 +335,59 @@ contract Spinner is
         return nonces[_address];
     }
 
-    function burn(address account, uint256 id, uint256 value) public override onlyRole(DEFAULT_ADMIN_ROLE)  {
+    function burn(
+        address account,
+        uint256 id,
+        uint256 value
+    ) public override onlyRole(DEFAULT_ADMIN_ROLE) {
         super.burn(account, id, value);
     }
 
-    function burnBatch(address account, uint256[] memory ids, uint256[] memory values) public override onlyRole(DEFAULT_ADMIN_ROLE) {
+    function burnBatch(
+        address account,
+        uint256[] memory ids,
+        uint256[] memory values
+    ) public override onlyRole(DEFAULT_ADMIN_ROLE) {
         super.burnBatch(account, ids, values);
     }
 
+    /**
+     * Withdraw USDT from the contract
+     *
+     * @param _to Receiver address.
+     * @param _amount USDT amount with 6 decimals.
+     */
+    function withdrawUsdt(
+        address _to,
+        uint _amount
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        usdtContract.safeTransfer(_to, _amount);
+    }
 
     // The following functions are overrides required by Solidity.
-    function _update(address from, address to, uint[] memory ids, uint[] memory values)
+    function _update(
+        address from,
+        address to,
+        uint[] memory ids,
+        uint[] memory values
+    )
         internal
-        override(ERC1155Upgradeable, ERC1155PausableUpgradeable, ERC1155SupplyUpgradeable)
+        override(
+            ERC1155Upgradeable,
+            ERC1155PausableUpgradeable,
+            ERC1155SupplyUpgradeable
+        )
     {
         if (from != address(0) && to != address(0)) {
             revert SoulboundTransferFailed();
         }
-        
+
         super._update(from, to, ids, values);
     }
 
-    function supportsInterface(bytes4 interfaceId)
+    function supportsInterface(
+        bytes4 interfaceId
+    )
         public
         view
         override(ERC1155Upgradeable, AccessControlUpgradeable)
