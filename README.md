@@ -111,14 +111,14 @@ yarn docs
 
 ## Deploy
 
-### Dev/Stage deployment
+### Dev/Stage deployment (THE FIRST DEPLOYMENT ONLY)
 
 Deploy the Tether contract first:
 
 ```sh
 yarn deploy-dev --tags Tether
 yarn deploy-stage --tags Tether
-GAS_PRICE=100 yarn deploy-testnet --tags Tether
+yarn deploy-testnet --tags Tether
 ```
 
 Open `.env.dev` or `.env.stage` and fill the `USDT_CONTRACT_ADDRESS` var.
@@ -132,12 +132,14 @@ yarn deploy-stage
 
 When deploying to the `stage2` or `mainnet` environments, the `GAS_PRICE` env variable must be specified (in GWei).
 
-### Production deployment
+### Production deployment (THE FIRST DEPLOYMENT ONLY)
 
-Deploy the TokenSale contract with a gas price set to 250 GWei:
+Check gas price: https://polygonscan.com/gastracker
+
+Deploy the TokenSale contract with the specified gas price:
 
 ```sh
-GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
+GAS_PRICE=100 yarn deploy-mainnet --tags TokenSale
 ```
 
 ### Upgrading contracts
@@ -145,7 +147,8 @@ GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
 Upgrade the TokenSale contract:
 
 ```sh
-UPGRADE=1 GAS_PRICE=250 yarn deploy-mainnet --tags TokenSale
+UPGRADE=1 yarn deploy-testnet --tags TokenSale
+UPGRADE=1 GAS_PRICE=100 yarn deploy-mainnet --tags TokenSale
 ```
 
 ### Verify contracts
