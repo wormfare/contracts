@@ -28,6 +28,7 @@ contract Spinner is
     uint public constant USDT = 1;
     uint public constant BOND = 2;
     uint public constant VOUCHER = 3;
+    uint public constant JAM = 4;
 
     bytes32 public constant URI_SETTER_ROLE = keccak256("URI_SETTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
@@ -217,7 +218,8 @@ contract Spinner is
         if (_amount <= 0) {
             revert ZeroOrNegativeValueProvided("_amount");
         }
-        if (_tokenId < 0 || _tokenId > 3) {
+
+        if (_tokenId < 0 || _tokenId > 4) {
             revert InvalidTokenId("_tokenId");
         }
 

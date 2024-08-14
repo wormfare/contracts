@@ -32,6 +32,7 @@ describe('Spinner contract tests', () => {
   let TOKEN_ID_USDT: bigint;
   let TOKEN_ID_BOND: bigint;
   let TOKEN_ID_VOUCHER: bigint;
+  let TOKEN_ID_JAM: bigint;
 
   const MAX_SPINS_PER_DAY = +process.env.SPINNER_MAX_SPINS_PER_DAY;
   const SPIN_PRICE_USDT = parseTether(process.env.SPINNER_SPIN_PRICE_USDT);
@@ -84,6 +85,7 @@ describe('Spinner contract tests', () => {
       TOKEN_ID_USDT = await spinnerContract.USDT();
       TOKEN_ID_BOND = await spinnerContract.BOND();
       TOKEN_ID_VOUCHER = await spinnerContract.VOUCHER();
+      TOKEN_ID_JAM = await spinnerContract.JAM();
 
       await tetherContract
         .connect(adminWallet)
@@ -486,6 +488,21 @@ describe('Spinner contract tests', () => {
         aliceWallet,
         1,
         TOKEN_ID_VOUCHER,
+      );
+
+      await spinnerContract
+        .connect(aliceWallet)
+        .claim(to, tokenId, amount, signature);
+
+      expect(await spinnerContract.balanceOf(to, tokenId)).to.eq(amount);
+    });
+
+    it('User can claim JAM reward', async () => {
+      const [to, tokenId, amount, signature] = await prepareClaimData(
+        aliceWallet,
+        aliceWallet,
+        1,
+        TOKEN_ID_JAM,
       );
 
       await spinnerContract
