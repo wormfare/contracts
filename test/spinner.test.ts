@@ -6,7 +6,8 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { Spinner, Tether } from '../typechain-types';
 import { deploySpinner } from './deploy/spinner.deploy';
 import { deployTether } from './deploy/tether.deploy';
-import { parseTether } from './utils/common';
+import { parseTether, timeAddSecondsAndMine } from './utils/common';
+import { ONE_DAY_IN_SECONDS } from './utils/constants';
 
 describe('Spinner contract tests', () => {
   let tetherContract: Tether;
@@ -564,6 +565,40 @@ describe('Spinner contract tests', () => {
       await expect(
         tetherContract.balanceOf(treasuryWallet.address),
       ).to.eventually.eq(SPIN_PRICE_USDT);
+    });
+
+    it('User buys max spins several days in a row', async () => {
+      expect(
+        await spinnerContract
+          .connect(aliceWallet)
+          .canBuySpins(aliceWallet.address),
+      ).to.eq(true);
+
+      let promise = buySpins(aliceWallet, 10);
+
+      await expect(promise)
+        .to.emit(spinnerContract, 'BuySpins')
+        .withArgs(aliceWallet.address, SPIN_PRICE_USDT * 10n, 10);
+
+      await timeAddSecondsAndMine(ONE_DAY_IN_SECONDS);
+
+      expect(
+        await spinnerContract
+          .connect(aliceWallet)
+          .canBuySpins(aliceWallet.address),
+      ).to.eq(true);
+
+      promise = buySpins(aliceWallet, 10);
+
+      await expect(promise)
+        .to.emit(spinnerContract, 'BuySpins')
+        .withArgs(aliceWallet.address, SPIN_PRICE_USDT * 10n, 10);
+
+      const purchaseInfo = await spinnerContract.purchaseInfo(
+        aliceWallet.address,
+      );
+
+      expect(purchaseInfo[0]).to.eq(20);
     });
   });
 });

@@ -302,7 +302,10 @@ contract Spinner is
     }
 
     function canBuySpins(address buyer) public view returns (bool) {
-        if (purchaseInfo[buyer].perDay >= maxSpinsPerDay) {
+        if (
+            purchaseInfo[buyer].perDay >= maxSpinsPerDay &&
+            block.timestamp - purchaseInfo[buyer].lastTime < 1 days
+        ) {
             return false;
         }
 
