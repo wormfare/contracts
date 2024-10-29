@@ -5,12 +5,14 @@
 ### Full docs
 
 [TokenSale](./docs/Wormfare%20TokenSale%20Smart%20Contract.pdf) - `contracts/TokenSale.sol`
+[WOFR](./docs/Wormfare%20WOFR%20Smart%20Contract.pdf) - `contracts/WOFR.sol`
 
 ### Short docs
 
 [TokenSale](./docs/TokenSale.md) - `contracts/TokenSale.sol`  
 [WormfareGenesis](./docs/WormfareGenesis.md) - `contracts/nft/WormfareGenesis.sol`
 [Spinner](./docs/Spinner.md) - `contracts/spinner/Spinner.sol`
+[WOFR](./docs/WOFR.md) - `contracts/WOFR.sol`
 
 ## Getting Started
 

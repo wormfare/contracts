@@ -55,6 +55,10 @@ const config: HardhatUserConfig = {
       default: 6,
       ...namedAccountAddress(process.env.WORMFARE_GENESIS_OWNER_ADDRESS),
     },
+    wofrOwner: {
+      default: 7,
+      ...namedAccountAddress(process.env.WOFR_OWNER_ADDRESS),
+    },
   },
   networks: {
     localhost: {

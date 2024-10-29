@@ -5,14 +5,14 @@ import {
   logHardhatNetworkWarning,
 } from '../utils/deployment-utils';
 
-const contractName = 'WOFR';
+const contractName = 'WOFRTest';
 
 module.exports = async ({
   getNamedAccounts,
   deployments,
 }: HardhatRuntimeEnvironment) => {
   if (!isTestNetwork()) {
-    console.log('Non-test network. Skipping WOFR...');
+    console.log('Non-test network. Skipping WOFRTest...');
 
     return;
   }

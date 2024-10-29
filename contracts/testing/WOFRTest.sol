@@ -7,7 +7,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 /**
  * This is a fake WOFR contract made for testing purposes.
  */
-contract WOFR is ERC20, Ownable {
+contract WOFRTest is ERC20, Ownable {
     constructor(address _owner) ERC20("WOFR", "WOFR") Ownable(_owner) {}
 
     function mint(address _to, uint256 _amount) public {

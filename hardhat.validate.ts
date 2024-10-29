@@ -25,6 +25,7 @@ const rules: ZodRules = {
   TOKEN_SALE_KOL_TOKEN_PRICE_USDT: z.coerce.number().min(0.01).max(1),
   SPINNER_MAX_SPINS_PER_DAY: z.coerce.number().min(1),
   SPINNER_SPIN_PRICE_USDT: z.coerce.number().min(1).max(100),
+  WOFR_OWNER_ADDRESS: z.string().superRefine(ethAddress),
 };
 
 if (isStage2Network() || isMainnetNetwork()) {
